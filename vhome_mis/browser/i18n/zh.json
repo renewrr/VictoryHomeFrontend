@@ -1,0 +1,41 @@
+{
+    "HANDOVER_MESSAGE": {
+        "SHIFTS": {
+            "day": "日班",
+            "evening": "小夜班",
+            "night": "大夜班"
+        },
+        "FLOORS": {
+            "First floor": "一樓",
+            "Second floor": "二樓",
+            "Third floor": "三樓",
+            "Fourth floor": "四樓",
+            "Fifth floor": "五樓",
+            "Sixth floor": "六樓",
+            "Seventh floor": "七樓",
+            "Other": "其他"
+        },
+        "MESSAGETYPE": {
+            "physical": "身體狀況",
+            "medical": "就醫",
+            "behavioural": "行為問題",
+            "equipment": "設施設備",
+            "family": "家屬交辦事項",
+            "other": "其他"
+        },
+        "ICONS": {
+            "physical": "healing",
+            "medical": "local_hospital",
+            "behavioural": "face",
+            "equipment": "build",
+            "family": "home",
+            "other": "note"
+        }
+    },
+    "MANAGEMENT":{
+        "LOCALIZATION":{
+            "Chinese": "中文",
+            "Vietnamese": "越南文"
+        }
+    }
+}

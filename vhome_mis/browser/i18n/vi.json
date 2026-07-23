@@ -1,0 +1,60 @@
+{
+  "HANDOVER_MESSAGE": {
+    "SHIFTS": {
+      "day": "Ca sáng",
+      "evening": "Ca chiều",
+      "night": "Ca đêm"
+    },
+    "FLOORS": {
+      "First floor": "Tầng 1",
+      "Second floor": "Tầng 2",
+      "Third floor": "Tầng 3",
+      "Fourth floor": "Tầng 4",
+      "Fifth floor": "Tầng 5",
+      "Sixth floor": "Tầng 6",
+      "Seventh floor": "Tầng 7",
+      "Other": "Khu vực khác"
+    },
+    "MESSAGETYPE": {
+      "physical": "Tình trạng thể chất",
+      "medical": "Đưa đi bệnh viện",
+      "behavioural": "Vấn đề hành vi",
+      "equipment": "Sự cố thiết bị & vật tư",
+      "family": "Yêu cầu của gia đình",
+      "other": "Khác"
+    },
+    "ICONS": {
+      "physical": "healing",
+      "medical": "local_hospital",
+      "behavioural": "face",
+      "equipment": "build",
+      "family": "home",
+      "other": "note"
+    }
+  },
+  "MANAGEMENT": {
+    "LOCALIZATION": {
+      "Chinese": "中文",
+      "Vietnamese": "越南文"
+    }
+  },
+  "UI": {
+    "NAVIGATION": {
+      "main": "Trang chủ",
+      "handover": "Bàn giao ca",
+      "personnel": "Quản lý nhân sự",
+      "operation": "Quản lý vận hành",
+      "logout": "Đăng xuất"
+    },
+    "HANDOVER": {
+      "HEADERS": {
+        "timestamp": "Thời gian",
+        "employee": "Đồng công",
+        "shift": "Ca trực",
+        "location": "Địa điểm",
+        "message_type": "Phân loại",
+        "message_body": "Nội dung"
+      }
+    }
+  }
+}
