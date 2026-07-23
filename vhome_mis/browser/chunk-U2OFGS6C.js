@@ -1,1 +1,0 @@
-import{D as s,Z as n,i as r}from"./chunk-GYQO6MRE.js";var o=class t{bus$=new r;emit(e){this.bus$.next(e)}on(e){return this.bus$.asObservable().pipe(s(i=>i===e))}static \u0275fac=function(i){return new(i||t)};static \u0275prov=n({token:t,factory:t.\u0275fac,providedIn:"root"})};export{o as a};

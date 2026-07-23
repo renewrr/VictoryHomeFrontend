@@ -1,0 +1,256 @@
+<div class="mat-elevation-z2">
+  <table mat-table class="full-width-table" aria-label="Elements" [dataSource]="employeeData()">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>姓名</th>
+      <td mat-cell *matCellDef="let row">
+        @if (employeeService.isEditing(asEmployee(row))) {
+          <mat-form-field>
+            <mat-label>同工名稱</mat-label>
+            <input
+              matInput
+              [ngModel]="employeeService.getBuffer(asEmployee(row)).name"
+              (ngModelChange)="employeeService.updateRow(asEmployee(row).ID, 'name', $event)"
+              [disabled]="employeeService.getBuffer(asEmployee(row)).deleted"
+            />
+          </mat-form-field>
+        } @else {
+          <div class="name-cell">
+            <span>
+              {{ asEmployee(row).name }}
+            </span>
+            <button matMiniFab class="square-mini-fab-check delete" (click)="forcedLogout(row)">
+              <mat-icon>logout</mat-icon>
+            </button>
+          </div>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>電子郵件</th>
+      <td mat-cell *matCellDef="let row">
+        @if (employeeService.isEditing(asEmployee(row))) {
+          <mat-form-field>
+            <mat-label>電子郵件</mat-label>
+            <input
+              matInput
+              [ngModel]="employeeService.getBuffer(asEmployee(row)).company_email"
+              (ngModelChange)="
+                employeeService.updateRow(asEmployee(row).ID, 'company_email', $event)
+              "
+              [disabled]="employeeService.getBuffer(asEmployee(row)).deleted"
+            />
+          </mat-form-field>
+        } @else {
+          {{ asEmployee(row).company_email }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account">
+      <th mat-header-cell *matHeaderCellDef>帳號</th>
+      <td mat-cell *matCellDef="let row">
+        @if (employeeService.isEditing(asEmployee(row))) {
+          <mat-form-field>
+            <mat-label>帳號</mat-label>
+            <input
+              matInput
+              [ngModel]="employeeService.getBuffer(asEmployee(row)).auth?.account"
+              (ngModelChange)="employeeService.updateAuth(asEmployee(row).ID, 'account', $event)"
+              [disabled]="employeeService.getBuffer(asEmployee(row)).deleted"
+            />
+          </mat-form-field>
+        } @else {
+          {{ asEmployee(row).auth?.account }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef>密碼</th>
+      <td mat-cell *matCellDef="let row">
+        @if (employeeService.isEditing(asEmployee(row))) {
+          <mat-form-field>
+            <mat-label>密碼</mat-label>
+            <input
+              matInput
+              [ngModel]="employeeService.getBuffer(asEmployee(row)).auth?.password"
+              (ngModelChange)="employeeService.updateAuth(asEmployee(row).ID, 'password', $event)"
+              [disabled]="employeeService.getBuffer(asEmployee(row)).deleted"
+            />
+          </mat-form-field>
+        } @else {
+          {{ hidePassword(asEmployee(row).auth?.password) }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totp">
+      <th mat-header-cell *matHeaderCellDef>二次驗證</th>
+      <td mat-cell *matCellDef="let row">
+        @if (
+          employeeService.isEditing(asEmployee(row)) &&
+          employeeService.getBuffer(row).auth?.ID != -1
+        ) {
+          @switch (employeeService.getBuffer(row).totpStatus.type) {
+            @case ('HIDING') {
+              <button
+                matMiniFab
+                class="square-mini-fab-check"
+                (click)="
+                  employeeService.updateRow(asEmployee(row).ID, 'totpStatus', {
+                    type: 'ADDING',
+                  })
+                "
+                [disabled]="employeeService.getBuffer(row).deleted"
+              >
+                <mat-icon>add_circle</mat-icon>
+              </button>
+            }
+            @case ('NOAUTH') {}
+            @case ('DISPLAY') {
+              <div class="qrcode-container">
+                <div [class.qrcode-border]="employeeService.getBuffer(row).deleted">
+                  <div [class.qrcode-icon]="employeeService.getBuffer(row).deleted">
+                    <qrcode [qrdata]="toURI(asEmployee(row))" [errorCorrectionLevel]="'H'"></qrcode>
+                  </div>
+                </div>
+                <button
+                  matMiniFab
+                  class="square-mini-fab-check delete"
+                  (click)="employeeService.removeTotp(row)"
+                >
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+            }
+            @case ('DELETING') {
+              <div class="qrcode-container">
+                <div class="qrcode-border">
+                  <div class="qrcode-icon">
+                    <qrcode [qrdata]="toURI(asEmployee(row))" [errorCorrectionLevel]="'H'"></qrcode>
+                  </div>
+                </div>
+                <button
+                  matMiniFab
+                  class="square-mini-fab-check cancel"
+                  (click)="employeeService.restoreTotp(row)"
+                >
+                  <mat-icon>undo</mat-icon>
+                </button>
+              </div>
+            }
+            @case ('ADDING') {
+              <div class="confirmation-container">
+                <span>確定啟用二次驗證?</span>
+                <div class="buttons">
+                  <button
+                    matMiniFab
+                    class="square-mini-fab-edit done"
+                    (click)="employeeService.setupTOTP(asEmployee(row))"
+                  >
+                    <mat-icon>done_outline</mat-icon>
+                  </button>
+                  <button
+                    matMiniFab
+                    class="square-mini-fab-check cancel"
+                    (click)="employeeService.cancelAddition(row)"
+                  >
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </div>
+              </div>
+            }
+          }
+        } @else {
+          {{ hidePassword(asEmployee(row).auth?.totp_secret) }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editRow">
+      <th mat-header-cell *matHeaderCellDef>編輯</th>
+      <td mat-cell *matCellDef="let row" class="edit-cell">
+        @if (employeeService.isEditing(asEmployee(row))) {
+          @if (employeeService.getBuffer(asEmployee(row)).deleted) {
+            <div class="non-destructive">
+              <button
+                matMiniFab
+                class="square-mini-fab-edit delete"
+                (click)="employeeService.commitEdit(asEmployee(row))"
+              >
+                <mat-icon>done_outline</mat-icon>
+              </button>
+              <button
+                matMiniFab
+                class="square-mini-fab-check cancel"
+                (click)="employeeService.updateRow(asEmployee(row).ID, 'deleted', false)"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </div>
+          } @else {
+            <div class="editing-buttons">
+              <div class="non-destructive">
+                <button
+                  matMiniFab
+                  class="square-mini-fab-edit done"
+                  (click)="employeeService.commitEdit(asEmployee(row))"
+                >
+                  <mat-icon>done_outline</mat-icon>
+                </button>
+                <button
+                  matMiniFab
+                  class="square-mini-fab-check undo"
+                  (click)="employeeService.undoEdit(asEmployee(row))"
+                >
+                  <mat-icon>undo</mat-icon>
+                </button>
+                <button
+                  matMiniFab
+                  class="square-mini-fab-check cancel"
+                  (click)="employeeService.revertEdit(asEmployee(row))"
+                >
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+              <div class="destructive">
+                <button
+                  matMiniFab
+                  class="square-mini-fab-check delete"
+                  (click)="employeeService.updateRow(asEmployee(row).ID, 'deleted', true)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        } @else {
+          <button
+            matMiniFab
+            class="square-mini-fab-edit edit"
+            (click)="employeeService.startEdit(asEmployee(row))"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row class="mat-row" *matRowDef="let row; let i = index; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    #paginator
+    [length]="employeeService.length()"
+    [pageSize]="employeeService.currentPageSize()"
+    [pageIndex]="employeeService.currentPageIndex()"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="pageChanged($event)"
+    aria-label="Select page"
+    showFirstLastButtons
+    class="sticky-paginator"
+  >
+  </mat-paginator>
+</div>

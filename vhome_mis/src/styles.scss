@@ -1,0 +1,189 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+@include mat.elevation-classes();
+
+html {
+  height: 100%;
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+
+.handover-message-dialog-box .mat-mdc-dialog-surface {
+  border-radius: 10px !important;
+  // width: 100vw !important;
+
+  .line-container {
+    height: auto !important;
+    min-height: 48px;
+    display: flex;
+    border: 1px solid black;
+  }
+
+  .message-dialog-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .line-icon {
+    vertical-align: bottom;
+  }
+
+  .line-text {
+    text-wrap: wrap;
+    white-space: pre-wrap;
+  }
+
+  .dialog-buttons{
+    border-radius: 10%;
+  }
+}
+
+.square-mini-fab-check {
+    border-radius: 4px !important;
+    /* Forces the square shape */
+    // background-color: rgb(165, 217, 238);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.square-mini-fab-edit {
+    border-radius: 4px !important;
+    /* Forces the square shape */
+    // background-color: rgb(165, 217, 238);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+
+.handover-input-dialog-box .mat-mdc-dialog-surface {
+  border-radius: 10px !important;
+  width: 75vw !important;
+  height: 80vh;
+
+  .message-input-panel {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .mandatory-input-panel {
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: column;
+
+      .first-row {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .second-row {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .mandatory-input-elements {
+        width: 30%;
+      }
+    }
+
+    .secondary-input-panel {
+      margin-top: 5%;
+      display: flex;
+      justify-content: space-around;
+
+      .selection-div {
+        width: 20%;
+
+        .secondary-input-types {
+          width: 95%;
+        }
+      }
+
+      .secondary-input-body {
+        width: 65%;
+
+        .message-body {
+          min-height: 100px;
+        }
+      }
+
+      .add-button {
+        justify-content: center;
+      }
+    }
+  }
+
+  .pending-message-panel {
+    display: flex;
+    flex-direction: column;
+    white-space: pre-line;
+
+    .submit-button {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .pending-messages {
+      .action-button-group {
+        display: flex;
+        gap: 10px
+      }
+
+      .editing-group {
+        .editing-message-body {
+          min-height: 100px;
+        }
+
+        .edit-finish-button {
+          top: 50%
+        }
+      }
+    }
+  }
+}
+
+.mat-mdc-tab-header {
+  // background-color: #ffffff; /* Your custom color */
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+}
+
+.mdc-tab--active {
+  background-color: lightblue !important;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: red !important;
+}

@@ -1,0 +1,73 @@
+.modal-backdrop {
+  display: flex;
+  flex-direction: column;
+}
+.dialog-header {
+  position: sticky;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  width: 100%;
+  padding: 0;
+}
+
+.dialog-header .header-label-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.dialog-header .spacer {
+  flex: 1;
+}
+
+.dialog-header .close-button-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.dialog-header .close-button {
+  background-color: crimson !important;
+  border-radius: 10%;
+  top: 3%;
+  right: 2%;
+}
+
+.dialog-content {
+  display: flex;
+}
+
+.service-user-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-container {
+  display: flex;
+  gap: 16px;
+}
+
+.msg-delete {
+  display: flex;
+  align-items: center;
+
+  .delete-button {
+    border-radius: 10%;
+  }
+}
+
+.user-cards {
+  display: flex;
+  justify-content: space-between;
+
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  gap: 8px;
+  /* Soft, blurred shadow makes it look raised */
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}

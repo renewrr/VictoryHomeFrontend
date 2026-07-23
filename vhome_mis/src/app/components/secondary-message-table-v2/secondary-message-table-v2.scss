@@ -1,0 +1,76 @@
+/* dashboard-table.component.css */
+.mat-column-timestamp {
+  width: 9%;
+}
+
+.mat-column-creator {
+  width: 7%;
+}
+
+.mat-column-messageType {
+  width: 8%;
+}
+
+.table-container {
+  transition: opacity 0.2s ease-in-out;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+}
+
+/* Subtle visual cue that the data on screen is currently updating */
+.table-stale {
+  opacity: 0.6;
+  pointer-events: none;
+  /* Prevent double-clicking pagination while loading */
+}
+
+/* 1. Lock the primary header row to a guaranteed height */
+.mat-mdc-header-row:not(.progress-row) {
+  height: 56px !important;
+}
+
+/* 1. THE MISSING PIECE: Force the <tr> container wrapper to shrink */
+.progress-row.mat-mdc-header-row {
+  height: 4px !important;
+  min-height: 4px !important;
+  /* Material defaults this to 56px, we must override it */
+}
+
+/* 2. Hand-stitch the second row's stickiness bypassing the CDK */
+.progress-row .mat-mdc-header-cell {
+  position: sticky !important;
+  top: 56px !important;
+  /* Locks it perfectly flush right below the 56px main header */
+  z-index: 101 !important;
+  /* Keeps it layered safely above the scrolling body rows */
+  background-color: #ffffff !important;
+  /* Prevents underlying text bleed-through */
+  padding: 0 !important;
+  height: 4px !important;
+  line-height: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* 3. Handle the progress bar wrapper dimensions */
+.progress-row mat-progress-bar {
+  height: 4px;
+  display: block;
+  width: 100%;
+  transition: opacity 0.15s linear;
+}
+
+/* 4. Hide the bar without altering row layout structures */
+.progress-hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.sticky-paginator {
+  position: sticky;
+  bottom: 0;
+  z-index: 102;
+  /* Keeps it above the scrolling data rows */
+  border-top: 1px solid #e0e0e0;
+  background-color: #ffffff !important;
+}

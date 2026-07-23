@@ -1,0 +1,171 @@
+<div class="modal-backdrop">
+  <div mat-dialog-title class="dialog-header">
+    <div class="spacer"></div>
+    <div class="header-label-container">
+      <h2>新增交班紀錄</h2>
+    </div>
+    <div class="close-button-container">
+      <button matMiniFab mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  @if (isSubmitting()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  <mat-divider></mat-divider>
+  <mat-dialog-content class="dialog-content">
+    <div class="combined-container">
+      <form [formGroup]="messageForm" (ngSubmit)="submitMessage()">
+        <div class="metadata-rows">
+          <div class="first-row">
+            <div>
+              <mat-form-field class="mandatory-input-elements">
+                <mat-label>交班日期</mat-label>
+                <input matInput [matDatepicker]="datepicker" formControlName="date" />
+                <mat-datepicker #datepicker />
+                <mat-datepicker-toggle [for]="datepicker" matSuffix />
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="mandatory-input-elements">
+                <mat-label>交班時間</mat-label>
+                <input matInput [matTimepicker]="timepicker" formControlName="time" />
+                <mat-timepicker #timepicker />
+                <mat-timepicker-toggle [for]="timepicker" matSuffix />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="second-row">
+            <div>
+              <mat-form-field class="mandatory-input-elements">
+                <mat-label>交班同工</mat-label>
+                <mat-select formControlName="creator">
+                  @for (emp of availableEmployees(); track $index) {
+                    <mat-option [value]="emp">{{ emp.name }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="mandatory-input-elements">
+                <mat-label>樓層(可複選)</mat-label>
+                <mat-select multiple formControlName="locations" required>
+                  @for (location of availableLocations(); track $index) {
+                    <mat-option [value]="location">{{
+                      ('HANDOVER_MESSAGE.FLOORS.' + location.name | translate) !==
+                      'HANDOVER_MESSAGE.FLOORS.' + location.name
+                        ? ('HANDOVER_MESSAGE.FLOORS.' + location.name | translate)
+                        : location.name
+                    }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-button-toggle-group
+                formControlName="shift"
+                required="true"
+                (change)="messageForm.controls.shift.updateValueAndValidity()"
+              >
+                @for (sft of availableShifts(); track $index) {
+                  <mat-button-toggle [value]="sft">{{
+                    ('HANDOVER_MESSAGE.SHIFTS.' + sft.name | translate) !==
+                    'HANDOVER_MESSAGE.SHIFTS.' + sft.name
+                      ? ('HANDOVER_MESSAGE.SHIFTS.' + sft.name | translate)
+                      : sft.name
+                  }}</mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="secondary-input-combined">
+          <div class="secondary-input-group">
+            @for (msgForm of secondary.controls; track $index) {
+              <form [formGroup]="msgForm" #formDirective="ngForm">
+                <div class="secondary-input">
+                  <div class="combined-input">
+                    <div>
+                      <mat-form-field class="body-type-field">
+                        <mat-label>訊息類別</mat-label>
+                        <mat-select formControlName="messageType" required>
+                          @for (messageType of availableMessageTypes(); track $index) {
+                            <mat-option [value]="messageType">{{
+                              ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate) !==
+                              'HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name
+                                ? ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate)
+                                : messageType.name
+                            }}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="body-input">
+                    <mat-form-field class="body-input-field">
+                      <mat-label>訊息內容</mat-label>
+                      <textarea
+                        matInput
+                        formControlName="messageBody"
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="3"
+                        cdkAutosizeMaxRows="8"
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="msg-delete">
+                    <button
+                      matMiniFab
+                      class="delete-button"
+                      (click)="removeSecondary($index)"
+                      [disabled]="isSubmitting()"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            }
+          </div>
+        </div>
+        <div class="footer-row">
+          <div class="secondary-add">
+            <!-- IMPORTANT, MUST HAVE type="button" OR HTML DEFAULTS TO SUBMIT TYPE -->
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="addSecondary()"
+              [disabled]="isSubmitting()"
+            >
+              新增交班訊息
+            </button>
+          </div>
+          <mat-divider></mat-divider>
+          <div>
+            <mat-dialog-actions align="center">
+              <button mat-button mat-dialog-close type="button" [disabled]="isSubmitting()">
+                取消
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="messageForm.invalid || isSubmitting()"
+              >
+                @if (isSubmitting()) {
+                  記錄傳送中...
+                } @else {
+                  送出交班紀錄
+                }
+              </button>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </form>
+    </div>
+  </mat-dialog-content>
+</div>

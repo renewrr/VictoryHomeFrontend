@@ -1,0 +1,42 @@
+.login-page{
+    display: flex;
+    justify-content: center; /* Horizontal */
+    align-items: center;     /* Vertical */
+}
+
+.login-page::before{
+    content: "";
+    background-image: url('/view.jpg');
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.4; /* Adjust background transparency here */
+    z-index: -1;  
+}
+
+.main-panel{
+    display: flex;
+    flex-direction: column;
+    width: 35vmin;
+    min-height: 35vmin;
+    max-height: 70vmin;
+    padding-inline: 16px;
+    padding-block: 8px;
+    background-color: white;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 30px;
+}
+
+.vhome-logo{
+    // border: 1px solid #ddd;
+    border-radius: 4px;
+    // background-color: #ddd;
+    padding: 5px;
+    width: 40vmin;
+    justify-content: center;
+}

@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>新增建築物</h2>
+
+<mat-dialog-content [formGroup]="buildingForm" class="pt-2">
+  @if (errorMessage()) {
+    <div class="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm border border-red-200">
+      {{ errorMessage() }}
+    </div>
+  }
+  <p class="text-secondary text-sm mb-4">請輸入建築物名稱與地址</p>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>建築物名稱</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>地址</mat-label>
+    <input matInput formControlName="address" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [disabled]="isSubmitting()">取消</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="buildingForm.invalid || isSubmitting()"
+    (click)="onSave()"
+  >
+    {{ isSubmitting() ? '傳送中...' : '送出' }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,15 @@
+<h2 mat-dialog-title class="text-xl font-semibold">{{ data.title }}</h2>
+
+<mat-dialog-content>
+  <p class="text-slate-600 text-sm leading-relaxed">{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="gap-2 p-4">
+  <button mat-button [mat-dialog-close]="false">
+    {{ cancelText }}
+  </button>
+
+  <button mat-flat-button [color]="color" [mat-dialog-close]="true">
+    {{ confirmText }}
+  </button>
+</mat-dialog-actions>

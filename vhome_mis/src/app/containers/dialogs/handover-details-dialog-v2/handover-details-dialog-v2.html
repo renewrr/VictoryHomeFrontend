@@ -1,0 +1,43 @@
+<div class="modal-backdrop">
+    <mat-list>
+        <mat-list-item>
+            <span matListItemTitle>{{toDatetime(toMainMessage(mainMessage()).timestamp).toLocaleString('zh-Hant') + ' '
+                +
+                toDatetime(toMainMessage(mainMessage()).timestamp).toLocaleDateString('zh-Hant', { weekday: 'long'
+                })}}</span>
+            <span matListItemLine>交班同工：{{toMainMessage(mainMessage()).creator_name}}</span>
+            <span matListItemLine>
+                @for(loc_name of toMainMessage(mainMessage()).location_names; track $index){
+                {{'HANDOVER_MESSAGE.FLOORS.'+loc_name|translate}},
+                }
+                <!-- 樓層：{{'HANDOVER_MESSAGE.FLOORS.'+toMainMessage(mainMessage()).location_names}} -->
+            </span>
+        </mat-list-item>
+    </mat-list>
+    <mat-dialog-content>
+        <mat-list>
+            @for (msg_data of secondaryMessages(); track $index; let idx = $index){
+            <mat-icon class="line-icon">
+                {{'HANDOVER_MESSAGE.ICONS.'+msg_data.message_type_name | translate}}
+            </mat-icon>
+            <mat-list-item class="line-container">
+                <div class="custom-icon-container">
+                    <span class="line-text"
+                        [innerHTML]="msg_data.message_body | highlight: dataService.selectedUserNames()"></span>
+                </div>
+            </mat-list-item>
+            }
+        </mat-list>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button matFab (click)="prevRow()" class="dialog-buttons" [disabled]="!dataService.hasPrevRow()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button matFab (click)="nextRow()" class="dialog-buttons" [disabled]="!dataService.hasNextRow()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+        <button matFab [mat-dialog-close]="" cdkFocusInitial class="dialog-buttons">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-dialog-actions>
+</div>

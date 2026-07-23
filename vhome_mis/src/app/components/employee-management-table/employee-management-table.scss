@@ -1,0 +1,77 @@
+.mat-column-name {
+  width: 15%;
+}
+
+.mat-column-email {
+  width: 22%;
+}
+
+.mat-column-account {
+  width: 15%;
+}
+
+.mat-column-password {
+  width: 15%;
+}
+
+.mat-column-totp {
+  width: 22%;
+}
+
+.non-destructive {
+  display: flex;
+  gap: 4px;
+}
+
+.edit-cell {
+  padding: 0;
+}
+
+.done {
+  background-color: green;
+}
+.delete {
+  background-color: crimson;
+}
+.undo {
+  background-color: grey;
+}
+
+.cancel {
+  background-color: lightblue;
+}
+.editing-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.qrcode-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  .qrcode-border {
+    border: solid red 2px;
+    .qrcode-icon {
+      opacity: 0.2; /* Fades the QR code */
+      filter: grayscale(100%); /* Removes color */
+      pointer-events: none; /* Prevents clicks/interactions */
+    }
+  }
+}
+
+.confirmation-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  .buttons {
+    display: flex;
+    gap: 4px;
+  }
+}
+
+.name-cell{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+

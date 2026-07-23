@@ -1,0 +1,53 @@
+<div class="panel">
+  <form [formGroup]="loginForm" class="login-form">
+    <mat-form-field class="login-full-width" appearance="outline">
+      <mat-label>帳號</mat-label>
+      <input
+        matInput
+        formControlName="account"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. vh00"
+      />
+      @if (loginForm.hasError('required')) {
+        <mat-error>請輸入帳號</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="login-full-width" appearance="outline">
+      <mat-label>密碼</mat-label>
+      <input
+        type="password"
+        matInput
+        formControlName="password"
+        [errorStateMatcher]="matcher"
+        placeholder="8字元以上英文數字"
+      />
+      @if (loginForm.hasError('required')) {
+        <mat-error>請輸入密碼</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="login-full-width" appearance="outline">
+      <mat-label>兩步驟驗證</mat-label>
+      <input
+        matInput
+        formControlName="totp"
+        [errorStateMatcher]="matcher"
+        placeholder="Authenticator app 中 6字數字"
+      />
+      @if (loginForm.hasError('required')) {
+        <mat-error>請輸入驗證碼</mat-error>
+      }
+    </mat-form-field>
+    <button
+      matButton="filled"
+      (click)="onSubmit()"
+      class="login-button"
+      [disabled]="loginForm.invalid"
+    >
+      @if (isLoading()) {
+        <mat-spinner [diameter]="20" class="login-spinner" color="accent"></mat-spinner>
+      } @else {
+        <span>登入</span>
+      }
+    </button>
+  </form>
+</div>

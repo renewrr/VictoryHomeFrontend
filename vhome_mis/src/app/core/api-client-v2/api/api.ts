@@ -1,0 +1,11 @@
+export * from './authSystem.service';
+import { AuthSystemService } from './authSystem.service';
+export * from './handoverSystem.service';
+import { HandoverSystemService } from './handoverSystem.service';
+export * from './operationsSystem.service';
+import { OperationsSystemService } from './operationsSystem.service';
+export * from './personnelSystem.service';
+import { PersonnelSystemService } from './personnelSystem.service';
+export * from './serviceUserSystem.service';
+import { ServiceUserSystemService } from './serviceUserSystem.service';
+export const APIS = [AuthSystemService, HandoverSystemService, OperationsSystemService, PersonnelSystemService, ServiceUserSystemService];

@@ -1,0 +1,15 @@
+.button-container {
+  position: fixed;
+  bottom: 1%;
+  width: 98%;
+  z-index: 100;
+  display: flex;
+  gap: 16px;
+  pointer-events: none;
+  .add-button-container {
+    pointer-events: auto;
+  }
+  .refresh-button-container {
+    pointer-events: auto;
+  }
+}

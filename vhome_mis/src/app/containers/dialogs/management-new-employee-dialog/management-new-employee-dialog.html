@@ -1,0 +1,51 @@
+<div mat-dialog-title class="dialog-header">
+  <div class="spacer"></div>
+  <div class="header-label-container">
+    <h2>新增同工</h2>
+  </div>
+  <div class="close-button-container">
+    <button matMiniFab mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="form-container">
+  <form [formGroup]="employeeForm">
+    <div class="first-row">
+      <mat-form-field>
+        <mat-label>名稱</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>電子郵件</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+    </div>
+    <div class="second-row">
+      <mat-form-field>
+        <mat-label>帳號</mat-label>
+        <input matInput formControlName="account" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>密碼</mat-label>
+        <input matInput formControlName="password" />
+      </mat-form-field>
+      <mat-checkbox formControlName="hasTwoFactor">二階段驗證</mat-checkbox>
+    </div>
+    <div class="button-row">
+      <mat-dialog-actions align="center">
+        <button mat-button mat-dialog-close type="button">取消</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="employeeForm.invalid"
+          (click)="sendData()"
+        >
+          送出
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </form>
+</div>

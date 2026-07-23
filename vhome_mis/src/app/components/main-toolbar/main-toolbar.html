@@ -1,0 +1,39 @@
+<header>
+  <mat-toolbar class="toolbar">
+    <button
+      matIconButton
+      [matMenuTriggerFor]="pagemenu"
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #pagemenu="matMenu">
+      <button mat-menu-item (click)="mainPage()">
+        {{ 'UI.NAVIGATION.main' | translate: { default: '主頁面' } }}
+      </button>
+      <button mat-menu-item (click)="handover()">
+        {{ 'UI.NAVIGATION.handover' | translate: { default: '交班系統' } }}
+      </button>
+      @if (authService.isManagementPrivilege()) {
+        <button mat-menu-item (click)="management_page()">
+          {{ 'UI.NAVIGATION.personnel' | translate: { default: '人員管理系統' } }}
+        </button>
+        <button mat-menu-item (click)="buildingManagement()">
+          {{ 'UI.NAVIGATION.operation' | translate: { default: '場域管理系統' } }}
+        </button>
+      }
+      <button mat-menu-item (click)="logout()">
+        {{ 'UI.NAVIGATION.logout' | translate: { default: '登出' } }}
+      </button>
+    </mat-menu>
+    <a matFab extended (click)="mainPage()">
+      <mat-icon>home</mat-icon>
+      勝利之家事務系統
+    </a>
+    <span class="example-spacer"></span>
+    <button matIconButton class="logout-button">
+      <mat-icon (click)="logout()">logout</mat-icon>
+    </button>
+  </mat-toolbar>
+</header>

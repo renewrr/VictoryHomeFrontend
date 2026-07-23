@@ -1,0 +1,43 @@
+.mat-column-name {
+    width: 22%;
+}
+
+.mat-column-livingSpace {
+    width: 22%;
+}
+
+.mat-column-nickname {
+    width: 22%;
+}
+
+.mat-column-activeStatus {
+    width: 22%;
+}
+
+.non-destructive {
+    display: flex;
+    gap: 4px;
+}
+
+
+.edit-cell {
+    padding: 0;
+    .done{
+        background-color: green
+    }
+    .delete{
+        background-color: crimson;
+    }
+    .undo{
+        background-color: grey;
+    }
+
+    .cancel{
+        background-color: lightblue;
+    }
+}
+
+.editing-buttons {
+    display: flex;
+    justify-content: space-between;
+}

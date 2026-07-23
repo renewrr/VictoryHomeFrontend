@@ -1,0 +1,47 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  .first-row {
+    display: flex;
+    padding-left: 32px;
+    gap: 32px;
+  }
+  .second-row {
+    display: flex;
+    padding-left: 32px;
+    gap: 32px;
+  }
+}
+
+.dialog-header {
+  position: sticky;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  width: 100%;
+  padding: 0;
+}
+
+.dialog-header .header-label-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.dialog-header .spacer {
+  flex: 1;
+}
+
+.dialog-header .close-button-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.dialog-header .close-button {
+  background-color: crimson !important;
+  border-radius: 10%;
+  top: 3%;
+  right: 2%;
+}

@@ -1,0 +1,82 @@
+<div class="page-container">
+  <div class="dashboard-wrapper">
+    <!-- 🌟 Top Hero Greeting Banner Section -->
+    <header class="welcome-hero">
+      <div class="hero-content">
+        @if (currentUserService.avatarUrl() && imageLoadFailed()) {
+          <img
+            mat-card-avatar
+            [src]="currentUserService.avatarUrl()"
+            (error)="handleImageError()"
+            alt="User Avatar Profile"
+          />
+        }
+        <!-- 🛑 Case B: The URL is empty OR the network request just threw a 404 -->
+        @else {
+          <div mat-card-avatar class="avatar-fallback">
+            <mat-icon>person</mat-icon>
+          </div>
+        }
+
+        <div>
+          <h1>歡迎回來, {{ currentUserService.currentUser().name }}</h1>
+          <p class="text-secondary">系統登入成功</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- 📊 Structural Data Widget Grid Layout -->
+    <main class="widget-grid">
+      <!-- Widget 1: Account Particulars -->
+      <mat-card>
+        <mat-card-header>
+          <mat-icon mat-card-avatar>account_circle</mat-icon>
+          <mat-card-title>基本資料</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="data-row">
+            <span class="label">姓名:</span>
+            <span class="value">{{ currentUserService.currentUser().name }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">員工信箱:</span>
+            <span class="value">{{ currentUserService.currentUser().company_email }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Widget 2: Security Actions Shortcut -->
+      <mat-card>
+        <mat-card-header>
+          <mat-icon mat-card-avatar>security</mat-icon>
+          <mat-card-title>系統操作</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="actions-content">
+          <div class="button-row" color="primary">
+            <button
+              matFab
+              extended
+              class="square-mini-fab-check"
+              color="primary"
+              (click)="openPasswordDialog()"
+            >
+              <mat-icon>key</mat-icon>
+              更新密碼
+            </button>
+            <button
+              matFab
+              extended
+              class="square-mini-fab-check logout"
+              (click)="authService.logout()"
+            >
+              <mat-icon>logout</mat-icon>
+              登出
+            </button>
+            <!-- <button mat-stroked-button color="primary">更新密碼</button> -->
+            <!-- <button mat-button color="warn" (click)="authService.logout()">登出</button> -->
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </main>
+  </div>
+</div>

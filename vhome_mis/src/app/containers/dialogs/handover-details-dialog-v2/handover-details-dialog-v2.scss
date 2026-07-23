@@ -1,0 +1,34 @@
+.modal-backdrop {
+    border-radius: 10px !important;
+    // width: 100vw !important;
+
+    .line-container {
+        height: auto !important;
+        min-height: 48px;
+        display: flex;
+
+        background-color: lightgrey;
+        border-radius: 12px;
+        /* Soft, blurred shadow makes it look raised */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 24px;
+    }
+
+    .message-dialog-panel {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .line-icon {
+        vertical-align: bottom;
+    }
+
+    .line-text {
+        text-wrap: wrap;
+        white-space: pre-wrap;
+    }
+
+    .dialog-buttons {
+        border-radius: 10%;
+    }
+}

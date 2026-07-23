@@ -1,0 +1,79 @@
+<div class="mat-elevation-z2">
+  <table
+    mat-table
+    class="full-width-table"
+    aria-label="Elements"
+    [dataSource]="dataService.messages()"
+  >
+    <!-- Id Column -->
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'UI.HANDOVER.HEADERS.timestamp' | translate: { default: '交班時間' } }}
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{
+          toDatetime(asDataRow(row).timestamp).toLocaleString(localization.dateLocalization()) +
+            ' ' +
+            toDatetime(asDataRow(row).timestamp).toLocaleDateString(
+              localization.dateLocalization(),
+              { weekday: 'long' }
+            )
+        }}
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="creator">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'UI.HANDOVER.HEADERS.employee' | translate: { default: '交班同工' } }}
+      </th>
+      <td mat-cell *matCellDef="let row">{{ asDataRow(row).creator_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="shift">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'UI.HANDOVER.HEADERS.shift' | translate: { default: '班別' } }}
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{
+          'HANDOVER_MESSAGE.SHIFTS.' + asDataRow(row).shift_name
+            | translate: { default: asDataRow(row).shift_name }
+        }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="floors">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'UI.HANDOVER.HEADERS.location' | translate: { default: '地點' } }}
+      </th>
+      <td mat-cell *matCellDef="let row">
+        @for (location of asDataRow(row).location_names; track $index) {
+          {{ 'HANDOVER_MESSAGE.FLOORS.' + location | translate: { default: location } }},
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      class="mat-row"
+      *matRowDef="let row; let i = index; columns: displayedColumns"
+      (click)="rowSelected(i)"
+      [style.background-color]="i == dataService.selectedPageIndex() ? '#cfe2f3' : 'transparent'"
+    ></tr>
+  </table>
+
+  <mat-paginator
+    #paginator
+    [length]="dataService.length()"
+    [pageSize]="dataService.currentPageSize()"
+    [pageIndex]="dataService.currentPageIndex()"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="pageChanged($event)"
+    [disabled]="dataService.isLoading()"
+    aria-label="Select page"
+    showFirstLastButtons
+    class="sticky-paginator"
+  >
+  </mat-paginator>
+</div>

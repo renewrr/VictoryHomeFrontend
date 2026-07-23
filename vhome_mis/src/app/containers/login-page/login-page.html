@@ -1,0 +1,10 @@
+<div class="login-page">
+  <div class="main-panel">
+    <img class="vhome-logo" src="vhome_logo.png" />
+    <app-login-panel-v2
+      [isLoading]="isLoading()"
+      [errorMessage]="errorMessage()"
+      (loginSubmit)="onLoginAttempt($event)"
+    />
+  </div>
+</div>

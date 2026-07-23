@@ -1,0 +1,28 @@
+@if (buildingService.ready()) {
+  <div class="building-grid">
+    <mat-card class="building-card clickable-card">
+      <div class="header-container">
+        <mat-card-header>
+          <mat-card-title
+            >{{ buildingData().name }}-{{ floorData().floor_name }}-{{
+              roomData().name
+            }}</mat-card-title
+          >
+        </mat-card-header>
+      </div>
+
+      <mat-card-content class="card-workspace" (click)="$event.stopPropagation()">
+        <div class="floor-rows">
+          <p class="preview-label">服務使用者:</p>
+          @for (serviceUser of roomData().service_user; track $index) {
+            <span class="floor-chip">
+              {{ serviceUser.name }}
+            </span>
+          } @empty {
+            <span class="empty-state-text">此住宿場域尚無登記之服務使用者.</span>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

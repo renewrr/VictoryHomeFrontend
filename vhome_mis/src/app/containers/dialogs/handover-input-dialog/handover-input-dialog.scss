@@ -1,0 +1,140 @@
+.first-row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.second-row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.secondary-input-combined {
+    max-height: 28vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .secondary-add {
+        margin: 8px;
+    }
+
+    .secondary-input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: center;
+    }
+}
+
+.modal-backdrop {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-content {
+    padding-top: 0;
+}
+
+.combined-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    align-items: center;
+}
+
+
+.metadata-rows {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgb(255 255 255 / 100%);
+    border: 12px white solid;
+    border-left: 16px white solid;
+    margin-left: -8px;
+}
+
+.footer-row {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgb(255 255 255 / 100%);
+    border: 12px white solid;
+    border-left: 16px white solid;
+    margin-left: -8px;
+}
+
+.secondary-input {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    /* Soft, blurred shadow makes it look raised */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.secondary-input .combined-input {
+    flex: 2;
+    margin: 8px;
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.secondary-input .body-input {
+    flex: 5;
+    margin: 8px;
+    margin-left: 4px;
+}
+
+.secondary-input .body-input .body-input-field {
+    width: 100%;
+}
+
+.dialog-header {
+    position: sticky;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+}
+
+.dialog-header .header-label-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+
+.dialog-header .spacer {
+    flex: 1;
+}
+
+.dialog-header .close-button-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.dialog-header .close-button {
+    background-color: crimson !important;
+    border-radius: 10%;
+    top: 3%;
+    right: 2%;
+}
+
+.msg-delete {
+    display: flex;
+    align-items: center;
+
+    .delete-button {
+        border-radius: 10%;
+    }
+}

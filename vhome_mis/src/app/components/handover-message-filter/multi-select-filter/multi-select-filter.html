@@ -1,0 +1,42 @@
+<div class="selection-container">
+  <mat-form-field class="example-chip-list">
+    <mat-label>{{ label }}</mat-label>
+    <mat-select multiple [formControl]="selected_options">
+      <mat-select-trigger>
+        <mat-chip-grid #chipGrid>
+          @for (opt of selected_options.value; track $index) {
+            <mat-chip-row [removable]="true" (removed)="remove(opt)">
+              @if (translate_config != undefined) {
+                {{
+                  (translate_config.prefix + '.' + opt.name | translate) !==
+                  translate_config.prefix + '.' + opt.name
+                    ? (translate_config.prefix + '.' + opt.name | translate)
+                    : opt.name
+                }}
+              } @else {
+                {{ opt.name }}
+              }
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          }
+        </mat-chip-grid>
+      </mat-select-trigger>
+      @for (opt of available_options(); track $index) {
+        <mat-option [value]="opt">
+          @if (translate_config != undefined) {
+            {{
+              (translate_config.prefix + '.' + opt.name | translate) !==
+              translate_config.prefix + '.' + opt.name
+                ? (translate_config.prefix + '.' + opt.name | translate)
+                : opt.name
+            }}
+          } @else {
+            {{ opt.name }}
+          }
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

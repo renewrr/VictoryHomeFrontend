@@ -1,0 +1,109 @@
+<div class="modal-backdrop">
+  <div mat-dialog-title class="dialog-header">
+    <div class="spacer"></div>
+    <div class="header-label-container">
+      <h2>新增服務使用者</h2>
+    </div>
+    <div class="close-button-container">
+      <button matMiniFab mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-dialog-content class="dialog-content">
+    <div class="service-user-inputs">
+      @for (usrForm of pendingServiceUsers.controls; track $index) {
+        <form [formGroup]="usrForm" #formDirective="ngForm">
+          <div class="card-container">
+            <div class="user-cards">
+              <div class="user-name">
+                <mat-form-field>
+                  <mat-label>名稱</mat-label>
+                  <input matInput formControlName="name" />
+                </mat-form-field>
+              </div>
+              <div class="living-space">
+                <mat-form-field>
+                  <mat-label>住宿房間</mat-label>
+                  <mat-select formControlName="livingSpaceID" required>
+                    <mat-select-trigger>
+                      {{ getSpaceName(usrForm.controls.livingSpaceID.value) }}
+                    </mat-select-trigger>
+                    <mat-option [value]="-1">非住宿</mat-option>
+                    @for (livingSpace of activeAreaService.livingSpaces(); track $index) {
+                      <mat-option [value]="livingSpace.ID">{{ livingSpace.name }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="nicknames">
+                <mat-form-field>
+                  <mat-chip-grid #chipGrid>
+                    @for (nickname of usrForm.controls['nicknames'].value; track $index) {
+                      <mat-chip-row
+                        [editable]="true"
+                        (edited)="editNickname(nickname, $event, usrForm, $index)"
+                        (removed)="removeNickname(usrForm, $index)"
+                      >
+                        <button matChipEdit>
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        {{ nickname.body }}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip-row>
+                    }
+                  </mat-chip-grid>
+                  <input
+                    placeholder="暱稱"
+                    [matChipInputFor]="chipGrid"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="addNickname($index, $event)"
+                    (blur)="addNicknameFromButton($index, chipInput)"
+                    #chipInput
+                  />
+                  <button
+                    mat-icon-button
+                    matSuffix
+                    (click)="addNicknameFromButton($index, chipInput)"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="msg-delete">
+              <button matMiniFab class="delete-button" (click)="removeSecondary($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+      }
+      <div class="footer-row">
+        <div class="secondary-add">
+          <!-- IMPORTANT, MUST HAVE type="button" OR HTML DEFAULTS TO SUBMIT TYPE -->
+          <button mat-raised-button color="primary" type="button" (click)="addSecondary()">
+            新增服務使用者
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+          <mat-dialog-actions align="center">
+            <button mat-button mat-dialog-close type="button">取消</button>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="serviceUserForm.invalid"
+              (click)="commitAddition()"
+            >
+              送出
+            </button>
+          </mat-dialog-actions>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

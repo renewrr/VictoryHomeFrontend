@@ -1,0 +1,27 @@
+header{
+    display: flex;
+    padding-inline: 16px;
+    padding-block: 8px;
+    // background-color: #333;
+    color: cyan;
+    align-items: center;
+    justify-content: space-between;
+}
+
+span {
+    font-size: clamp(1rem, 2.5vw, 2rem); /* Min, Preferred, Max */
+}
+
+.toolbar{
+    background-color:lightblue;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    min-height: 8vmin;
+    max-height: 8vmin;
+}
+
+
+.logout-button{
+    margin-left: auto;
+}

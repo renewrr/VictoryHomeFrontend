@@ -1,0 +1,24 @@
+@if (buildingService.ready()) {
+  <div class="building-grid">
+    <mat-card class="building-card clickable-card">
+      <div class="header-container">
+        <mat-card-header>
+          <mat-card-title>{{ buildingData().name }}-{{ floorData().floor_name }}</mat-card-title>
+        </mat-card-header>
+      </div>
+
+      <mat-card-content class="card-workspace" (click)="$event.stopPropagation()">
+        <div class="floor-rows">
+          <p class="preview-label">住宿房間:</p>
+          @for (room of floorData().living_space; track $index) {
+            <span class="floor-chip" [routerLink]="['room', room.ID]">
+              {{ room.name }}
+            </span>
+          } @empty {
+            <span class="empty-state-text">此樓層尚無登記之住宿場域.</span>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

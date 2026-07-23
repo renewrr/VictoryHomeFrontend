@@ -1,0 +1,25 @@
+<div class="building-grid">
+  @for (building of this.buildingService.buildingData(); track $index) {
+    <mat-card class="building-card clickable-card" [routerLink]="['building', building.ID]">
+      <div class="header-container">
+        <mat-card-header>
+          <mat-card-title>{{ building.name }}</mat-card-title>
+          <mat-card-subtitle>地址:{{ building.address }}</mat-card-subtitle>
+        </mat-card-header>
+      </div>
+
+      <mat-card-content class="card-workspace">
+        <div class="floor-rows">
+          <p class="preview-label">樓層:</p>
+          @for (floor of building.building_floors; track $index) {
+            <span class="floor-chip">
+              {{ floor.floor_name }}
+            </span>
+          } @empty {
+            <span class="empty-state-text">此建築物尚無登記之樓層.</span>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
