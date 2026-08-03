@@ -8,4 +8,6 @@ export * from './personnelSystem.service';
 import { PersonnelSystemService } from './personnelSystem.service';
 export * from './serviceUserSystem.service';
 import { ServiceUserSystemService } from './serviceUserSystem.service';
-export const APIS = [AuthSystemService, HandoverSystemService, OperationsSystemService, PersonnelSystemService, ServiceUserSystemService];
+export * from './webhooksSystem.service';
+import { WebhooksSystemService } from './webhooksSystem.service';
+export const APIS = [AuthSystemService, HandoverSystemService, OperationsSystemService, PersonnelSystemService, ServiceUserSystemService, WebhooksSystemService];

@@ -64,6 +64,8 @@ export * from './passwordChangeRequest';
 export * from './passwordChangeResponse';
 export * from './roomDeleteRequest';
 export * from './roomModifyResponse';
+export * from './secondaryEditRequest';
+export * from './secondaryEditRequestSecondaryMessageDetail';
 export * from './secondaryHandoverMessageResponse';
 export * from './secondaryHandoverMessageResponseSecondaryHandoverMessageRow';
 export * from './serviceUserInput';

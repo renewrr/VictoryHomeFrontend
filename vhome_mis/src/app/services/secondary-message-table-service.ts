@@ -160,4 +160,16 @@ export class SecondaryMessageTableService {
       };
     });
   }
+  public commitEdit(msg: SecondaryHandoverMessageResponseSecondaryHandoverMessageRow) {
+    const buffer = this.getBuffer(msg);
+    this.handoverApi
+      .apiV3HandoverSecondaryMessagePatch({
+        before: { ID: msg.ID, delete: false, message_body: msg.message_body },
+        after: { ID: buffer.ID, delete: buffer.deleted, message_body: buffer.message_body },
+      })
+      .subscribe((response) => {
+        this.dropBuffer(msg);
+        this.tableRefresh()
+      });
+  }
 }

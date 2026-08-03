@@ -51,7 +51,11 @@
             authService.isManagementPrivilege()
           ) {
             @if (dataService.isEditing(asDataRow(row))) {
-              <button matMiniFab class="square-mini-fab-edit done">
+              <button
+                matMiniFab
+                class="square-mini-fab-edit done"
+                (click)="dataService.commitEdit(row)"
+              >
                 <mat-icon>done_outline</mat-icon>
               </button>
               <button
