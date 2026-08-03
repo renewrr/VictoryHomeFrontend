@@ -9,7 +9,7 @@
  */
 
 
-export interface SecondaryEditRequestSecondaryMessageDetail { 
+export interface SecondaryEditResponseSecondaryMessageDetail { 
     ID: number;
     is_deleted: boolean;
     message_body: string;

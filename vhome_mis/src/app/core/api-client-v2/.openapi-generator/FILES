@@ -82,6 +82,8 @@ model/roomDeleteRequest.ts
 model/roomModifyResponse.ts
 model/secondaryEditRequest.ts
 model/secondaryEditRequestSecondaryMessageDetail.ts
+model/secondaryEditResponse.ts
+model/secondaryEditResponseSecondaryMessageDetail.ts
 model/secondaryHandoverMessageResponse.ts
 model/secondaryHandoverMessageResponseSecondaryHandoverMessageRow.ts
 model/serviceUserInput.ts

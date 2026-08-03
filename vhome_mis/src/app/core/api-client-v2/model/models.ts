@@ -66,6 +66,8 @@ export * from './roomDeleteRequest';
 export * from './roomModifyResponse';
 export * from './secondaryEditRequest';
 export * from './secondaryEditRequestSecondaryMessageDetail';
+export * from './secondaryEditResponse';
+export * from './secondaryEditResponseSecondaryMessageDetail';
 export * from './secondaryHandoverMessageResponse';
 export * from './secondaryHandoverMessageResponseSecondaryHandoverMessageRow';
 export * from './serviceUserInput';

@@ -164,12 +164,12 @@ export class SecondaryMessageTableService {
     const buffer = this.getBuffer(msg);
     this.handoverApi
       .apiV3HandoverSecondaryMessagePatch({
-        before: { ID: msg.ID, delete: false, message_body: msg.message_body },
-        after: { ID: buffer.ID, delete: buffer.deleted, message_body: buffer.message_body },
+        before: { ID: msg.ID, is_deleted: false, message_body: msg.message_body },
+        after: { ID: buffer.ID, is_deleted: buffer.deleted, message_body: buffer.message_body },
       })
       .subscribe((response) => {
         this.dropBuffer(msg);
-        this.tableRefresh()
+        this.tableRefresh();
       });
   }
 }

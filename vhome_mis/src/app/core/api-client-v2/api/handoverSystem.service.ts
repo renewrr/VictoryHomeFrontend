@@ -25,6 +25,8 @@ import { NewMessageInput } from '../model/newMessageInput';
 // @ts-ignore
 import { SecondaryEditRequest } from '../model/secondaryEditRequest';
 // @ts-ignore
+import { SecondaryEditResponse } from '../model/secondaryEditResponse';
+// @ts-ignore
 import { SecondaryHandoverMessageResponse } from '../model/secondaryHandoverMessageResponse';
 // @ts-ignore
 import { SingleHandoverMessage } from '../model/singleHandoverMessage';
@@ -496,9 +498,9 @@ export class HandoverSystemService extends BaseService {
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SecondaryEditResponse>;
+    public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SecondaryEditResponse>>;
+    public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SecondaryEditResponse>>;
     public apiV3HandoverSecondaryMessagePatch(secondaryEditRequest?: SecondaryEditRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -537,7 +539,7 @@ export class HandoverSystemService extends BaseService {
 
         let localVarPath = `/api/v3/handover/secondary_message`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('patch', `${basePath}${localVarPath}`,
+        return this.httpClient.request<SecondaryEditResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: secondaryEditRequest,
