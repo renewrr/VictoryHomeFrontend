@@ -74,3 +74,40 @@
   border-top: 1px solid #e0e0e0;
   background-color: #ffffff !important;
 }
+
+.message-body {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.non-destructive {
+  display: flex;
+  gap: 4px;
+}
+
+.edit-cell {
+  padding: 0;
+}
+
+.done {
+  background-color: green;
+}
+.delete {
+  background-color: crimson;
+}
+.undo {
+  background-color: grey;
+}
+
+.cancel {
+  background-color: lightblue;
+}
+.editing-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-field {
+  width: 100%; /* Can be px, rem, %, or vw */
+}

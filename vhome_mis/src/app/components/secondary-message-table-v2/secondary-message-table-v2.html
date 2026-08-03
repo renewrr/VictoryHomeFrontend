@@ -45,10 +45,63 @@
         {{ 'UI.HANDOVER.HEADERS.message_body' | translate: { default: '訊息內容' } }}
       </th>
       <td mat-cell *matCellDef="let row">
-        <span
-          class="line-text"
-          [innerHTML]="asDataRow(row).message_body | highlight: highlightText()"
-        ></span>
+        <div class="message-body">
+          @if (
+            currentUserService.currentUser().ID == asDataRow(row).creator_id ||
+            authService.isManagementPrivilege()
+          ) {
+            @if (dataService.isEditing(asDataRow(row))) {
+              <button matMiniFab class="square-mini-fab-edit done">
+                <mat-icon>done_outline</mat-icon>
+              </button>
+              <button
+                matMiniFab
+                class="square-mini-fab-check undo"
+                (click)="dataService.undoEdit(row)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+              <button
+                matMiniFab
+                class="square-mini-fab-check cancel"
+                (click)="dataService.revertEdit(row)"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+              <mat-form-field class="input-field">
+                <textarea
+                  matInput
+                  [ngModel]="dataService.getBuffer(row).message_body"
+                  (ngModelChange)="dataService.updateRow(row.ID, 'message_body', $event)"
+                  [disabled]="dataService.getBuffer(row).deleted"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="3"
+                  cdkAutosizeMaxRows="8"
+                ></textarea>
+              </mat-form-field>
+              <button
+                matMiniFab
+                class="square-mini-fab-check delete"
+                (click)="dataService.updateRow(row.ID, 'deleted', true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            } @else {
+              <button matMiniFab class="square-mini-fab-edit edit" (click)="startEdit(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <span
+                class="line-text"
+                [innerHTML]="row.message_body | highlight: highlightText()"
+              ></span>
+            }
+          } @else {
+            <span
+              class="line-text"
+              [innerHTML]="asDataRow(row).message_body | highlight: highlightText()"
+            ></span>
+          }
+        </div>
       </td>
     </ng-container>
 

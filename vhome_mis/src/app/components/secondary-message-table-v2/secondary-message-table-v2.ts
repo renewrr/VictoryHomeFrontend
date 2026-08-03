@@ -17,6 +17,12 @@ import { HighlightPipe } from '../../pipes/highlight/highlight-pipe';
 import { SecondaryHandoverMessageResponseSecondaryHandoverMessageRow } from '../../core/api-client-v2';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { LocalizationService } from '../../services/localization-service';
+import { CurrentUserLookupService } from '../../services/current-user-lookup-service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../services/auth-service';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-secondary-message-table-v2',
@@ -27,6 +33,10 @@ import { LocalizationService } from '../../services/localization-service';
     TranslateModule,
     HighlightPipe,
     MatProgressBar,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
   ],
   templateUrl: './secondary-message-table-v2.html',
   styleUrl: './secondary-message-table-v2.scss',
@@ -34,6 +44,8 @@ import { LocalizationService } from '../../services/localization-service';
 export class SecondaryMessageTableV2 {
   protected dataService = inject(SecondaryMessageTableService);
   protected localization = inject(LocalizationService);
+  protected currentUserService = inject(CurrentUserLookupService);
+  protected authService = inject(AuthService);
   @Input() highlightText: Signal<string[]> = signal([]);
 
   displayedColumns = ['timestamp', 'creator', 'messageType', 'messageBody'];
@@ -55,5 +67,9 @@ export class SecondaryMessageTableV2 {
 
   toDatetime(timestamp: string) {
     return new Date(timestamp);
+  }
+
+  startEdit(row: SecondaryHandoverMessageResponseSecondaryHandoverMessageRow) {
+    this.dataService.startEdit(row);
   }
 }
