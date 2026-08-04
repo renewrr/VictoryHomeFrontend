@@ -6,6 +6,11 @@
   flex-wrap: wrap;
 }
 
+:host {
+  display: block;
+  width: 100%;
+}
+
 // .search-bar-container {
 //   height: 15%;
 //   display: flex;
