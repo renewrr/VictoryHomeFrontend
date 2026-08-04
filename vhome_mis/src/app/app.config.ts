@@ -26,6 +26,8 @@ import { forkJoin, map, Observable } from 'rxjs';
 import { AuthService } from './services/auth-service';
 import { credentialsInterceptor } from './interceptors/credentials-interceptor';
 import { CustomMissingTranslationHandler } from './core/i18n/missing-translation.handler';
+import { BASE_PATH } from './core/api-client-v2';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,6 +51,7 @@ export const appConfig: ApplicationConfig = {
       const authService = inject(AuthService);
       return authService.bootstrapAuthSession();
     }),
+    {provide: BASE_PATH, useValue: environment.apiURL}
   ],
 };
 
