@@ -1,10 +1,18 @@
 <div class="login-page">
-  <div class="main-panel">
-    <img class="vhome-logo" src="vhome_logo.png" />
-    <app-login-panel-v2
+  @if (layoutService.isMobile()) {
+    <app-mobile-login-panel
       [isLoading]="isLoading()"
       [errorMessage]="errorMessage()"
       (loginSubmit)="onLoginAttempt($event)"
     />
-  </div>
+  } @else {
+    <div class="main-panel">
+      <img class="vhome-logo" src="vhome_logo.png" />
+      <app-login-panel-v2
+        [isLoading]="isLoading()"
+        [errorMessage]="errorMessage()"
+        (loginSubmit)="onLoginAttempt($event)"
+      />
+    </div>
+  }
 </div>
