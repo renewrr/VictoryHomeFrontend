@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { LayoutService } from '../../services/layout-service';
-import { ɵEmptyOutletComponent } from "@angular/router";
 
 export interface TableFilter {
   start_date?: Date;
@@ -14,7 +13,7 @@ export interface TableFilter {
 
 @Component({
   selector: 'app-handover-message-filter',
-  imports: [ɵEmptyOutletComponent],
+  imports: [],
   templateUrl: './handover-message-filter.html',
   styleUrl: './handover-message-filter.scss',
 })

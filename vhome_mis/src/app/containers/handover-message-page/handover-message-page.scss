@@ -14,7 +14,19 @@
   }
 }
 
-.description{
+.description {
   display: flex;
   justify-content: center;
+}
+
+.mat-expansion-panel-content {
+  display: block !important;
+}
+.mat-expansion-panel-body {
+  visibility: visible !important;
+}
+
+mat-accordion,
+mat-expansion-panel {
+  flex-basis: auto !important;
 }
