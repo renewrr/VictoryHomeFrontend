@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiURL: 'https://localhost:2540/'
+    apiURL: 'https://victoryhomefrontend.onrender.com'
 };
