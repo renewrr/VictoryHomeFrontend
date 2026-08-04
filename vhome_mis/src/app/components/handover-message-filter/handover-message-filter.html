@@ -3,6 +3,9 @@
   <ng-content></ng-content>
   <ng-content></ng-content>
   <ng-content></ng-content>
-  <ng-content></ng-content>
-  <ng-content></ng-content>
+  @if (!layoutService.isMobile()) {
+    <ng-content></ng-content>
+    <ng-content></ng-content>
+    <ng-content></ng-content>
+  }
 </div>
