@@ -11,7 +11,6 @@
               <app-multi-select-filter
                 [id_tag]="filter.id_tag"
                 [label]="filter.label"
-                ,
                 [translate_config]="filter.translate_config"
                 [available_options]="multiFilterSignals[filter.id_tag]"
                 (selection_changed)="on_selection_change($event)"
@@ -33,9 +32,7 @@
           } @else {
             <app-search-bar-filter
               [idTag]="filter.id_tag"
-              ,
               [label]="filter.label"
-              ,
               (selectionChanged)="onKeywordChange($event)"
             ></app-search-bar-filter>
           }

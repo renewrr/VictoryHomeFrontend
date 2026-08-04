@@ -12,32 +12,42 @@ import { FilterOption } from '../../../core/contracts/filter-infra/filter-servic
 
 @Component({
   selector: 'app-multi-select-filter',
-  imports: [CommonModule, MatFormFieldModule, MatChipsModule, MatIconModule, MatSelectModule, MatInputModule, FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
   templateUrl: './multi-select-filter.html',
   styleUrl: './multi-select-filter.scss',
 })
 export class MultiSelectFilter {
+  @Input() label: string = '篩選';
+  @Input() id_tag: string = 'Default';
+  @Input() translate_config: TranslateConfig | undefined;
+  @Input({ required: true }) available_options!: Signal<FilterOption[]>;
 
-  @Input() label: string = "篩選"
-  @Input() id_tag: string = "Default"
-  @Input() translate_config: TranslateConfig | undefined
-  @Input({ required: true }) available_options!: Signal<FilterOption[]>
-
-  selected_options = new FormControl<FilterOption[]>([], { nonNullable: true })
-  @Output() selection_changed = new EventEmitter<[string, FilterOption[]]>()
+  selected_options = new FormControl<FilterOption[]>([], { nonNullable: true });
+  @Output() selection_changed = new EventEmitter<[string, FilterOption[]]>();
 
   constructor() {
-    this.selected_options.valueChanges.subscribe(opts => { this.selection_changed.emit([this.id_tag, opts]) })
+    this.selected_options.valueChanges.subscribe((opts) => {
+      this.selection_changed.emit([this.id_tag, opts]);
+    });
   }
 
-
   remove(option: FilterOption) {
-    const new_selected: FilterOption[] = []
+    const new_selected: FilterOption[] = [];
     for (const o of this.selected_options.value) {
       if (o.ID != option.ID) {
-        new_selected.push(o)
+        new_selected.push(o);
       }
     }
-    this.selected_options.setValue(new_selected)
+    this.selected_options.setValue(new_selected);
   }
 }
