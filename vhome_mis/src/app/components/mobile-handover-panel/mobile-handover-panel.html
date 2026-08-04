@@ -1,0 +1,20 @@
+<div class="mobile-feed-container">
+  <!-- 1. Sticky Top Navigation & Actions -->
+  <mat-toolbar color="primary" class="mobile-header">
+    <span class="title">交班訊息</span>
+    <span class="spacer"></span>
+
+    <!-- Refresh Button moved to Header to avoid FAB clutter -->
+    <button mat-icon-button aria-label="Refresh feed">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- 3. Virtual Scrolling Card Feed -->
+  <cdk-virtual-scroll-viewport itemSize="140" class="feed-viewport"> </cdk-virtual-scroll-viewport>
+
+  <!-- 4. Primary Floating Action Button (Add Message) -->
+  <button mat-fab color="primary" class="create-message-fab" aria-label="Add new handover message">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

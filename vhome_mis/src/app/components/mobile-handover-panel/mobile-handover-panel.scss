@@ -1,0 +1,127 @@
+.mobile-feed-container {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background-color: #f8f9fa;
+  position: relative;
+
+  .mobile-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: lightblue;
+
+    .spacer {
+      flex: 1;
+    }
+  }
+
+  .filter-section {
+    background: #fff;
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    .filter-trigger-btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+
+      .filter-count-badge {
+        background: #1976d2;
+        color: white;
+        border-radius: 10px;
+        padding: 2px 8px;
+        font-size: 0.75rem;
+      }
+    }
+
+    .active-chips-scroll {
+      margin-top: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+
+  .feed-viewport {
+    flex: 1;
+    width: 100%;
+
+    .card-wrapper {
+      padding: 6px 12px;
+    }
+  }
+
+  .message-card {
+    border-radius: 12px;
+    padding: 12px;
+
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+
+      .shift-badge {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: uppercase;
+        background: #e0e0e0;
+
+        &.shift-a {
+          background: #e3f2fd;
+          color: #1565c0;
+        }
+        &.shift-b {
+          background: #fff3e0;
+          color: #e65100;
+        }
+        &.shift-c {
+          background: #f3e5f5;
+          color: #7b1fa2;
+        }
+      }
+
+      .timestamp {
+        color: #666;
+      }
+      .sender-name {
+        font-weight: 600;
+        color: #333;
+      }
+    }
+
+    .message-body p {
+      margin: 0;
+      font-size: 0.925rem;
+      line-height: 1.4;
+      color: #212121;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; // Truncate long body text to 3 lines
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .message-body.expanded p {
+      -webkit-line-clamp: unset;
+    }
+
+    .card-actions {
+      padding: 0;
+      margin-top: 4px;
+      min-height: auto;
+    }
+  }
+
+  /* Fixed Floating Action Button (Bottom Right) */
+  .create-message-fab {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    z-index: 1000;
+  }
+}

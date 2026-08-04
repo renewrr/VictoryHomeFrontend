@@ -1,71 +1,87 @@
 <div class="filter-parent">
-  <app-handover-message-filter>
-    @for (filter of filter_config(); track $index) {
-      @if (filter.type_config != undefined && filter.type_config.type == 'multi') {
-        @if (filter.translate_config != undefined) {
-          <app-multi-select-filter
-            [id_tag]="filter.id_tag"
-            [label]="filter.label"
-            ,
-            [translate_config]="filter.translate_config"
-            [available_options]="multiFilterSignals[filter.id_tag]"
-            (selection_changed)="on_selection_change($event)"
-          ></app-multi-select-filter>
-        } @else {
-          <app-multi-select-filter
-            [id_tag]="filter.id_tag"
-            [label]="filter.label"
-            [available_options]="multiFilterSignals[filter.id_tag]"
-            (selection_changed)="on_selection_change($event)"
-          ></app-multi-select-filter>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-description class="description"> 篩選條件 </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-handover-message-filter>
+        @for (filter of filter_config(); track $index) {
+          @if (filter.type_config != undefined && filter.type_config.type == 'multi') {
+            @if (filter.translate_config != undefined) {
+              <app-multi-select-filter
+                [id_tag]="filter.id_tag"
+                [label]="filter.label"
+                ,
+                [translate_config]="filter.translate_config"
+                [available_options]="multiFilterSignals[filter.id_tag]"
+                (selection_changed)="on_selection_change($event)"
+              ></app-multi-select-filter>
+            } @else {
+              <app-multi-select-filter
+                [id_tag]="filter.id_tag"
+                [label]="filter.label"
+                [available_options]="multiFilterSignals[filter.id_tag]"
+                (selection_changed)="on_selection_change($event)"
+              ></app-multi-select-filter>
+            }
+          } @else if (filter.type_config != undefined && filter.type_config.type == 'date') {
+            <app-date-filter
+              [id_tag]="filter.id_tag"
+              [label]="filter.label"
+              (selection_changed)="on_date_selection_change($event)"
+            ></app-date-filter>
+          } @else {
+            <app-search-bar-filter
+              [idTag]="filter.id_tag"
+              ,
+              [label]="filter.label"
+              ,
+              (selectionChanged)="onKeywordChange($event)"
+            ></app-search-bar-filter>
+          }
         }
-      } @else if (filter.type_config != undefined && filter.type_config.type == 'date') {
-        <app-date-filter
-          [id_tag]="filter.id_tag"
-          [label]="filter.label"
-          (selection_changed)="on_date_selection_change($event)"
-        ></app-date-filter>
-      } @else {
-        <app-search-bar-filter
-          [idTag]="filter.id_tag"
-          ,
-          [label]="filter.label"
-          ,
-          (selectionChanged)="onKeywordChange($event)"
-        ></app-search-bar-filter>
-      }
-    }
-  </app-handover-message-filter>
+      </app-handover-message-filter>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
-
-<mat-tab-group>
-  <mat-tab label="單一交班訊息">
-    <div class="secondary-table">
-      <app-secondary-message-table-v2
-        [highlightText]="highlightText"
-      ></app-secondary-message-table-v2>
+@if (layoutService.isMobile()) {
+  <app-mobile-handover-panel></app-mobile-handover-panel>
+} @else {
+  <mat-tab-group>
+    <mat-tab label="單一交班訊息">
+      <div class="secondary-table">
+        <app-secondary-message-table-v2
+          [highlightText]="highlightText"
+        ></app-secondary-message-table-v2>
+      </div>
+    </mat-tab>
+    <mat-tab label="集合交班訊息">
+      <div class="primary-table">
+        <app-handover-message-table-v2
+          [highlightText]="highlightText"
+          (rowClicked)="summnonDetailDialog()"
+        ></app-handover-message-table-v2>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="button-container">
+    <div class="add-button-container">
+      <button
+        matFab
+        extended
+        color="primary"
+        class="fixed-button"
+        (click)="summonNewMessageDialog()"
+      >
+        <mat-icon>add</mat-icon>
+        新增交班紀錄
+      </button>
     </div>
-  </mat-tab>
-  <mat-tab label="集合交班訊息">
-    <div class="primary-table">
-      <app-handover-message-table-v2
-        [highlightText]="highlightText"
-        (rowClicked)="summnonDetailDialog()"
-      ></app-handover-message-table-v2>
+    <div class="refresh-button-container">
+      <button matFab extended color="primary" class="fixed-button" (click)="refreshTable()">
+        <mat-icon>refresh</mat-icon>
+        重新整理
+      </button>
     </div>
-  </mat-tab>
-</mat-tab-group>
-<div class="button-container">
-  <div class="add-button-container">
-    <button matFab extended color="primary" class="fixed-button" (click)="summonNewMessageDialog()">
-      <mat-icon>add</mat-icon>
-      新增交班紀錄
-    </button>
   </div>
-  <div class="refresh-button-container">
-    <button matFab extended color="primary" class="fixed-button" (click)="refreshTable()">
-      <mat-icon>refresh</mat-icon>
-      重新整理
-    </button>
-  </div>
-</div>
+}
