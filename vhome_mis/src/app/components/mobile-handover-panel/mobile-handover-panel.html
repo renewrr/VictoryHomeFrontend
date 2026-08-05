@@ -22,7 +22,7 @@
     @if (store.isLoadingInitial()) {
       <div class="center-spinner">
         <mat-spinner diameter="40" />
-        <p>Loading handovers...</p>
+        <p>訊息讀取中...</p>
       </div>
     }
 
@@ -37,7 +37,7 @@
     @if (store.isLoadingMore()) {
       <div class="loading-more-spinner">
         <mat-spinner diameter="24" />
-        <span>Loading next page...</span>
+        <span>訊息讀取中...</span>
       </div>
     }
   </cdk-virtual-scroll-viewport>
