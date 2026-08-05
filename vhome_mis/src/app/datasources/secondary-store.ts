@@ -5,7 +5,6 @@ import {
 } from '../core/api-client-v2';
 import { FilterStateService, HandoverFilterState } from '../services/filter-state-service';
 import { toLocalStartOfDayISO } from '../shared/utils/date.utils';
-import { catchError, tap } from 'rxjs';
 
 export type StoreStatus = 'idle' | 'loading' | 'loading-more' | 'error';
 
@@ -78,6 +77,7 @@ export class SecondaryStore {
   }
   loadNextPage(): void {
     // Strict Guard: Only fetch next page if currently idle and has remaining items
+    console.log("AAAAAAAAAAAAAA")
     if (this._status() !== 'idle' || !this.hasMorePages()) return;
 
     const nextPage = this.page() + 1;

@@ -53,6 +53,10 @@
         <span>Loading next page...</span>
       </div>
     }
+    {{ store.hasMorePages() }}
+    {{ store.isLoadingInitial() }}
+    {{ store.isLoadingMore() }}
+    {{ store.status() }}
   </cdk-virtual-scroll-viewport>
 
   <!-- 4. Primary Floating Action Button (Add Message) -->
