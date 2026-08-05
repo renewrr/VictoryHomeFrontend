@@ -93,7 +93,7 @@ export class SecondaryStore {
         currentFilters.locationIds,
         currentFilters.serviceUserIds,
         currentFilters.keywords,
-        this.page(),
+        nextPage,
         20,
       )
       .subscribe({
