@@ -5,11 +5,11 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="gap-2 p-4">
-  <button mat-button [mat-dialog-close]="false">
+  <button mat-button (click)="cancel()">
     {{ cancelText }}
   </button>
 
-  <button mat-flat-button [color]="color" [mat-dialog-close]="true">
+  <button mat-flat-button [color]="color" cdkFocusInitial (click)="confirm()">
     {{ confirmText }}
   </button>
 </mat-dialog-actions>
