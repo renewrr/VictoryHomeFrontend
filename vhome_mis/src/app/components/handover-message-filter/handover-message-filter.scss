@@ -1,40 +1,30 @@
-// .filter-container {
-//   height: auto;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-evenly;
-//   flex-wrap: wrap;
-// }
-
-// :host {
-//   display: block;
-//   width: 100%;
-// }
-
 :host {
   display: block;
   width: 100%;
-}
+  &.is-mobile {
+    .filter-container {
+      /* 1. Change flex to grid: Grid forces WebKit to calculate full multi-row height */
+      display: grid;
+      grid-template-columns: 1fr; /* Mobile default: 1 full-width column */
+      gap: 12px;
+      width: 100%;
+      height: auto;
 
-.filter-container {
-  /* 1. Change flex to grid: Grid forces WebKit to calculate full multi-row height */
-  display: grid;
-  grid-template-columns: 1fr; /* Mobile default: 1 full-width column */
-  gap: 12px;
-  width: 100%;
-  height: auto;
-
-  /* 2. Target projected Angular components inside <ng-content> */
-  ::ng-deep > * {
-    display: block !important;
-    width: 100% !important;
-    min-height: 56px; /* Prevents WebKit from squishing form fields */
+      /* 2. Target projected Angular components inside <ng-content> */
+      ::ng-deep > * {
+        display: block !important;
+        width: 100% !important;
+        min-height: 56px; /* Prevents WebKit from squishing form fields */
+      }
+    }
   }
-}
-
-/* 3. Optional Desktop layout: Auto-fit side-by-side when screen >= 600px */
-@media (min-width: 600px) {
-  .filter-container {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  &.is-desktop {
+    .filter-container {
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
   }
 }
