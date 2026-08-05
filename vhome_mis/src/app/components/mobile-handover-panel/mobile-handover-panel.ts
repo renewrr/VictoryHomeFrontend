@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, effect, inject, ViewChild } from '@angular/core';
+import { Component, effect, inject, Input, signal, Signal, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,17 +28,18 @@ import { HandoverCard } from '../handover-card/handover-card';
   styleUrl: './mobile-handover-panel.scss',
 })
 export class MobileHandoverPanel {
+  @Input() highlightText: Signal<string[]> = signal([]);
   readonly store = inject(SecondaryStore);
-  readonly ITEM_SIZE_PX = 120;
+  readonly ITEM_SIZE_PX = 150;
   protected localization = inject(LocalizationService);
-  filterService = inject(FilterStateService)
+  filterService = inject(FilterStateService);
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
 
   constructor() {
     // Reacts whenever filter criteria changes (even if current page was 1)
     effect(() => {
       // Register dependency on the filter selection
-      this.filterService.state()
+      this.filterService.state();
 
       // Scroll to top when filters change
       queueMicrotask(() => {

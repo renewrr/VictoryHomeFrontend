@@ -30,6 +30,7 @@
     <app-handover-card
       *cdkVirtualFor="let card of store.handovers(); trackBy: trackById"
       [card]="card"
+      [highlightText]="highlightText"
     />
 
     <!-- Bottom Infinite Scroll Loading State -->

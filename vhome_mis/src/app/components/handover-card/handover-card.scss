@@ -1,7 +1,7 @@
 :host {
   display: block;
   /* MUST equal the ITEM_SIZE_PX (120px) configured on cdk-virtual-scroll-viewport */
-  height: 120px;
+  height: 150px;
   box-sizing: border-box;
   padding: 4px 8px;
 }
@@ -16,7 +16,9 @@
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 
   /* Touch response feedback on mobile */
   &:active {
@@ -31,9 +33,15 @@
     background-color: #94a3b8; // Default low/neutral
   }
 
-  &[data-priority="high"] .priority-strip { background-color: #ef4444; }
-  &[data-priority="medium"] .priority-strip { background-color: #f59e0b; }
-  &[data-priority="low"] .priority-strip { background-color: #10b981; }
+  &[data-priority='high'] .priority-strip {
+    background-color: #ef4444;
+  }
+  &[data-priority='medium'] .priority-strip {
+    background-color: #f59e0b;
+  }
+  &[data-priority='low'] .priority-strip {
+    background-color: #10b981;
+  }
 
   .card-content {
     flex: 1;
@@ -70,9 +78,18 @@
     text-transform: uppercase;
     flex-shrink: 0;
 
-    &.high { background-color: #fef2f2; color: #dc2626; }
-    &.medium { background-color: #fffbeb; color: #d97706; }
-    &.low { background-color: #ecfdf5; color: #059669; }
+    &.high {
+      background-color: #fef2f2;
+      color: #dc2626;
+    }
+    &.medium {
+      background-color: #fffbeb;
+      color: #d97706;
+    }
+    &.low {
+      background-color: #ecfdf5;
+      color: #059669;
+    }
   }
 }
 
@@ -84,11 +101,11 @@
 
   /* CSS Multi-line clamping (Restricts body text to exactly 2 lines) */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 2.7em; // Prevents layout shifts during WebKit rendering
+  max-height: 5.4em; // Prevents layout shifts during WebKit rendering
 }
 
 .card-footer {
@@ -110,8 +127,8 @@
       color: #94a3b8;
     }
 
-    .shift-text{
-        width: 6ch;
+    .shift-text {
+      width: 6ch;
     }
   }
 

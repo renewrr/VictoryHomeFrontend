@@ -11,8 +11,7 @@
     </header>
 
     <!-- Card Body: Clamped to 2 lines -->
-    <p class="card-body">
-      {{ card().message_body }}
+    <p class="card-body" [innerHTML]="card().message_body | highlight: highlightText()">
     </p>
 
     <!-- Card Metadata Footer -->

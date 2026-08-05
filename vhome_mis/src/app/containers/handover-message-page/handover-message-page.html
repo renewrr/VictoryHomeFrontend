@@ -42,7 +42,7 @@
   </mat-accordion>
 </div>
 @if (layoutService.isMobile()) {
-  <app-mobile-handover-panel></app-mobile-handover-panel>
+  <app-mobile-handover-panel [highlightText]="highlightText"></app-mobile-handover-panel>
 } @else {
   <mat-tab-group>
     <mat-tab label="單一交班訊息">
