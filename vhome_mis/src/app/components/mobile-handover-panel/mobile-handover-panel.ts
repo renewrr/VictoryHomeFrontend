@@ -1,12 +1,14 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, Injector } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SecondaryStore } from '../../datasources/secondary-store';
-import { SignalHandoverDataSource } from '../../datasources/mobile-secondary-datasource';
 import { MatButtonModule } from '@angular/material/button';
+import { SecondaryHandoverMessageResponseSecondaryHandoverMessageRow } from '../../core/api-client-v2';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LocalizationService } from '../../services/localization-service';
 
 @Component({
   selector: 'app-mobile-handover-panel',
@@ -17,21 +19,36 @@ import { MatButtonModule } from '@angular/material/button';
     MatChipsModule,
     ScrollingModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './mobile-handover-panel.html',
   styleUrl: './mobile-handover-panel.scss',
 })
 export class MobileHandoverPanel {
-  public store = inject(SecondaryStore);
-  private injector = inject(Injector);
+  readonly store = inject(SecondaryStore);
+  readonly ITEM_SIZE_PX = 120;
+  protected localization = inject(LocalizationService);
 
-  dataSource!: SignalHandoverDataSource;
-
-  ngOnInit(): void {
-    this.dataSource = new SignalHandoverDataSource(this.store, this.injector);
+  trackById(
+    _index: number,
+    item: SecondaryHandoverMessageResponseSecondaryHandoverMessageRow,
+  ): number {
+    return item.ID;
   }
 
-  refreshFeed(): void {
-    this.store.reload();
+  onScrollIndexChange(renderedIndex: number): void {
+    const totalItems = this.store.handovers().length;
+
+    if (
+      totalItems > 0 &&
+      renderedIndex >= totalItems - 4 &&
+      !this.store.isLoadingMore() &&
+      this.store.hasMorePages()
+    ) {
+      this.store.loadNextPage();
+    }
+  }
+  toDatetime(timestamp: string) {
+    return new Date(timestamp);
   }
 }

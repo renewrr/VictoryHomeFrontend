@@ -120,30 +120,6 @@ export class HandoverMessagePage {
       ];
     }
   });
-  // filter_config = signal([
-  //   { id_tag: 'DATE', label: '篩選日期', type_config: { type: 'date' } },
-  //   {
-  //     id_tag: 'MESSAGETYPE',
-  //     label: '篩選訊息類別',
-  //     type_config: { type: 'multi' },
-  //     translate_config: { prefix: 'HANDOVER_MESSAGE.MESSAGETYPE' },
-  //   },
-  //   { id_tag: 'SERVICEUSER', label: '篩選服務使用者', type_config: { type: 'multi' } },
-  //   {
-  //     id_tag: 'SHIFTS',
-  //     label: '篩選班別',
-  //     type_config: { type: 'multi' },
-  //     translate_config: { prefix: 'HANDOVER_MESSAGE.SHIFTS' },
-  //   },
-  //   {
-  //     id_tag: 'FLOORS',
-  //     label: '篩選樓層',
-  //     type_config: { type: 'multi' },
-  //     translate_config: { prefix: 'HANDOVER_MESSAGE.FLOORS' },
-  //   },
-  //   { id_tag: 'EMPLOYEE', label: '篩選交班者', type_config: { type: 'multi' } },
-  //   { id_tag: 'KEYWORDS', label: '篩選關鍵字', type_config: { type: 'keyword' } },
-  // ]);
 
   ngOnInit() {
     const nextDay = new Date(Date.now());

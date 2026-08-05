@@ -11,7 +11,49 @@
   </mat-toolbar>
 
   <!-- 3. Virtual Scrolling Card Feed -->
-  <cdk-virtual-scroll-viewport itemSize="140" class="feed-viewport"> </cdk-virtual-scroll-viewport>
+  <cdk-virtual-scroll-viewport
+    [itemSize]="ITEM_SIZE_PX"
+    minBufferPx="240"
+    maxBufferPx="480"
+    (scrolledIndexChange)="onScrollIndexChange($event)"
+    class="feed-viewport"
+  >
+    <!-- Initial Loading State -->
+    @if (store.isLoadingInitial()) {
+      <div class="center-spinner">
+        <mat-spinner diameter="40" />
+        <p>Loading handovers...</p>
+      </div>
+    }
+
+    <!-- Inline Debug Card Item -->
+    <div *cdkVirtualFor="let card of store.handovers(); trackBy: trackById" class="debug-card-item">
+      <div class="card-header">
+        <strong>#{{ card.message_type_name }}</strong>
+      </div>
+      <p class="card-body">{{ card.message_body }}</p>
+      <div class="card-footer">
+        <small
+          >Shift: {{ card.shift_name }} | Creator: {{ card.creator_name }} | Timestamp:
+          {{
+            toDatetime(card.timestamp).toLocaleString(localization.dateLocalization()) +
+              ' ' +
+              toDatetime(card.timestamp).toLocaleDateString(localization.dateLocalization(), {
+                weekday: 'long',
+              })
+          }}</small
+        >
+      </div>
+    </div>
+
+    <!-- Bottom Infinite Scroll Loading State -->
+    @if (store.isLoadingMore()) {
+      <div class="loading-more-spinner">
+        <mat-spinner diameter="24" />
+        <span>Loading next page...</span>
+      </div>
+    }
+  </cdk-virtual-scroll-viewport>
 
   <!-- 4. Primary Floating Action Button (Add Message) -->
   <button mat-fab color="primary" class="create-message-fab" aria-label="Add new handover message">
