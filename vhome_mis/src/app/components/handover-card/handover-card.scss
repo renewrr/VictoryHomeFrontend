@@ -1,0 +1,127 @@
+:host {
+  display: block;
+  /* MUST equal the ITEM_SIZE_PX (120px) configured on cdk-virtual-scroll-viewport */
+  height: 120px;
+  box-sizing: border-box;
+  padding: 4px 8px;
+}
+
+.card-wrapper {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  /* Touch response feedback on mobile */
+  &:active {
+    background-color: #f8fafc;
+    transform: scale(0.99);
+  }
+
+  /* Priority Left Accent Border Strip */
+  .priority-strip {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: #94a3b8; // Default low/neutral
+  }
+
+  &[data-priority="high"] .priority-strip { background-color: #ef4444; }
+  &[data-priority="medium"] .priority-strip { background-color: #f59e0b; }
+  &[data-priority="low"] .priority-strip { background-color: #10b981; }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 12px;
+    min-width: 0; // Essential for text-overflow ellipses in flex children
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  .card-title {
+    margin: 0;
+    font-size: 0.9375rem; // 15px
+    font-weight: 600;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .priority-badge {
+    font-size: 0.6875rem; // 11px
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+
+    &.high { background-color: #fef2f2; color: #dc2626; }
+    &.medium { background-color: #fffbeb; color: #d97706; }
+    &.low { background-color: #ecfdf5; color: #059669; }
+  }
+}
+
+.card-body {
+  margin: 2px 0;
+  font-size: 0.8125rem; // 13px
+  color: #475569;
+  line-height: 1.35;
+
+  /* CSS Multi-line clamping (Restricts body text to exactly 2 lines) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 2.7em; // Prevents layout shifts during WebKit rendering
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem; // 12px
+  color: #64748b;
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    .meta-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      color: #94a3b8;
+    }
+
+    .shift-text{
+        width: 6ch;
+    }
+  }
+
+  .meta-divider {
+    color: #cbd5e1;
+  }
+
+  .time-stamp {
+    margin-left: auto; // Pushes timestamp to the far right
+    font-weight: 500;
+    color: #94a3b8;
+  }
+}

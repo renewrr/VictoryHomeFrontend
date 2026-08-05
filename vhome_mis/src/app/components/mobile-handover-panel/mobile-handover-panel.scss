@@ -46,11 +46,69 @@
   }
 
   .feed-viewport {
-    flex: 1;
+    height: 100%;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    overflow-y: auto;
 
-    .card-wrapper {
-      padding: 6px 12px;
+    .debug-card-item {
+      /* MUST match ITEM_SIZE_PX (120px) */
+      height: 120px;
+      box-sizing: border-box; /* Includes padding and border inside the 120px */
+      padding: 10px;
+      border-bottom: 1px solid #e0e0e0;
+      margin: 0; /* Avoid vertical margins; use padding instead */
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .badge {
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-weight: bold;
+          &.high {
+            background: #ffebee;
+            color: #c62828;
+          }
+          &.medium {
+            background: #fff8e1;
+            color: #f57f17;
+          }
+          &.low {
+            background: #e8f5e9;
+            color: #2e7d32;
+          }
+        }
+      }
+
+      .card-body {
+        margin: 4px 0;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .card-footer {
+        color: #666;
+      }
+    }
+
+    .center-spinner,
+    .loading-more-spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
     }
   }
 

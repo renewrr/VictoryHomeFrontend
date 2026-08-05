@@ -1,0 +1,48 @@
+<article class="card-wrapper" role="button" tabindex="0">
+  <!-- Priority Indicator Bar -->
+  <div class="priority-strip"></div>
+
+  <div class="card-content">
+    <!-- Card Header: Title & Priority Badge -->
+    <header class="card-header">
+      <h3 class="card-title">
+        {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + card().message_type_name | translate }}
+      </h3>
+    </header>
+
+    <!-- Card Body: Clamped to 2 lines -->
+    <p class="card-body">
+      {{ card().message_body }}
+    </p>
+
+    <!-- Card Metadata Footer -->
+    <footer class="card-footer">
+      <div class="meta-item">
+        <mat-icon inline class="meta-icon">schedule</mat-icon>
+        <span class="shift-text">
+          {{
+            'HANDOVER_MESSAGE.SHIFTS.' + card().shift_name
+              | translate: { default: card().shift_name }
+          }}</span
+        >
+      </div>
+
+      <div class="meta-divider">•</div>
+
+      <div class="meta-item">
+        <mat-icon inline class="meta-icon">person_outline</mat-icon>
+        <span>{{ card().creator_name }}</span>
+      </div>
+
+      <div class="meta-item time-stamp">
+        {{
+          toDatetime(card().timestamp).toLocaleString(localization.dateLocalization()) +
+            ' ' +
+            toDatetime(card().timestamp).toLocaleDateString(localization.dateLocalization(), {
+              weekday: 'long',
+            })
+        }}
+      </div>
+    </footer>
+  </div>
+</article>

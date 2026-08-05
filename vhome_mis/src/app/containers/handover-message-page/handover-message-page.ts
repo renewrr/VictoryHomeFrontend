@@ -122,7 +122,7 @@ export class HandoverMessagePage {
   });
 
   ngOnInit() {
-    const nextDay = new Date(Date.now());
+    const nextDay = new Date(Date.now() + 86400000);
     nextDay.setHours(0, 0, 0, 0);
     const prevDay = new Date(Date.now() - 86400000);
     prevDay.setHours(0, 0, 0, 0);

@@ -1,4 +1,4 @@
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { Injectable, computed, effect, inject, signal, untracked } from '@angular/core';
 import {
   HandoverSystemService,
   SecondaryHandoverMessageResponseSecondaryHandoverMessageRow,
@@ -19,8 +19,8 @@ export class SecondaryStore {
   private readonly items = signal<SecondaryHandoverMessageResponseSecondaryHandoverMessageRow[]>(
     [],
   );
-  private readonly page = signal<number>(1);
-  private readonly totalCount = signal<number>(0);
+  readonly page = signal<number>(0);
+  readonly totalCount = signal<number>(0);
   private readonly _status = signal<StoreStatus>('idle');
   private readonly _error = signal<string | null>(null);
 
@@ -36,17 +36,16 @@ export class SecondaryStore {
 
   constructor() {
     // Automatically reset and fetch when FilterStateService selection changes
-    effect(
-      () => {
-        const currentFilters = this.filterService.state();
-        this.resetAndFetch(currentFilters);
-      },
-      { allowSignalWrites: true },
-    );
+    effect(() => {
+      const state = this.filterService.state();
+      untracked(() => {
+        this.resetAndFetch(state);
+      });
+    });
   }
 
   private resetAndFetch(filters: HandoverFilterState): void {
-    this.page.set(1);
+    this.page.set(0);
     this._status.set('loading');
     this._error.set(null);
 
@@ -77,7 +76,6 @@ export class SecondaryStore {
   }
   loadNextPage(): void {
     // Strict Guard: Only fetch next page if currently idle and has remaining items
-    console.log("AAAAAAAAAAAAAA")
     if (this._status() !== 'idle' || !this.hasMorePages()) return;
 
     const nextPage = this.page() + 1;
@@ -111,5 +109,8 @@ export class SecondaryStore {
           this._status.set('idle');
         },
       });
+  }
+  refresh() {
+    this.resetAndFetch(this.filterService.state());
   }
 }
