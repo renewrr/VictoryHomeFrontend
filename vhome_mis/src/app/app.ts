@@ -18,6 +18,7 @@ export class App {
   private translate = inject(TranslateService);
   protected pageContext = inject(PageContextService);
   readonly isSidenavOpen = signal(true);
+  readonly isAnimating = signal(false);
 
   ngOnInit() {
     // 1. Establish the ultimate safety net fallback dictionary
@@ -26,6 +27,14 @@ export class App {
 
     // 2. Instruct the browser to hot-load the English pack initially
     this.translate.use('zh');
+  }
+  
+  onAnimationStart(): void {
+    this.isAnimating.set(true);
+  }
+
+  onAnimationEnd(): void {
+    this.isAnimating.set(false);
   }
 
   toggleSidenav(): void {

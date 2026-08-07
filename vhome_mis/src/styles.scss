@@ -193,3 +193,16 @@ body {
 .mat-mdc-tab .mdc-tab-indicator__content--underline {
   border-color: red !important;
 }
+
+/* styles.scss */
+.main-content.is-animating {
+  /* Forces all cells, headers, and text in nested components to stop wrapping for 200ms */
+  table,
+  .mat-mdc-table,
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+  }
+}

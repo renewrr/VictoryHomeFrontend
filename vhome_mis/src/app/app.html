@@ -3,10 +3,16 @@
 } @else {
   <app-top-toolbar (toggleSidenav)="toggleSidenav()" />
   <mat-sidenav-container>
-    <mat-sidenav [opened]="isSidenavOpen()" mode="side">
+    <mat-sidenav
+      [opened]="isSidenavOpen()"
+      mode="side"
+      (openedStart)="onAnimationStart()"
+      (closedStart)="onAnimationStart()"
+      (openedChange)="onAnimationEnd()"
+    >
       <app-sidenav (toggleCollapse)="toggleSidenav()" />
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="main-content" [class.is-animating]="isAnimating()">
       <router-outlet />
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -81,6 +81,15 @@
   gap: 8px;
 }
 
+/* main-layout.component.scss */
+.message-body.is-animating {
+  /* Temporarily freeze line wraps and heights during the 200ms animation */
+  * {
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
 .non-destructive {
   display: flex;
   gap: 4px;
