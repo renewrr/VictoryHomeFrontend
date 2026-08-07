@@ -1,7 +1,7 @@
 <nav class="sidenav-container">
   <!-- TOP ZONE: Primary Action CTA -->
   <div class="cta-wrapper">
-    <button mat-raised-button color="primary" class="create-btn" (click)="createHandover.emit()">
+    <button mat-raised-button color="primary" class="create-btn" (click)="summonNewMessageDialog()">
       <mat-icon>add</mat-icon>
       <span>新增交班紀錄</span>
     </button>
@@ -38,19 +38,19 @@
   <!-- BOTTOM ZONE: Anchored Utilities -->
   <div class="bottom-utilities">
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="/settings" routerLinkActive="active" class="nav-item">
+      <!-- <a mat-list-item routerLink="/settings" routerLinkActive="active" class="nav-item">
         <mat-icon matListItemIcon>settings</mat-icon>
         <span matListItemTitle class="nav-title">Settings</span>
-      </a>
+      </a> -->
 
       <a mat-list-item routerLink="/help" routerLinkActive="active" class="nav-item">
-        <mat-icon matListItemIcon>help_outline</mat-icon>
-        <span matListItemTitle class="nav-title">Help & Support</span>
+        <mat-icon matListItemIcon>report</mat-icon>
+        <span matListItemTitle class="nav-title">回報問題</span>
       </a>
 
       <button mat-list-item (click)="toggleCollapse.emit()" class="nav-item collapse-btn">
         <mat-icon matListItemIcon>chevron_left</mat-icon>
-        <span matListItemTitle class="nav-title">Collapse Menu</span>
+        <span matListItemTitle class="nav-title">收起選單</span>
       </button>
     </mat-nav-list>
   </div>

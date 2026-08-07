@@ -18,8 +18,8 @@ export interface HandoverFilterState {
 })
 export class FilterStateService {
   private _state = signal<HandoverFilterState>({
-    startTime: new Date(Date.now()),
-    endTime: new Date(Date.now() - 8640000),
+    startTime: new Date(Date.now() - 86400000),
+    endTime: new Date(Date.now() + 86400000),
     messageTypeIds: [],
     locationIds: [],
     shiftIds: [],

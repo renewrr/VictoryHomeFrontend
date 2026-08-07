@@ -30,6 +30,7 @@ export class SecondaryMessageTableService {
   handoverApi = inject(HandoverSystemService);
   filterStateService = inject(FilterStateService);
   authService = inject(AuthService);
+  dailyLength = -1
 
   private pagingState = linkedSignal<HandoverFilterState, SecondaryMessageState>({
     source: () => this.filterStateService.state(),
@@ -100,6 +101,12 @@ export class SecondaryMessageTableService {
   public currentPageIndex = computed(() => this.pagingState().pageIndex);
   public currentPageSize = computed(() => this.pagingState().pageSize);
   public editingRows = signal<Record<number, EditableSecondaryRow>>({});
+  public dailyMessageLength = computed(() => {
+    if (this.dailyLength === -1 && this.stableResponse()?.data_count != undefined){
+      this.dailyLength = this.stableResponse()?.data_count ?? 0
+    }
+    return this.dailyLength
+  })
 
   public updatePage(pageIndex: number, pageSize: number) {
     this.pagingState.update((s) => ({ ...s, pageIndex: pageIndex, pageSize: pageSize }));
