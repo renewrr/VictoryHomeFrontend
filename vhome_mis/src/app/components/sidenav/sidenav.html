@@ -1,0 +1,57 @@
+<nav class="sidenav-container">
+  <!-- TOP ZONE: Primary Action CTA -->
+  <div class="cta-wrapper">
+    <button mat-raised-button color="primary" class="create-btn" (click)="createHandover.emit()">
+      <mat-icon>add</mat-icon>
+      <span>新增交班紀錄</span>
+    </button>
+  </div>
+
+  <!-- PRIMARY NAVIGATION LIST -->
+  <div class="nav-section">
+    <span class="section-label">MAIN MENU</span>
+
+    <mat-nav-list class="nav-list">
+      @for (item of navItems(); track item.route) {
+        <a mat-list-item [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+          <mat-icon
+            matListItemIcon
+            [matBadge]="item.badge"
+            [matBadgeHidden]="!item.badge"
+            matBadgeColor="warn"
+            matBadgeSize="small"
+          >
+            {{ item.icon }}
+          </mat-icon>
+          <span matListItemTitle class="nav-title">{{ item.label }}</span>
+          <span matListItemLine class="nav-subtitle">{{ item.subtitle }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </div>
+
+  <!-- FLEXIBLE SPACER (Pushes utilities to the bottom) -->
+  <div class="spacer"></div>
+
+  <mat-divider class="sidebar-divider"></mat-divider>
+
+  <!-- BOTTOM ZONE: Anchored Utilities -->
+  <div class="bottom-utilities">
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/settings" routerLinkActive="active" class="nav-item">
+        <mat-icon matListItemIcon>settings</mat-icon>
+        <span matListItemTitle class="nav-title">Settings</span>
+      </a>
+
+      <a mat-list-item routerLink="/help" routerLinkActive="active" class="nav-item">
+        <mat-icon matListItemIcon>help_outline</mat-icon>
+        <span matListItemTitle class="nav-title">Help & Support</span>
+      </a>
+
+      <button mat-list-item (click)="toggleCollapse.emit()" class="nav-item collapse-btn">
+        <mat-icon matListItemIcon>chevron_left</mat-icon>
+        <span matListItemTitle class="nav-title">Collapse Menu</span>
+      </button>
+    </mat-nav-list>
+  </div>
+</nav>

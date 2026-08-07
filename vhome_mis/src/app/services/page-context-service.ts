@@ -23,6 +23,15 @@ export class PageContextService {
     { initialValue: 'Portal' },
   );
 
+  readonly hideSidenav = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.getDeepestRouteData(this.activatedRoute)),
+      map((data) => !!data['hideSidenav']),
+    ),
+    { initialValue: false },
+  );
+
   /**
    * Helper to traverse nested route children to find the deepest route's data snapshot.
    */

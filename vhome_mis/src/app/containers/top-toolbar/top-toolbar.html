@@ -1,5 +1,5 @@
 @if (layout.isMobile()) {
-  <app-mobile-toolbar />
+  <app-mobile-toolbar (toggleSidenav)="toggleSidenav.emit()" />
 } @else {
-  <app-main-toolbar-v2 />
+  <app-main-toolbar-v2 (toggleSidenav)="toggleSidenav.emit()"/>
 }

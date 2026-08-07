@@ -59,7 +59,7 @@ export const routes: Routes = [
       // return import('./login-page/login-page').then((m) => m.LoginPage);
       return import('./containers/login-page/login-page').then((m) => m.LoginPage);
     },
-    data: { reuse: false, pageTitle: '登入頁面' },
+    data: { reuse: false, pageTitle: '登入頁面', hideSidenav: true },
   },
   {
     path: 'handover',

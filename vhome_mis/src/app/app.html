@@ -1,5 +1,15 @@
 <app-main-toolbar />
-<app-top-toolbar />
-<main>
+@if (pageContext.hideSidenav()) {
+  <app-top-toolbar />
   <router-outlet />
-</main>
+} @else {
+  <app-top-toolbar (toggleSidenav)="toggleSidenav()" />
+  <mat-sidenav-container>
+    <mat-sidenav [opened]="isSidenavOpen()" mode="side">
+      <app-sidenav (toggleCollapse)="toggleSidenav()" />
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet />
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+}

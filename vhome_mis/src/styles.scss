@@ -8,12 +8,16 @@
 
 html {
   height: 100%;
-  @include mat.theme((color: (primary: mat.$azure-palette,
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
       typography: Roboto,
       density: 0,
-    ));
+    )
+  );
 }
 
 body {
@@ -35,7 +39,6 @@ body {
 }
 
 /* You can add global styles to this file, and also import other style files */
-
 
 .handover-message-dialog-box .mat-mdc-dialog-surface {
   border-radius: 10px !important;
@@ -62,31 +65,30 @@ body {
     white-space: pre-wrap;
   }
 
-  .dialog-buttons{
+  .dialog-buttons {
     border-radius: 10%;
   }
 }
 
 .square-mini-fab-check {
-    border-radius: 4px !important;
-    /* Forces the square shape */
-    // background-color: rgb(165, 217, 238);
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
+  border-radius: 4px !important;
+  /* Forces the square shape */
+  // background-color: rgb(165, 217, 238);
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
 }
 
 .square-mini-fab-edit {
-    border-radius: 4px !important;
-    /* Forces the square shape */
-    // background-color: rgb(165, 217, 238);
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
+  border-radius: 4px !important;
+  /* Forces the square shape */
+  // background-color: rgb(165, 217, 238);
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
 }
-
 
 .handover-input-dialog-box .mat-mdc-dialog-surface {
   border-radius: 10px !important;
@@ -159,7 +161,7 @@ body {
     .pending-messages {
       .action-button-group {
         display: flex;
-        gap: 10px
+        gap: 10px;
       }
 
       .editing-group {
@@ -168,7 +170,7 @@ body {
         }
 
         .edit-finish-button {
-          top: 50%
+          top: 50%;
         }
       }
     }
@@ -177,7 +179,11 @@ body {
 
 .mat-mdc-tab-header {
   // background-color: #ffffff; /* Your custom color */
-  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
 }
 
 .mdc-tab--active {

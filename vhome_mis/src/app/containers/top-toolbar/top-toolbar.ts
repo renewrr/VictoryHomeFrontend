@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { MobileToolbar } from '../../components/mobile-toolbar/mobile-toolbar';
 import { MainToolbarV2 } from '../../components/main-toolbar-v2/main-toolbar-v2';
 import { LayoutService } from '../../services/layout-service';
@@ -11,4 +11,5 @@ import { LayoutService } from '../../services/layout-service';
 })
 export class TopToolbar {
   protected layout = inject(LayoutService);
+  readonly toggleSidenav = output<void>();
 }

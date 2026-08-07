@@ -1,24 +1,26 @@
-<app-building-breadcrumbs></app-building-breadcrumbs>
-<router-outlet></router-outlet>
-<div class="refresh-button-container">
-  @if (pageStr().length > 0) {
-    <button matFab extended color="primary" class="fixed-button" (click)="pageFunc()">
-      <mat-icon>add</mat-icon>{{ pageStr() }}
+<div class="building-management">
+  <app-building-breadcrumbs></app-building-breadcrumbs>
+  <router-outlet></router-outlet>
+  <div class="refresh-button-container">
+    @if (pageStr().length > 0) {
+      <button matFab extended color="primary" class="fixed-button" (click)="pageFunc()">
+        <mat-icon>add</mat-icon>{{ pageStr() }}
+      </button>
+    }
+    <button
+      matFab
+      extended
+      color="primary"
+      class="fixed-button"
+      (click)="buildingService.reloadBuildings()"
+    >
+      <mat-icon>refresh</mat-icon>
+      重新整理
     </button>
-  }
-  <button
-    matFab
-    extended
-    color="primary"
-    class="fixed-button"
-    (click)="buildingService.reloadBuildings()"
-  >
-    <mat-icon>refresh</mat-icon>
-    重新整理
-  </button>
-  @if (deleteStr().length > 0) {
-    <button matFab extended class="delete-button" (click)="deleteFunc()">
-      <mat-icon>delete</mat-icon>{{ deleteStr() }}
-    </button>
-  }
+    @if (deleteStr().length > 0) {
+      <button matFab extended class="delete-button" (click)="deleteFunc()">
+        <mat-icon>delete</mat-icon>{{ deleteStr() }}
+      </button>
+    }
+  </div>
 </div>
