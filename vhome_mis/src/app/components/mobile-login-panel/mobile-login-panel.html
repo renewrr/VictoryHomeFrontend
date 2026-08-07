@@ -50,6 +50,7 @@
         (click)="onSubmit()"
         class="mobile-submit-btn"
         [disabled]="loginForm.invalid"
+        color="primary"
       >
         @if (isLoading()) {
           <mat-spinner [diameter]="20" class="login-spinner" color="accent"></mat-spinner>
