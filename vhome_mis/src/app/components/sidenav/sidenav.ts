@@ -9,6 +9,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { HandoverInputDialog } from '../../containers/dialogs/handover-input-dialog/handover-input-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { SecondaryMessageTableService } from '../../services/secondary-message-table-service';
+import { AuthService } from '../../services/auth-service';
 
 export interface NavItem {
   label: string;
@@ -36,25 +37,45 @@ export class Sidenav {
   readonly toggleCollapse = output<void>();
   protected dialogService = inject(MatDialog);
   protected messageService = inject(SecondaryMessageTableService);
+  protected auth = inject(AuthService);
 
-  readonly navItems = computed<NavItem[]>(() => [
-    {
-      label: '主頁面',
-      subtitle: '員工基本資料',
-      icon: 'dynamic_feed',
-      route: '/',
-    },
-    {
-      label: '交班系統',
-      subtitle: '交班訊息與紀錄',
-      icon: 'assignment',
-      route: '/handover',
-      badge:
-        this.messageService.dailyMessageLength() > 0
-          ? this.messageService.dailyMessageLength()
-          : undefined,
-    },
-  ]);
+  readonly navItems = computed<NavItem[]>(() => {
+    let routes = [
+      {
+        label: '主頁面',
+        subtitle: '員工基本資料',
+        icon: 'dynamic_feed',
+        route: '/home',
+      },
+      {
+        label: '交班系統',
+        subtitle: '交班訊息與紀錄',
+        icon: 'assignment',
+        route: '/handover',
+        badge:
+          this.messageService.dailyMessageLength() > 0
+            ? this.messageService.dailyMessageLength()
+            : undefined,
+      },
+    ];
+    if (this.auth.isManagementPrivilege()) {
+      routes = routes.concat([
+        {
+          label: '人員管理系統',
+          subtitle: '服務使用者與同工訊管理',
+          icon: 'management',
+          route: '/management',
+        },
+        {
+          label: '場域管理系統',
+          subtitle: '建築物、樓層與住宿房間管理',
+          icon: 'apartment',
+          route: '/buildingManagement',
+        },
+      ]);
+    }
+    return routes;
+  });
 
   summonNewMessageDialog() {
     this.dialogService

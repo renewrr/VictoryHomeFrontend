@@ -9,7 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MainToolbar, TopToolbar, Sidenav, MatSidenavModule],
+  imports: [RouterOutlet, TopToolbar, Sidenav, MatSidenavModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

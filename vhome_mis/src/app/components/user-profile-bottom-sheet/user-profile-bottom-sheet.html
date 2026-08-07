@@ -6,12 +6,11 @@
     <div class="avatar-circle">{{ nickname() }}</div>
     <div class="user-details">
       <p class="user-name">{{ currentUser().name }}</p>
-      <p class="user-role">Lead Operator &bull; Shift B</p>
     </div>
   </div>
 
   <mat-nav-list class="menu-list">
-    <button mat-list-item routerLink="/settings" (click)="dismiss()" class="setting-item">
+    <button mat-list-item routerLink="/home" (click)="dismiss()" class="setting-item">
       <mat-icon matListItemIcon>settings</mat-icon>
       <span matListItemTitle>帳號設定</span>
     </button>

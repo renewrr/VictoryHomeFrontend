@@ -35,7 +35,7 @@ export class MainToolbar {
     this.router.navigateByUrl('/handover');
   }
   mainPage() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/home');
   }
   management_page() {
     this.router.navigateByUrl('/management');

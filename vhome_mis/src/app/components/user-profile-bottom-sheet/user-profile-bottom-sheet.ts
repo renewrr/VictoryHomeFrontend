@@ -4,6 +4,7 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CurrentUserLookupService } from '../../services/current-user-lookup-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-user-profile-bottom-sheet',
@@ -14,6 +15,7 @@ import { CurrentUserLookupService } from '../../services/current-user-lookup-ser
 export class UserProfileBottomSheet {
   private readonly bottomSheetRef = inject(MatBottomSheetRef<UserProfileBottomSheet>);
   private userServcie = inject(CurrentUserLookupService);
+  protected authService = inject(AuthService);
   currentUser = this.userServcie.currentUser;
   nickname = computed(() => {
     return this.currentUser().name.slice(-2);
@@ -24,7 +26,7 @@ export class UserProfileBottomSheet {
   }
 
   logout(): void {
+    this.authService.logout();
     this.bottomSheetRef.dismiss();
-    // Auth logout logic
   }
 }

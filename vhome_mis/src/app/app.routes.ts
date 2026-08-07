@@ -43,8 +43,9 @@ export const managementGuard: CanActivateFn = (route, state) => {
 };
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     pathMatch: 'full',
     loadComponent() {
       return import('./containers/main-page/main-page').then((m) => m.MainPage);

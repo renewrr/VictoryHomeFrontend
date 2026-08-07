@@ -10,7 +10,7 @@ import { UserProfileBottomSheet } from '../user-profile-bottom-sheet/user-profil
 
 @Component({
   selector: 'app-mobile-toolbar',
-  imports: [RouterLink, MatToolbarModule, MatButtonModule, MatIconModule, MatBottomSheetModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatBottomSheetModule],
   templateUrl: './mobile-toolbar.html',
   styleUrl: './mobile-toolbar.scss',
 })

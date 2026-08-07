@@ -1,6 +1,4 @@
-<app-main-toolbar />
 @if (pageContext.hideSidenav()) {
-  <app-top-toolbar />
   <router-outlet />
 } @else {
   <app-top-toolbar (toggleSidenav)="toggleSidenav()" />

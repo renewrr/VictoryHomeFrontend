@@ -3,7 +3,7 @@ import { AuthData, AuthService } from '../../services/auth-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginPanelV2 } from '../../components/login-panel-v2/login-panel-v2';
 import { LayoutService } from '../../services/layout-service';
-import { MobileLoginPanel } from "../../components/mobile-login-panel/mobile-login-panel";
+import { MobileLoginPanel } from '../../components/mobile-login-panel/mobile-login-panel';
 
 @Component({
   selector: 'app-login-page',
@@ -28,7 +28,7 @@ export class LoginPage {
       next: () => {
         this.isLoading.set(false);
         // 🟢 The smart container safely evaluates routing context!
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
         console.log('LOGIN SUCCESS', returnUrl);
         this.router.navigateByUrl(returnUrl);
       },

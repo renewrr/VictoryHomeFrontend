@@ -38,10 +38,9 @@
       <mat-menu #userMenu="matMenu" xPosition="before" class="user-profile-menu">
         <div class="menu-header">
           <p class="user-full-name">{{ userService.currentUser().name }}</p>
-          <p class="user-role">Lead Operator &bull; Shift B</p>
         </div>
         <mat-divider></mat-divider>
-        <button mat-menu-item routerLink="/settings">
+        <button mat-menu-item routerLink="/home">
           <mat-icon>settings</mat-icon>
           <span>個人資料設定</span>
         </button>
