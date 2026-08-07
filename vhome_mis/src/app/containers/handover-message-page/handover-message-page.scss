@@ -1,8 +1,8 @@
 .button-container {
-  position: fixed;
-  bottom: 1%;
-  width: 98%;
-  z-index: 100;
+  // position: fixed;
+  // bottom: 1%;
+  // width: 98%;
+  // z-index: 100;
   display: flex;
   gap: 16px;
   pointer-events: none;
@@ -31,7 +31,7 @@ mat-expansion-panel {
   flex-basis: auto !important;
 }
 
-.message-page{
+.message-page {
   height: 90vh;
   margin: 16px;
 }
