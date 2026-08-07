@@ -53,7 +53,9 @@
       border-radius: 8px;
       margin-bottom: 4px;
       color: #94a3b8;
-      transition: background-color 0.15s ease, color 0.15s ease;
+      transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
 
       .nav-title {
         color: #e2e8f0;

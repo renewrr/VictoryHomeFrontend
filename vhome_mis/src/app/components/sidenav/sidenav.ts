@@ -10,6 +10,7 @@ import { HandoverInputDialog } from '../../containers/dialogs/handover-input-dia
 import { MatDialog } from '@angular/material/dialog';
 import { SecondaryMessageTableService } from '../../services/secondary-message-table-service';
 import { AuthService } from '../../services/auth-service';
+import { LayoutService } from '../../services/layout-service';
 
 export interface NavItem {
   label: string;
@@ -37,6 +38,7 @@ export class Sidenav {
   readonly toggleCollapse = output<void>();
   protected dialogService = inject(MatDialog);
   protected messageService = inject(SecondaryMessageTableService);
+  protected layout = inject(LayoutService)
   protected auth = inject(AuthService);
 
   readonly navItems = computed<NavItem[]>(() => {
@@ -62,13 +64,13 @@ export class Sidenav {
       routes = routes.concat([
         {
           label: '人員管理系統',
-          subtitle: '服務使用者與同工訊管理',
+          subtitle: '服務使用者與同工管理',
           icon: 'management',
           route: '/management',
         },
         {
           label: '場域管理系統',
-          subtitle: '建築物、樓層與住宿房間管理',
+          subtitle: '樓層與住宿房間管理',
           icon: 'apartment',
           route: '/buildingManagement',
         },
@@ -88,5 +90,11 @@ export class Sidenav {
       })
       .afterClosed()
       .subscribe(() => {});
+  }
+
+  navExtraHandle(){
+    if(this.layout.isMobile()){
+      this.toggleCollapse.emit()
+    }
   }
 }
