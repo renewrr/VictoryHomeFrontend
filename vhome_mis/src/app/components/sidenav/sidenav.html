@@ -13,13 +13,20 @@
 
     <mat-nav-list class="nav-list">
       @for (item of navItems(); track item.route) {
-        <a mat-list-item [routerLink]="item.route" routerLinkActive="active" class="nav-item" (click)="navExtraHandle()">
+        <a
+          mat-list-item
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          class="nav-item"
+          (click)="navExtraHandle()"
+        >
           <mat-icon
             matListItemIcon
             [matBadge]="item.badge"
             [matBadgeHidden]="!item.badge"
             matBadgeColor="warn"
             matBadgeSize="small"
+            aria-hidden="false"
           >
             {{ item.icon }}
           </mat-icon>
