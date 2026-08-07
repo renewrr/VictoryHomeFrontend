@@ -1,0 +1,27 @@
+<!-- mobile-toolbar/mobile-toolbar.component.html -->
+<div class="mobile-toolbar-wrapper">
+  <mat-toolbar color="primary" class="mobile-header">
+    <button mat-icon-button (click)="toggleSidenav.emit()" aria-label="Toggle navigation">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a class="brand-link" routerLink="/">
+      <mat-icon class="brand-icon">assignment_turned_in</mat-icon>
+      <span class="brand-title">{{ pageContext.currentPageTitle() }}</span>
+    </a>
+
+    <div class="right-actions">
+      <button mat-icon-button aria-label="Notifications">
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="refreshFeed.emit()" aria-label="Refresh feed">
+        <mat-icon>refresh</mat-icon>
+      </button>
+
+      <button mat-button class="profile-btn" (click)="openProfileSheet()">
+        <div class="avatar-circle">{{ userNickname() }}</div>
+      </button>
+    </div>
+  </mat-toolbar>
+</div>

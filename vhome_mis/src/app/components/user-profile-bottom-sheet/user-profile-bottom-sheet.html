@@ -1,0 +1,24 @@
+<!-- mobile-toolbar/user-profile-bottom-sheet/user-profile-bottom-sheet.component.html -->
+<div class="bottom-sheet-container">
+  <div class="drag-handle"></div>
+
+  <div class="user-header">
+    <div class="avatar-circle">{{ nickname() }}</div>
+    <div class="user-details">
+      <p class="user-name">{{ currentUser().name }}</p>
+      <p class="user-role">Lead Operator &bull; Shift B</p>
+    </div>
+  </div>
+
+  <mat-nav-list class="menu-list">
+    <button mat-list-item routerLink="/settings" (click)="dismiss()" class="setting-item">
+      <mat-icon matListItemIcon>settings</mat-icon>
+      <span matListItemTitle>帳號設定</span>
+    </button>
+
+    <button mat-list-item (click)="logout()" class="logout-item">
+      <mat-icon matListItemIcon class="logout-icon">logout</mat-icon>
+      <span matListItemTitle class="logout-text">登出</span>
+    </button>
+  </mat-nav-list>
+</div>

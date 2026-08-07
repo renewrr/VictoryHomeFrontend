@@ -2,12 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MainToolbar } from './components/main-toolbar/main-toolbar';
 import { TranslateService } from '@ngx-translate/core';
+import { TopToolbar } from './containers/top-toolbar/top-toolbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MainToolbar],
+  imports: [RouterOutlet, MainToolbar, TopToolbar],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('vhome_mis');
@@ -16,7 +17,7 @@ export class App {
   ngOnInit() {
     // 1. Establish the ultimate safety net fallback dictionary
     this.translate.addLangs(['en', 'zh', 'vi']);
-    this.translate.setFallbackLang('en')
+    this.translate.setFallbackLang('en');
 
     // 2. Instruct the browser to hot-load the English pack initially
     this.translate.use('zh');

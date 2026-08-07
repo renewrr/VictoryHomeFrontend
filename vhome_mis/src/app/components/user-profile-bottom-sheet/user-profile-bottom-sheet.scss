@@ -1,0 +1,67 @@
+/* mobile-toolbar/user-profile-bottom-sheet/user-profile-bottom-sheet.component.scss */
+.bottom-sheet-container {
+  padding: 12px 16px 24px;
+
+  .drag-handle {
+    width: 36px;
+    height: 4px;
+    background-color: #cbd5e1;
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+
+  .user-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+
+    .avatar-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #0284c7;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-name {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .user-role {
+      margin: 2px 0 0;
+      font-size: 0.8125rem;
+      color: #64748b;
+    }
+  }
+
+  .menu-list {
+    padding-top: 8px;
+
+    .setting-item {
+      margin-top: 8px;
+      background-color: lightgray;
+      border-radius: 8px;
+    }
+
+    .logout-item {
+      margin-top: 8px;
+      background-color: #fef2f2;
+      border-radius: 8px;
+
+      .logout-icon,
+      .logout-text {
+        color: #dc2626;
+      }
+    }
+  }
+}

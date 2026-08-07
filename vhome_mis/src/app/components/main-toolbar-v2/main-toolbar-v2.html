@@ -1,0 +1,56 @@
+<mat-toolbar color="primary" class="desktop-header">
+  <!-- LEFT ZONE: Brand & Navigation -->
+  <div class="toolbar-section left">
+    <button mat-icon-button (click)="toggleSidenav.emit()" aria-label="Toggle navigation">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a class="brand-link" routerLink="/">
+      <mat-icon class="brand-icon">assignment_turned_in</mat-icon>
+      <span class="brand-title">勝利之家事務系統</span>
+    </a>
+
+    <span class="divider">/</span>
+    <span class="page-title">{{ pageContext.currentPageTitle() }}</span>
+  </div>
+
+  <!-- CENTER ZONE: Shift / Status Context -->
+  @if (userService.currentUser().ID != 0) {
+    <div class="toolbar-section center">
+      <div class="context-chip">
+        <span class="status-dot online"></span>
+        <span class="chip-label">伺服器運作中</span>
+      </div>
+    </div>
+    <!-- RIGHT ZONE: Utilities & User Menu -->
+    <div class="toolbar-section right">
+      <button mat-icon-button (click)="onRefresh()" matTooltip="Refresh Feed">
+        <mat-icon>refresh</mat-icon>
+      </button>
+
+      <!-- User Profile Dropdown -->
+      <button mat-button [matMenuTriggerFor]="userMenu" class="profile-trigger">
+        <span class="avatar-circle">{{ userNickname() }}</span>
+        <span class="user-name">{{ userService.currentUser().name }}</span>
+        <mat-icon>expand_more</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu" xPosition="before" class="user-profile-menu">
+        <div class="menu-header">
+          <p class="user-full-name">{{ userService.currentUser().name }}</p>
+          <p class="user-role">Lead Operator &bull; Shift B</p>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>個人資料設定</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="onLogout()" class="logout-item">
+          <mat-icon color="warn">logout</mat-icon>
+          <span class="warn-text">登出</span>
+        </button>
+      </mat-menu>
+    </div>
+  }
+</mat-toolbar>

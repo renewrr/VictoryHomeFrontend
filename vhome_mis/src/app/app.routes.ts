@@ -50,7 +50,7 @@ export const routes: Routes = [
       return import('./containers/main-page/main-page').then((m) => m.MainPage);
     },
     canActivate: [authGuard],
-    data: { reuse: true },
+    data: { reuse: true, pageTitle: '主頁面' },
   },
   {
     path: 'login',
@@ -59,7 +59,7 @@ export const routes: Routes = [
       // return import('./login-page/login-page').then((m) => m.LoginPage);
       return import('./containers/login-page/login-page').then((m) => m.LoginPage);
     },
-    data: { reuse: false },
+    data: { reuse: false, pageTitle: '登入頁面' },
   },
   {
     path: 'handover',
@@ -70,7 +70,7 @@ export const routes: Routes = [
       );
     },
     canActivate: [authGuard],
-    data: { reuse: true },
+    data: { reuse: true, pageTitle: '交班系統' },
     resolve: {
       handoverResolver,
     },
@@ -83,7 +83,7 @@ export const routes: Routes = [
       return import('./containers/management-page/management-page').then((m) => m.ManagementPage);
     },
     canActivate: [authGuard, managementGuard],
-    data: { reuse: true },
+    data: { reuse: true, pageTitle: '人員管理系統' },
     resolve: {
       managementResolver,
     },
@@ -97,7 +97,7 @@ export const routes: Routes = [
       );
     },
     canActivate: [authGuard, managementGuard],
-    data: { reuse: true },
+    data: { reuse: true, pageTitle: '場域管理系統' },
     children: [
       {
         path: '',
