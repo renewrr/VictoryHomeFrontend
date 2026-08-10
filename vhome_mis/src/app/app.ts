@@ -6,6 +6,7 @@ import { TopToolbar } from './containers/top-toolbar/top-toolbar';
 import { PageContextService } from './services/page-context-service';
 import { Sidenav } from './components/sidenav/sidenav';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { LayoutService } from './services/layout-service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 })
 export class App {
   protected readonly title = signal('vhome_mis');
+  protected layout = inject(LayoutService);
   private translate = inject(TranslateService);
   protected pageContext = inject(PageContextService);
-  readonly isSidenavOpen = signal(true);
+  readonly isSidenavOpen = signal(!this.layout.isMobile());
   readonly isAnimating = signal(false);
 
   ngOnInit() {
@@ -28,7 +30,7 @@ export class App {
     // 2. Instruct the browser to hot-load the English pack initially
     this.translate.use('zh');
   }
-  
+
   onAnimationStart(): void {
     this.isAnimating.set(true);
   }
