@@ -34,6 +34,9 @@ mat-expansion-panel {
 .message-page {
   height: 90vh;
   margin: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .desktop-table {
