@@ -100,7 +100,6 @@ export class EmployeeStateService {
       ...structuredClone(employee),
       totpStatus: { type: 'DISPLAY' },
     };
-    console.log(employeeWithAuth);
     if (!employeeWithAuth.auth) {
       // employeeWithAuth.auth = { ID: -1, account: '', password: '', totp_secret: null };
       employeeWithAuth.totpStatus = { type: 'NOAUTH' };
@@ -120,7 +119,6 @@ export class EmployeeStateService {
 
   public commitEdit(employee: ManagementEmployeeResponseEmployeeDetails) {
     const buffer = this.getBuffer(employee);
-    console.log(employee, buffer);
     this.personnelService
       .apiV3PersonnelEmployeeDetailsPatch({ before: employee, after: buffer })
       .subscribe((response) => {
