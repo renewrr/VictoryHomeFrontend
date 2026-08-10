@@ -3,7 +3,7 @@
   <router-outlet></router-outlet>
   <div class="refresh-button-container">
     @if (pageStr().length > 0) {
-      <button matFab extended color="primary" class="fixed-button" (click)="pageFunc()">
+      <button matFab extended color="primary" class="sq-fab-edit" (click)="pageFunc()">
         <mat-icon>add</mat-icon>{{ pageStr() }}
       </button>
     }
@@ -11,14 +11,14 @@
       matFab
       extended
       color="primary"
-      class="fixed-button"
+      class="sq-fab-edit"
       (click)="buildingService.reloadBuildings()"
     >
       <mat-icon>refresh</mat-icon>
       重新整理
     </button>
     @if (deleteStr().length > 0) {
-      <button matFab extended class="delete-button" (click)="deleteFunc()">
+      <button matFab extended class="sq-fab-danger" (click)="deleteFunc()">
         <mat-icon>delete</mat-icon>{{ deleteStr() }}
       </button>
     }

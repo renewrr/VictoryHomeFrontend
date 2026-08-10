@@ -35,3 +35,9 @@ mat-expansion-panel {
   height: 90vh;
   margin: 16px;
 }
+
+.desktop-table {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

@@ -53,21 +53,11 @@
         </mat-card-header>
         <mat-card-content class="actions-content">
           <div class="button-row" color="primary">
-            <button
-              matFab
-              extended  
-              class="sq-fab-edit"
-              (click)="openPasswordDialog()"
-            >
+            <button matFab extended class="sq-fab-edit" (click)="openPasswordDialog()">
               <mat-icon>key</mat-icon>
               更新密碼
             </button>
-            <button
-              matFab
-              extended
-              class="sq-fab-danger"
-              (click)="authService.logout()"
-            >
+            <button matFab extended class="sq-fab-danger" (click)="authService.logout()">
               <mat-icon>logout</mat-icon>
               登出
             </button>

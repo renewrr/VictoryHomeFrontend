@@ -1,36 +1,39 @@
 <div class="management-page">
-  <mat-tab-group>
-    <mat-tab backgroundColor="primary" label="服務使用者管理">
+  <mat-tab-group (selectedIndexChange)="onIndexChange($event)">
+    <mat-tab label="服務使用者管理">
       <div>
         <div>
           <app-service-user-management-table></app-service-user-management-table>
         </div>
-        <div class="add-button-container">
-          <button matFab extended color="primary" (click)="summnonNewServiceUserDialog()">
-            <mat-icon>add</mat-icon>
-            新增服務使用者
-          </button>
-          <button matFab extended color="primary" (click)="refreshServiceUser()">
-            <mat-icon>refresh</mat-icon>
-            重新整理
-          </button>
-        </div>
       </div>
     </mat-tab>
-    <mat-tab backgroundColor="black" label="人員管理">
+    <mat-tab label="人員管理">
       <div>
         <app-employee-management-table></app-employee-management-table>
       </div>
-      <div class="add-button-container">
-        <button matFab extended color="primary" (click)="summnonNewEmployeeDialog()">
-          <mat-icon>add</mat-icon>
-          新增同工
-        </button>
-        <button matFab extended color="primary" (click)="employee.fetchData().subscribe()">
-          <mat-icon>refresh</mat-icon>
-          重新整理
-        </button>
-      </div>
     </mat-tab>
   </mat-tab-group>
+  @if (selectedIndex() == 0) {
+    <div class="add-button-container">
+      <button matFab extended class="sq-fab-edit" (click)="summnonNewServiceUserDialog()">
+        <mat-icon>add</mat-icon>
+        新增服務使用者
+      </button>
+      <button matFab extended class="sq-fab-edit" (click)="refreshServiceUser()">
+        <mat-icon>refresh</mat-icon>
+        重新整理
+      </button>
+    </div>
+  } @else {
+    <div class="add-button-container">
+      <button matFab extended class="sq-fab-edit" (click)="summnonNewEmployeeDialog()">
+        <mat-icon>add</mat-icon>
+        新增同工
+      </button>
+      <button matFab extended class="sq-fab-edit" (click)="employee.fetchData().subscribe()">
+        <mat-icon>refresh</mat-icon>
+        重新整理
+      </button>
+    </div>
+  }
 </div>

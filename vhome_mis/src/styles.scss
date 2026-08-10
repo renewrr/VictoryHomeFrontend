@@ -177,18 +177,18 @@ body {
   }
 }
 
-// .mat-mdc-tab-header {
-//   // background-color: #ffffff; /* Your custom color */
-//   text-shadow:
-//     -1px -1px 0 #ffffff,
-//     1px -1px 0 #ffffff,
-//     -1px 1px 0 #ffffff,
-//     1px 1px 0 #ffffff;
-// }
+.mat-mdc-tab-header {
+  // background-color: #ffffff; /* Your custom color */
+  text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
+}
 
-// .mdc-tab--active {
-//   background-color: lightblue !important;
-// }
+.mdc-tab--active {
+  background-color: lightblue !important;
+}
 
 // .mat-mdc-tab .mdc-tab-indicator__content--underline {
 //   border-color: red !important;
@@ -271,14 +271,14 @@ body {
 }
 
 .sq-fab-edit {
-  background-color: #f0f9ff !important; // Faint blue tint at rest
+  background-color: #bcdff6 !important; // Faint blue tint at rest
   color: #0284c7 !important;
   box-shadow: none !important;
   &:hover {
     background-color: #0284c7 !important;
     color: #ffffff !important;
   }
-  &:active {
+  &:active {  
     box-shadow: none !important;
   }
 }
@@ -310,7 +310,7 @@ body {
 
 /* 3. Delete (Red) */
 .sq-fab-danger {
-  background-color: #fef2f2 !important; // Faint red tint at rest
+  background-color: #ef8c8c !important; // Faint red tint at rest
   color: #dc2626 !important;
   box-shadow: none !important;
   &:hover {

@@ -105,28 +105,28 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/building-view/building-view').then((m) => m.BuildingView),
         canActivate: [authGuard],
-        data: { reuse: true },
+        data: { reuse: true, pageTitle: '場域管理系統' },
       },
       {
         path: 'building/:buildingId',
         loadComponent: () =>
           import('./components/building-details/building-details').then((m) => m.BuildingDetails),
         canActivate: [authGuard],
-        data: { reuse: true },
+        data: { reuse: true, pageTitle: '場域管理系統' },
       },
       {
         path: 'building/:buildingId/floor/:floorId',
         loadComponent: () =>
           import('./components/floor-details/floor-details').then((m) => m.FloorDetails),
         canActivate: [authGuard],
-        data: { reuse: true },
+        data: { reuse: true, pageTitle: '場域管理系統' },
       },
       {
         path: 'building/:buildingId/floor/:floorId/room/:roomId',
         loadComponent: () =>
           import('./components/room-details/room-details').then((m) => m.RoomDetails),
         canActivate: [authGuard],
-        data: { reuse: true },
+        data: { reuse: true, pageTitle: '場域管理系統' },
       },
     ],
   },

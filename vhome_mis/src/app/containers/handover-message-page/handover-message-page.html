@@ -45,41 +45,37 @@
   @if (layoutService.isMobile()) {
     <app-mobile-handover-panel [highlightText]="highlightText"></app-mobile-handover-panel>
   } @else {
-    <mat-tab-group>
-      <mat-tab label="單一交班訊息">
-        <div class="secondary-table">
-          <app-secondary-message-table-v2
-            [highlightText]="highlightText"
-          ></app-secondary-message-table-v2>
+    <div class="desktop-table">
+      <mat-tab-group>
+        <mat-tab label="單一交班訊息">
+          <div class="secondary-table">
+            <app-secondary-message-table-v2
+              [highlightText]="highlightText"
+            ></app-secondary-message-table-v2>
+          </div>
+        </mat-tab>
+        <mat-tab label="集合交班訊息">
+          <div class="primary-table">
+            <app-handover-message-table-v2
+              [highlightText]="highlightText"
+              (rowClicked)="summnonDetailDialog()"
+            ></app-handover-message-table-v2>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="button-container">
+        <div class="add-button-container">
+          <button matFab extended class="sq-fab-edit" (click)="summonNewMessageDialog()">
+            <mat-icon>add</mat-icon>
+            新增交班紀錄
+          </button>
         </div>
-      </mat-tab>
-      <mat-tab label="集合交班訊息">
-        <div class="primary-table">
-          <app-handover-message-table-v2
-            [highlightText]="highlightText"
-            (rowClicked)="summnonDetailDialog()"
-          ></app-handover-message-table-v2>
+        <div class="refresh-button-container">
+          <button matFab extended class="sq-fab-edit" (click)="refreshTable()">
+            <mat-icon>refresh</mat-icon>
+            重新整理
+          </button>
         </div>
-      </mat-tab>
-    </mat-tab-group>
-    <div class="button-container">
-      <div class="add-button-container">
-        <button
-          matFab
-          extended
-          color="primary"
-          class="fixed-button"
-          (click)="summonNewMessageDialog()"
-        >
-          <mat-icon>add</mat-icon>
-          新增交班紀錄
-        </button>
-      </div>
-      <div class="refresh-button-container">
-        <button matFab extended color="primary" class="fixed-button" (click)="refreshTable()">
-          <mat-icon>refresh</mat-icon>
-          重新整理
-        </button>
       </div>
     </div>
   }

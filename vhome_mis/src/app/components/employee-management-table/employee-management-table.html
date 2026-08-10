@@ -115,11 +115,7 @@
                     <qrcode [qrdata]="toURI(asEmployee(row))" [errorCorrectionLevel]="'H'"></qrcode>
                   </div>
                 </div>
-                <button
-                  matMiniFab
-                  class="sq-fab-danger"
-                  (click)="employeeService.removeTotp(row)"
-                >
+                <button matMiniFab class="sq-fab-danger" (click)="employeeService.removeTotp(row)">
                   <mat-icon>cancel</mat-icon>
                 </button>
               </div>
@@ -131,11 +127,7 @@
                     <qrcode [qrdata]="toURI(asEmployee(row))" [errorCorrectionLevel]="'H'"></qrcode>
                   </div>
                 </div>
-                <button
-                  matMiniFab
-                  class="sq-fab-cancel"
-                  (click)="employeeService.restoreTotp(row)"
-                >
+                <button matMiniFab class="sq-fab-cancel" (click)="employeeService.restoreTotp(row)">
                   <mat-icon>undo</mat-icon>
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ServiceUserManagementTable } from '../../components/service-user-management-table/service-user-management-table';
 import { MatInputModule } from '@angular/material/input';
@@ -29,7 +29,8 @@ export class ManagementPage {
   dialogService = inject(MatDialog);
   serviceUser = inject(ServiceUserTableService);
   employee = inject(EmployeeStateService);
-  eventBus = inject(BuildingEventBus)
+  eventBus = inject(BuildingEventBus);
+  readonly selectedIndex = signal<number>(0);
   summnonNewServiceUserDialog() {
     this.dialogService
       .open(ManagementNewServiceUserDialog, {
@@ -60,8 +61,12 @@ export class ManagementPage {
       });
   }
 
-  refreshServiceUser(){
-    this.eventBus.emit(AssetEvent.BuildingModified)
-    this.serviceUser.fetchData()
+  refreshServiceUser() {
+    this.eventBus.emit(AssetEvent.BuildingModified);
+    this.serviceUser.fetchData();
+  }
+
+  onIndexChange(index: number) {
+    this.selectedIndex.set(index);
   }
 }
