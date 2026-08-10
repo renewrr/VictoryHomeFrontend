@@ -1,0 +1,77 @@
+/* Desktop Dialog Container */
+.handover-dialog-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 24px 16px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+
+  h2 { margin: 0; font-size: 1.25rem; font-weight: 600; color: #0f172a; }
+  .dialog-subtitle { margin: 4px 0 0; font-size: 0.875rem; color: #64748b; }
+}
+
+.dialog-body {
+  padding: 24px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+/* 3-Column Grid for Metadata */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Card List Styling */
+.message-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.message-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  .category-select { flex: 0 0 220px; }
+  .message-text { flex: 1; }
+  
+  /* Align delete button vertically with input fields */
+  .sq-fab-danger { margin-top: 4px; }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+  mat-icon { font-size: 32px; width: 32px; height: 32px; margin-bottom: 8px; }
+}

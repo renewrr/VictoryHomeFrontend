@@ -39,7 +39,9 @@
                 <mat-select-trigger>
                   {{ getRowName(row) }}
                 </mat-select-trigger>
-                <mat-option [value]="activeAreaService.LIVING_SPACE_CLEAR_OPTION">非住宿</mat-option>
+                <mat-option [value]="activeAreaService.LIVING_SPACE_CLEAR_OPTION"
+                  >非住宿</mat-option
+                >
                 @for (livingSpace of activeAreaService.livingSpaces(); track $index) {
                   <mat-option [value]="livingSpace">{{ livingSpace.name }}</mat-option>
                 }
@@ -127,11 +129,7 @@
             @if (serviceUserState.editingRows()[asRow(row).ID]) {
               @if (serviceUserState.getBuffer(asRow(row)).deleted) {
                 <div class="non-destructive">
-                  <button
-                    matMiniFab
-                    class="sq-fab-danger"
-                    (click)="commitEdit(asRow(row))"
-                  >
+                  <button matMiniFab class="sq-fab-danger" (click)="commitEdit(asRow(row))">
                     <mat-icon>done_outline</mat-icon>
                   </button>
                   <button
@@ -145,25 +143,13 @@
               } @else {
                 <div class="editing-buttons">
                   <div class="non-destructive">
-                    <button
-                      matMiniFab
-                      class="sq-fab-success"
-                      (click)="commitEdit(asRow(row))"
-                    >
+                    <button matMiniFab class="sq-fab-success" (click)="commitEdit(asRow(row))">
                       <mat-icon>done_outline</mat-icon>
                     </button>
-                    <button
-                      matMiniFab
-                      class="sq-fab-warning"
-                      (click)="undoEdit(asRow(row))"
-                    >
+                    <button matMiniFab class="sq-fab-warning" (click)="undoEdit(asRow(row))">
                       <mat-icon>undo</mat-icon>
                     </button>
-                    <button
-                      matMiniFab
-                      class="sq-fab-cancel"
-                      (click)="cancelEdit(asRow(row))"
-                    >
+                    <button matMiniFab class="sq-fab-cancel" (click)="cancelEdit(asRow(row))">
                       <mat-icon>cancel</mat-icon>
                     </button>
                   </div>

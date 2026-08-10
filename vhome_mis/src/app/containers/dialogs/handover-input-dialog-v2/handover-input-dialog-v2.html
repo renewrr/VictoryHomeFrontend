@@ -1,0 +1,111 @@
+<!-- handover-dialog.component.html -->
+<div class="handover-dialog-container">
+  <!-- Dialog Header -->
+  <div class="dialog-header">
+    <div>
+      <h2 mat-dialog-title>Create Handover Message</h2>
+      <p class="dialog-subtitle">
+        Log shift details and categorize sub-messages for the incoming team.
+      </p>
+    </div>
+    <button mat-icon-button mat-dialog-close class="btn-close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+    <!-- 1. TOP SECTION: Required Metadata Grid -->
+    <section class="metadata-section">
+      <div class="section-label">Shift Details</div>
+
+      <div class="form-grid">
+        <!-- Location -->
+        <mat-form-field appearance="outline">
+          <mat-label>Location / Area</mat-label>
+          <input matInput placeholder="e.g. Line A - Assembly" required />
+        </mat-form-field>
+
+        <!-- Author -->
+        <mat-form-field appearance="outline">
+          <mat-label>Author</mat-label>
+          <input matInput required />
+        </mat-form-field>
+
+        <!-- Shift -->
+        <mat-form-field appearance="outline">
+          <mat-label>Shift</mat-label>
+          <mat-select required>
+            <mat-option value="Morning">Morning Shift (07:00 - 15:30)</mat-option>
+            <mat-option value="Evening">Evening Shift (15:30 - 00:00)</mat-option>
+            <mat-option value="Night">Night Shift (00:00 - 07:00)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <!-- 2. BOTTOM SECTION: Dynamic Sub-Messages -->
+    <section class="messages-section">
+      <div class="section-header-row">
+        <div>
+          <div class="section-label">Handover Sub-Messages</div>
+          <span class="sub-text">Add notes under specific categories.</span>
+        </div>
+
+        <!-- Add Message Trigger -->
+        <button mat-stroked-button color="primary" class="btn-add">
+          <mat-icon>add</mat-icon>
+          Add Sub-Message
+        </button>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="handover.messages.length === 0">
+        <mat-icon>assignment_add</mat-icon>
+        <p>No sub-messages added yet. Click <strong>"Add Sub-Message"</strong> to begin.</p>
+      </div>
+
+      <!-- Card List for Sub-Messages -->
+      <div class="message-cards-list">
+        <div class="message-card" *ngFor="let msg of handover.messages; let i = index">
+          <!-- Category Selector (6 Types) -->
+          <mat-form-field appearance="outline" class="category-select">
+            <mat-label>Category</mat-label>
+            <mat-select [(ngModel)]="msg.type">
+              <mat-option value="Equipment">Equipment / Machinery</mat-option>
+              <mat-option value="Safety">Safety & Incidents</mat-option>
+              <mat-option value="Quality">Quality & Testing</mat-option>
+              <mat-option value="Ongoing Operations">Ongoing Operations</mat-option>
+              <mat-option value="Pending Tasks">Pending / Action Items</mat-option>
+              <mat-option value="Others">Others</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Text Input -->
+          <mat-form-field appearance="outline" class="message-text">
+            <mat-label>Message Details</mat-label>
+
+            <textarea
+              matInput
+              [(ngModel)]="msg.content"
+              rows="2"
+              placeholder="Describe the status or action required..."
+            ></textarea>
+          </mat-form-field>
+
+          <!-- Delete Square FAB Button -->
+          <button mat-mini-fab class="sq-fab sq-fab-danger" tooltip="Remove">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </section>
+  </mat-dialog-content>
+
+  <!-- Dialog Footer Actions -->
+  <mat-dialog-actions class="dialog-footer align-end">
+    <button mat-stroked-button mat-dialog-close class="btn-cancel">Cancel</button>
+    <button mat-flat-button class="btn-primary">Submit Handover</button>
+  </mat-dialog-actions>
+</div>

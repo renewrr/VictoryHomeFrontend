@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SecondaryMessageTableService } from '../../services/secondary-message-table-service';
 import { AuthService } from '../../services/auth-service';
 import { LayoutService } from '../../services/layout-service';
+import { HandoverInputDialogV2 } from '../../containers/dialogs/handover-input-dialog-v2/handover-input-dialog-v2';
 
 export interface NavItem {
   label: string;
@@ -81,7 +82,7 @@ export class Sidenav {
 
   summonNewMessageDialog() {
     this.dialogService
-      .open(HandoverInputDialog, {
+      .open(HandoverInputDialogV2, {
         // Highly responsive config for a dense data-entry form
         width: '750px',
         maxWidth: '90vw',
