@@ -129,14 +129,14 @@
                 <div class="non-destructive">
                   <button
                     matMiniFab
-                    class="square-mini-fab-edit delete"
+                    class="sq-fab-danger"
                     (click)="commitEdit(asRow(row))"
                   >
                     <mat-icon>done_outline</mat-icon>
                   </button>
                   <button
                     matMiniFab
-                    class="square-mini-fab-check cancel"
+                    class="sq-fab-cancel"
                     (click)="serviceUserState.updateRow(asRow(row).ID, 'deleted', false)"
                   >
                     <mat-icon>cancel</mat-icon>
@@ -147,21 +147,21 @@
                   <div class="non-destructive">
                     <button
                       matMiniFab
-                      class="square-mini-fab-edit done"
+                      class="sq-fab-success"
                       (click)="commitEdit(asRow(row))"
                     >
                       <mat-icon>done_outline</mat-icon>
                     </button>
                     <button
                       matMiniFab
-                      class="square-mini-fab-check undo"
+                      class="sq-fab-warning"
                       (click)="undoEdit(asRow(row))"
                     >
                       <mat-icon>undo</mat-icon>
                     </button>
                     <button
                       matMiniFab
-                      class="square-mini-fab-check cancel"
+                      class="sq-fab-cancel"
                       (click)="cancelEdit(asRow(row))"
                     >
                       <mat-icon>cancel</mat-icon>
@@ -170,7 +170,7 @@
                   <div class="destructive">
                     <button
                       matMiniFab
-                      class="square-mini-fab-check delete"
+                      class="sq-fab-danger"
                       (click)="serviceUserState.updateRow(asRow(row).ID, 'deleted', true)"
                     >
                       <mat-icon>delete</mat-icon>
@@ -179,7 +179,7 @@
                 </div>
               }
             } @else {
-              <button matMiniFab class="square-mini-fab-edit edit" (click)="editRow(asRow(row))">
+              <button matMiniFab class="sq-fab-edit" (click)="editRow(asRow(row))">
                 <mat-icon>edit</mat-icon>
               </button>
             }

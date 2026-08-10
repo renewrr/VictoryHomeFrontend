@@ -53,21 +53,21 @@
             @if (dataService.isEditing(asDataRow(row))) {
               <button
                 matMiniFab
-                class="square-mini-fab-edit done"
+                class="sq-fab-success"
                 (click)="dataService.commitEdit(row)"
               >
                 <mat-icon>done_outline</mat-icon>
               </button>
               <button
                 matMiniFab
-                class="square-mini-fab-check undo"
+                class="sq-fab-warning"
                 (click)="dataService.undoEdit(row)"
               >
                 <mat-icon>undo</mat-icon>
               </button>
               <button
                 matMiniFab
-                class="square-mini-fab-check cancel"
+                class="sq-fab-cancel"
                 (click)="dataService.revertEdit(row)"
               >
                 <mat-icon>cancel</mat-icon>
@@ -85,13 +85,13 @@
               </mat-form-field>
               <button
                 matMiniFab
-                class="square-mini-fab-check delete"
+                class="sq-fab-danger"
                 (click)="dataService.updateRow(row.ID, 'deleted', true)"
               >
                 <mat-icon>delete</mat-icon>
               </button>
             } @else {
-              <button matMiniFab class="square-mini-fab-edit edit" (click)="startEdit(row)">
+              <button matMiniFab class="sq-fab-edit" (click)="startEdit(row)">
                 <mat-icon>edit</mat-icon>
               </button>
               <span

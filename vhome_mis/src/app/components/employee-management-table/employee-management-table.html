@@ -18,7 +18,7 @@
             <span>
               {{ asEmployee(row).name }}
             </span>
-            <button matMiniFab class="square-mini-fab-check delete" (click)="forcedLogout(row)">
+            <button matMiniFab class="sq-fab-danger" (click)="forcedLogout(row)">
               <mat-icon>logout</mat-icon>
             </button>
           </div>
@@ -96,7 +96,7 @@
             @case ('HIDING') {
               <button
                 matMiniFab
-                class="square-mini-fab-check"
+                class="sq-fab-edit"
                 (click)="
                   employeeService.updateRow(asEmployee(row).ID, 'totpStatus', {
                     type: 'ADDING',
@@ -117,7 +117,7 @@
                 </div>
                 <button
                   matMiniFab
-                  class="square-mini-fab-check delete"
+                  class="sq-fab-danger"
                   (click)="employeeService.removeTotp(row)"
                 >
                   <mat-icon>cancel</mat-icon>
@@ -133,7 +133,7 @@
                 </div>
                 <button
                   matMiniFab
-                  class="square-mini-fab-check cancel"
+                  class="sq-fab-cancel"
                   (click)="employeeService.restoreTotp(row)"
                 >
                   <mat-icon>undo</mat-icon>
@@ -146,14 +146,14 @@
                 <div class="buttons">
                   <button
                     matMiniFab
-                    class="square-mini-fab-edit done"
+                    class="sq-fab-success"
                     (click)="employeeService.setupTOTP(asEmployee(row))"
                   >
                     <mat-icon>done_outline</mat-icon>
                   </button>
                   <button
                     matMiniFab
-                    class="square-mini-fab-check cancel"
+                    class="sq-fab-cancel"
                     (click)="employeeService.cancelAddition(row)"
                   >
                     <mat-icon>cancel</mat-icon>
@@ -176,14 +176,14 @@
             <div class="non-destructive">
               <button
                 matMiniFab
-                class="square-mini-fab-edit delete"
+                class="sq-fab-danger"
                 (click)="employeeService.commitEdit(asEmployee(row))"
               >
                 <mat-icon>done_outline</mat-icon>
               </button>
               <button
                 matMiniFab
-                class="square-mini-fab-check cancel"
+                class="sq-fab-cancel"
                 (click)="employeeService.updateRow(asEmployee(row).ID, 'deleted', false)"
               >
                 <mat-icon>cancel</mat-icon>
@@ -194,21 +194,21 @@
               <div class="non-destructive">
                 <button
                   matMiniFab
-                  class="square-mini-fab-edit done"
+                  class="sq-fab-success"
                   (click)="employeeService.commitEdit(asEmployee(row))"
                 >
                   <mat-icon>done_outline</mat-icon>
                 </button>
                 <button
                   matMiniFab
-                  class="square-mini-fab-check undo"
+                  class="sq-fab-warning"
                   (click)="employeeService.undoEdit(asEmployee(row))"
                 >
                   <mat-icon>undo</mat-icon>
                 </button>
                 <button
                   matMiniFab
-                  class="square-mini-fab-check cancel"
+                  class="sq-fab-cancel"
                   (click)="employeeService.revertEdit(asEmployee(row))"
                 >
                   <mat-icon>cancel</mat-icon>
@@ -217,7 +217,7 @@
               <div class="destructive">
                 <button
                   matMiniFab
-                  class="square-mini-fab-check delete"
+                  class="sq-fab-danger"
                   (click)="employeeService.updateRow(asEmployee(row).ID, 'deleted', true)"
                 >
                   <mat-icon>delete</mat-icon>
@@ -228,7 +228,7 @@
         } @else {
           <button
             matMiniFab
-            class="square-mini-fab-edit edit"
+            class="sq-fab-edit"
             (click)="employeeService.startEdit(asEmployee(row))"
           >
             <mat-icon>edit</mat-icon>

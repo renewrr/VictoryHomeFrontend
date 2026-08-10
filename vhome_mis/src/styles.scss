@@ -12,7 +12,7 @@ html {
     (
       color: (
         primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        tertiary: mat.$cyan-palette,
       ),
       typography: Roboto,
       density: 0,
@@ -29,10 +29,10 @@ body {
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
   // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  // background-color: var(--mat-sys-surface);
+  // color: var(--mat-sys-on-surface);
 
+  font: var(--mat-sys-body-medium);
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
@@ -177,21 +177,33 @@ body {
   }
 }
 
-.mat-mdc-tab-header {
-  // background-color: #ffffff; /* Your custom color */
-  text-shadow:
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff;
-}
+// .mat-mdc-tab-header {
+//   // background-color: #ffffff; /* Your custom color */
+//   text-shadow:
+//     -1px -1px 0 #ffffff,
+//     1px -1px 0 #ffffff,
+//     -1px 1px 0 #ffffff,
+//     1px 1px 0 #ffffff;
+// }
 
-.mdc-tab--active {
-  background-color: lightblue !important;
-}
+// .mdc-tab--active {
+//   background-color: lightblue !important;
+// }
 
-.mat-mdc-tab .mdc-tab-indicator__content--underline {
-  border-color: red !important;
+// .mat-mdc-tab .mdc-tab-indicator__content--underline {
+//   border-color: red !important;
+// }
+
+/* Target all mat-tabs globally or within a specific container class */
+.mat-mdc-tab-group {
+  .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #38bdf8 !important;
+    font-weight: 600;
+  }
+
+  .mdc-tab-indicator__content--underline {
+    border-color: #38bdf8 !important;
+  }
 }
 
 /* styles.scss */
@@ -204,5 +216,122 @@ body {
     white-space: nowrap !important;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
+  }
+}
+
+.main-content {
+  background-color: #f8fafc;
+
+  /* Cards & Container Surfaces */
+  .mat-mdc-card,
+  .mat-mdc-table {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Tabs inside the Light Canvas */
+  .mat-mdc-tab-group {
+    /* Deeper blue for active tab text & underline on light background */
+    .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+      color: #0284c7 !important;
+      font-weight: 600;
+    }
+
+    .mdc-tab-indicator__content--underline {
+      border-color: #0284c7 !important;
+    }
+
+    .mat-mdc-tab:not(.mdc-tab--active) .mdc-tab__text-label {
+      color: #64748b; /* Muted dark slate */
+    }
+  }
+}
+
+/* src/styles.scss */
+
+/* Square Mini-FAB Base Override */
+.mat-mdc-mini-fab.sq-fab {
+  border-radius: 8px !important; // Makes the FAB a rounded square
+  width: 34px !important;
+  height: 34px !important;
+  box-shadow: none !important; // Flat look fits tables better than elevated shadows
+
+  .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Action Cell Container */
+.table-action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sq-fab-edit {
+  background-color: #f0f9ff !important; // Faint blue tint at rest
+  color: #0284c7 !important;
+  box-shadow: none !important;
+  &:hover {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+  }
+  &:active {
+    box-shadow: none !important;
+  }
+}
+
+.sq-fab-success {
+  background-color: #16a34a !important; // Solid green during active inline edit
+  color: #ffffff !important;
+  box-shadow: none !important;
+  &:hover {
+    background-color: #15803d !important;
+  }
+  &:active {
+    box-shadow: none !important;
+  }
+}
+
+/* 2. Revert (Amber) */
+.sq-fab-warning {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  &:hover {
+    background-color: #b45309 !important;
+  }
+  &:active {
+    box-shadow: none !important;
+  }
+}
+
+/* 3. Delete (Red) */
+.sq-fab-danger {
+  background-color: #fef2f2 !important; // Faint red tint at rest
+  color: #dc2626 !important;
+  box-shadow: none !important;
+  &:hover {
+    background-color: #dc2626 !important;
+    color: #ffffff !important;
+  }
+  &:active {
+    box-shadow: none !important;
+  }
+}
+
+/* 4. Cancel (Neutral Slate) */
+.sq-fab-cancel {
+  background-color: #f1f5f9 !important;
+  color: #64748b !important;
+  box-shadow: none !important;
+  &:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+  }
+  &:active {
+    box-shadow: none !important;
   }
 }

@@ -55,9 +55,8 @@
           <div class="button-row" color="primary">
             <button
               matFab
-              extended
-              class="square-mini-fab-check"
-              color="primary"
+              extended  
+              class="sq-fab-edit"
               (click)="openPasswordDialog()"
             >
               <mat-icon>key</mat-icon>
@@ -66,7 +65,7 @@
             <button
               matFab
               extended
-              class="square-mini-fab-check logout"
+              class="sq-fab-danger"
               (click)="authService.logout()"
             >
               <mat-icon>logout</mat-icon>
