@@ -1,0 +1,55 @@
+<div class="edit-sheet-wrapper">
+  @if (!isConfirmingDelete) {
+    <!-- Header -->
+    <div class="sheet-header">
+      <div class="title-group">
+        <h3>更新交班訊息</h3>
+      </div>
+      <div class="header-actions">
+        <button
+          mat-icon-button
+          class="btn-delete-icon"
+          aria-label="Delete sub-message"
+          (click)="isConfirmingDelete = true"
+        >
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Close sheet" (click)="close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- Body -->
+    <div class="sheet-body">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>訊息內容</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="editableMessage.message_body"
+          rows="4"
+          placeholder="更新交班訊息..."
+        >
+        </textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- Actions -->
+    <div class="sheet-actions">
+      <button mat-stroked-button class="btn-cancel" (click)="close()">取消</button>
+      <button mat-flat-button class="btn-save" (click)="save()">儲存變更</button>
+    </div>
+  } @else {
+    <div class="sheet-header confirm-header">
+      <div class="title-group">
+        <h3 class="text-danger">確定刪除訊息？</h3>
+        <span class="subtitle">此行動將永久刪除此交班訊息。</span>
+      </div>
+    </div>
+    <div class="sheet-actions">
+      <button mat-stroked-button class="btn-cancel" (click)="isConfirmingDelete = false">
+        保留訊息
+      </button>
+      <button mat-flat-button class="btn-confirm-delete" (click)="delete()">確定刪除</button>
+    </div>
+  }
+</div>

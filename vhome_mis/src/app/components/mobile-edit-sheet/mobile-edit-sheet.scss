@@ -1,0 +1,73 @@
+.edit-sheet-wrapper {
+  padding: 16px 16px max(16px, env(safe-area-inset-bottom)) 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #ffffff;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .btn-delete-icon {
+    color: #ef4444; // Red delete icon
+  }
+
+  .title-group {
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .subtitle {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+  }
+}
+
+.sheet-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 12px;
+
+  button {
+    flex: 1;
+    height: 48px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+  }
+
+  .btn-cancel {
+    border-color: #cbd5e1;
+    color: #475569;
+  }
+
+  .btn-save {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+  }
+
+  .btn-confirm-delete {
+    background-color: #dc2626 !important; // Solid Red Confirm Button
+    color: #ffffff !important;
+  }
+}
