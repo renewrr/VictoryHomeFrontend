@@ -11,6 +11,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LocalizationService } from '../../services/localization-service';
 import { FilterStateService } from '../../services/filter-state-service';
 import { HandoverCard } from '../handover-card/handover-card';
+import { MatDialog } from '@angular/material/dialog';
+import { MobileHandoverInputDialog } from '../../containers/dialogs/mobile-handover-input-dialog/mobile-handover-input-dialog';
 
 @Component({
   selector: 'app-mobile-handover-panel',
@@ -32,6 +34,7 @@ export class MobileHandoverPanel {
   readonly store = inject(SecondaryStore);
   readonly ITEM_SIZE_PX = 150;
   protected localization = inject(LocalizationService);
+  private dialogService = inject(MatDialog);
   filterService = inject(FilterStateService);
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
 
@@ -71,5 +74,17 @@ export class MobileHandoverPanel {
   }
   toDatetime(timestamp: string) {
     return new Date(timestamp);
+  }
+  summonNewMessageDialog() {
+    this.dialogService
+      .open(MobileHandoverInputDialog, {
+        width: '100vw',
+        maxWidth: '100vw',
+        height: '100dvh',
+        autoFocus: false,
+        panelClass: 'mobile-handover-input-dialog',
+      })
+      .afterClosed()
+      .subscribe(() => {});
   }
 }

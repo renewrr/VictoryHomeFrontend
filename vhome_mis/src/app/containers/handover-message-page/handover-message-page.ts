@@ -21,6 +21,7 @@ import { LayoutService } from '../../services/layout-service';
 import { MobileHandoverPanel } from '../../components/mobile-handover-panel/mobile-handover-panel';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FilterLookupService } from '../../services/filter-lookup-service';
+import { HandoverInputDialogV2 } from '../dialogs/handover-input-dialog-v2/handover-input-dialog-v2';
 
 @Component({
   selector: 'app-handover-message-page',
@@ -160,7 +161,7 @@ export class HandoverMessagePage {
 
   summonNewMessageDialog() {
     this.dialogService
-      .open(HandoverInputDialog, {
+      .open(HandoverInputDialogV2, {
         // Highly responsive config for a dense data-entry form
         width: '750px',
         maxWidth: '90vw',
@@ -168,9 +169,7 @@ export class HandoverMessagePage {
         maxHeight: '85vh',
       })
       .afterClosed()
-      .subscribe(() => {
-        this.refreshTable();
-      });
+      .subscribe(() => {});
   }
 
   refreshTable() {

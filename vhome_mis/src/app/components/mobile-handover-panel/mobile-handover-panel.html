@@ -4,6 +4,9 @@
     <span class="title">交班訊息</span>
     <span class="spacer"></span>
 
+    <button mat-icon-button aria-label="Refresh feed" (click)="summonNewMessageDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
     <!-- Refresh Button moved to Header to avoid FAB clutter -->
     <button mat-icon-button aria-label="Refresh feed" (click)="store.refresh()">
       <mat-icon>refresh</mat-icon>
