@@ -7,35 +7,37 @@
         </mat-expansion-panel-header>
         <app-handover-message-filter>
           @for (filter of filter_config(); track $index) {
-            @if (filter.type_config != undefined && filter.type_config.type == 'multi') {
-              @if (filter.translate_config != undefined) {
-                <app-multi-select-filter
+            @if (filter.display) {
+              @if (filter.type_config != undefined && filter.type_config.type == 'multi') {
+                @if (filter.translate_config != undefined) {
+                  <app-multi-select-filter
+                    [id_tag]="filter.id_tag"
+                    [label]="filter.label"
+                    [translate_config]="filter.translate_config"
+                    [available_options]="filterLookupService.getDropdownOptions(filter.id_tag)"
+                    (selection_changed)="on_selection_change($event)"
+                  ></app-multi-select-filter>
+                } @else {
+                  <app-multi-select-filter
+                    [id_tag]="filter.id_tag"
+                    [label]="filter.label"
+                    [available_options]="filterLookupService.getDropdownOptions(filter.id_tag)"
+                    (selection_changed)="on_selection_change($event)"
+                  ></app-multi-select-filter>
+                }
+              } @else if (filter.type_config != undefined && filter.type_config.type == 'date') {
+                <app-date-filter
                   [id_tag]="filter.id_tag"
                   [label]="filter.label"
-                  [translate_config]="filter.translate_config"
-                  [available_options]="multiFilterSignals[filter.id_tag]"
-                  (selection_changed)="on_selection_change($event)"
-                ></app-multi-select-filter>
+                  (selection_changed)="on_date_selection_change($event)"
+                ></app-date-filter>
               } @else {
-                <app-multi-select-filter
-                  [id_tag]="filter.id_tag"
+                <app-search-bar-filter
+                  [idTag]="filter.id_tag"
                   [label]="filter.label"
-                  [available_options]="multiFilterSignals[filter.id_tag]"
-                  (selection_changed)="on_selection_change($event)"
-                ></app-multi-select-filter>
+                  (selectionChanged)="onKeywordChange($event)"
+                ></app-search-bar-filter>
               }
-            } @else if (filter.type_config != undefined && filter.type_config.type == 'date') {
-              <app-date-filter
-                [id_tag]="filter.id_tag"
-                [label]="filter.label"
-                (selection_changed)="on_date_selection_change($event)"
-              ></app-date-filter>
-            } @else {
-              <app-search-bar-filter
-                [idTag]="filter.id_tag"
-                [label]="filter.label"
-                (selectionChanged)="onKeywordChange($event)"
-              ></app-search-bar-filter>
             }
           }
         </app-handover-message-filter>

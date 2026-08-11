@@ -20,6 +20,7 @@ import { SearchBarFilter } from '../../components/handover-message-filter/search
 import { LayoutService } from '../../services/layout-service';
 import { MobileHandoverPanel } from '../../components/mobile-handover-panel/mobile-handover-panel';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { FilterLookupService } from '../../services/filter-lookup-service';
 
 @Component({
   selector: 'app-handover-message-page',
@@ -45,6 +46,7 @@ export class HandoverMessagePage {
   dialogService = inject(MatDialog);
   handoverDataService = inject(HandoverMessageTableService);
   secondaryDataService = inject(SecondaryMessageTableService);
+  filterLookupService = inject(FilterLookupService);
   filterStateService = inject(FilterStateService);
   currentUserSerivce = inject(CurrentUserLookupService);
   layoutService = inject(LayoutService);
@@ -67,58 +69,49 @@ export class HandoverMessagePage {
   current_service_user_list: Record<number, string> = {};
   current_service_user_nicknames: Record<number, string[]> = [];
 
-  multiFilterSignals: Record<string, WritableSignal<FilterOption[]>> = {
-    MESSAGETYPE: signal<FilterOption[]>([]),
-    SERVICEUSER: signal<FilterOption[]>([]),
-    SHIFTS: signal<FilterOption[]>([]),
-    FLOORS: signal<FilterOption[]>([]),
-    EMPLOYEE: signal<FilterOption[]>([]),
-  };
-
   filter_config = computed(() => {
-    if (this.layoutService.isMobile()) {
-      return [
-        { id_tag: 'DATE', label: '篩選日期', type_config: { type: 'date' } },
-        {
-          id_tag: 'MESSAGETYPE',
-          label: '篩選訊息類別',
-          type_config: { type: 'multi' },
-          translate_config: { prefix: 'HANDOVER_MESSAGE.MESSAGETYPE' },
-        },
-        {
-          id_tag: 'FLOORS',
-          label: '篩選樓層',
-          type_config: { type: 'multi' },
-          translate_config: { prefix: 'HANDOVER_MESSAGE.FLOORS' },
-        },
-        { id_tag: 'KEYWORDS', label: '篩選關鍵字', type_config: { type: 'keyword' } },
-      ];
-    } else {
-      return [
-        { id_tag: 'DATE', label: '篩選日期', type_config: { type: 'date' } },
-        {
-          id_tag: 'MESSAGETYPE',
-          label: '篩選訊息類別',
-          type_config: { type: 'multi' },
-          translate_config: { prefix: 'HANDOVER_MESSAGE.MESSAGETYPE' },
-        },
-        { id_tag: 'SERVICEUSER', label: '篩選服務使用者', type_config: { type: 'multi' } },
-        {
-          id_tag: 'SHIFTS',
-          label: '篩選班別',
-          type_config: { type: 'multi' },
-          translate_config: { prefix: 'HANDOVER_MESSAGE.SHIFTS' },
-        },
-        {
-          id_tag: 'FLOORS',
-          label: '篩選樓層',
-          type_config: { type: 'multi' },
-          translate_config: { prefix: 'HANDOVER_MESSAGE.FLOORS' },
-        },
-        { id_tag: 'EMPLOYEE', label: '篩選交班者', type_config: { type: 'multi' } },
-        { id_tag: 'KEYWORDS', label: '篩選關鍵字', type_config: { type: 'keyword' } },
-      ];
-    }
+    return [
+      { id_tag: 'DATE', label: '篩選日期', type_config: { type: 'date' }, display: true },
+      {
+        id_tag: 'MESSAGETYPE',
+        label: '篩選訊息類別',
+        type_config: { type: 'multi' },
+        translate_config: { prefix: 'HANDOVER_MESSAGE.MESSAGETYPE' },
+        display: true,
+      },
+      {
+        id_tag: 'SERVICEUSER',
+        label: '篩選服務使用者',
+        type_config: { type: 'multi' },
+        display: !this.layoutService.isMobile(),
+      },
+      {
+        id_tag: 'SHIFTS',
+        label: '篩選班別',
+        type_config: { type: 'multi' },
+        translate_config: { prefix: 'HANDOVER_MESSAGE.SHIFTS' },
+        display: !this.layoutService.isMobile(),
+      },
+      {
+        id_tag: 'FLOORS',
+        label: '篩選樓層',
+        type_config: { type: 'multi' },
+        translate_config: { prefix: 'HANDOVER_MESSAGE.FLOORS' },
+        display: true,
+      },
+      {
+        id_tag: 'EMPLOYEE',
+        label: '篩選交班者',
+        type_config: { type: 'multi' },
+        display: !this.layoutService.isMobile(),
+      },
+      {
+        id_tag: 'KEYWORDS',
+        label: '篩選關鍵字',
+        type_config: { type: 'keyword' },
+        display: true,
+      },
+    ];
   });
 
   ngOnInit() {
@@ -129,7 +122,7 @@ export class HandoverMessagePage {
 
     this.filterStateService.patchDateFilter(prevDay, nextDay, 'DATE');
 
-    this.refreshFilterOptions();
+    this.filterLookupService.refreshFilterOptions();
     this.loadServiceUserData();
   }
 
@@ -180,25 +173,11 @@ export class HandoverMessagePage {
       });
   }
 
-  refreshFilterOptions() {
-    for (const filter_data of this.filter_config()) {
-      if (filter_data.type_config.type == 'multi') {
-        this.handoverService
-          .apiV3HandoverFilterOptionGet(
-            filter_data.id_tag as 'FLOORS' | 'SHIFTS' | 'EMPLOYEE' | 'SERVICEUSER',
-          )
-          .subscribe((data) => {
-            this.multiFilterSignals[filter_data.id_tag].set(data.data_rows);
-          });
-      }
-    }
-  }
-
   refreshTable() {
     this.loadServiceUserData();
     this.handoverDataService.tableRefresh();
     this.secondaryDataService.tableRefresh();
-    this.refreshFilterOptions();
+    this.filterLookupService.refreshFilterOptions();
   }
 
   summnonDetailDialog() {

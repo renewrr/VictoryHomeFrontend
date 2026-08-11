@@ -28,6 +28,8 @@ import { credentialsInterceptor } from './interceptors/credentials-interceptor';
 import { CustomMissingTranslationHandler } from './core/i18n/missing-translation.handler';
 import { BASE_PATH } from './core/api-client-v2';
 import { environment } from '../environments/environment';
+import { CurrentUserLookupService } from './services/current-user-lookup-service';
+import { FilterLookupService } from './services/filter-lookup-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -48,10 +50,12 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideAppInitializer(() => {
+      inject(CurrentUserLookupService);
+      inject(FilterLookupService)
       const authService = inject(AuthService);
       return authService.bootstrapAuthSession();
     }),
-    {provide: BASE_PATH, useValue: environment.apiURL}
+    { provide: BASE_PATH, useValue: environment.apiURL },
   ],
 };
 

@@ -1,9 +1,19 @@
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +23,41 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FilterOption } from '../../../core/contracts/filter-infra/filter-service.provider';
+import { HandoverSystemService } from '../../../core/api-client-v2';
+import { FilterLookupService } from '../../../services/filter-lookup-service';
+import { CurrentUserLookupService } from '../../../services/current-user-lookup-service';
+
+export interface SubMessageForm {
+  messageType: FormControl<FilterOption>;
+  messageBody: FormControl<string>;
+}
+
+// 2. Define the strict layout for the master metadata container
+export interface MessageFormSchema {
+  creator: FormControl<FilterOption>;
+  shift: FormControl<FilterOption>;
+  locations: FormControl<FilterOption[]>;
+  // This array can ONLY hold FormGroups that strictly match our child interface
+  secondaryMessages: FormArray<FormGroup<SubMessageForm>>;
+}
+
+export function optionSelectValidator(): ValidatorFn {
+  return (control: AbstractControl<FilterOption>): ValidationErrors | null => {
+    const value = control.value;
+    // Return null if valid, or an error object if invalid
+    return value.ID === -1 ? { restrictedSelection: { invalidValue: value } } : null;
+  };
+}
+
+export function minLengthValidator(min: number = 1): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control instanceof FormArray) {
+      return control.length >= min ? null : { minLengthArray: { valid: false } };
+    }
+    return null;
+  };
+}
 
 @Component({
   selector: 'app-handover-input-dialog-v2',
@@ -20,13 +65,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    MatDatepicker,
-    MatDatepickerToggle,
     MatFormFieldModule,
     MatInputModule,
     MatTimepickerModule,
     FormsModule,
-    MatDatepickerInput,
     MatDividerModule,
     MatSelect,
     MatOption,
@@ -41,4 +83,111 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './handover-input-dialog-v2.html',
   styleUrl: './handover-input-dialog-v2.scss',
 })
-export class HandoverInputDialogV2 {}
+export class HandoverInputDialogV2 {
+  filterService = inject(FilterLookupService);
+  handoverService = inject(HandoverSystemService);
+  meLookup = inject(CurrentUserLookupService);
+
+  availableEmployees = this.filterService.getDropdownOptions('EMPLOYEE');
+  availableShifts = this.filterService.getDropdownOptions('SHIFTS');
+  availableLocations = this.filterService.getDropdownOptions('FLOORS');
+  availableMessageTypes = this.filterService.getDropdownOptions('MESSAGETYPE');
+  currentUser = this.meLookup.currentUser();
+  messageForm!: FormGroup<MessageFormSchema>;
+  isSubmitting = signal(false);
+  private placeholder: Record<number, string> = {
+    1: '服務對象身體狀況',
+    2: '為何送醫，送何處，誰送',
+    4: '若有損壞，請在其他項目填寫物品，並註記是否有填維修單',
+    6: '非上述項目，但需要讓大家知道的 ',
+  };
+  private dialogRef = inject(MatDialogRef<HandoverInputDialogV2>);
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.messageForm = this.fb.group<MessageFormSchema>({
+      creator: this.fb.control<FilterOption>(
+        { ID: -1, name: '' },
+        { nonNullable: true, validators: [Validators.required, optionSelectValidator()] },
+      ),
+      shift: this.fb.control<FilterOption>(
+        { ID: -1, name: '' },
+        { nonNullable: true, validators: [Validators.required, optionSelectValidator()] },
+      ),
+      locations: this.fb.control<FilterOption[]>([], {
+        nonNullable: true,
+        validators: Validators.required,
+      }),
+      secondaryMessages: this.fb.array<FormGroup<SubMessageForm>>([], minLengthValidator()),
+    });
+    for (const emp of this.availableEmployees()) {
+      if (emp.ID === this.currentUser.ID) {
+        this.messageForm.get('creator')?.setValue(emp);
+        break;
+      }
+    }
+    this.addSecondary();
+  }
+
+  addSecondary() {
+    const newMsg = this.fb.group({
+      messageType: this.fb.control<FilterOption>(
+        { ID: -1, name: '' },
+        { nonNullable: true, validators: [Validators.required, optionSelectValidator()] },
+      ),
+      messageBody: this.fb.control<string>('', {
+        nonNullable: true,
+        validators: Validators.required,
+      }),
+    });
+    this.secondary.push(newMsg);
+  }
+
+  removeSecondary(index: number) {
+    this.secondary.controls.splice(index, 1);
+    this.secondary.controls.map((ctrl) => ctrl.updateValueAndValidity());
+    this.messageForm.updateValueAndValidity();
+  }
+
+  get secondary(): FormArray<FormGroup<SubMessageForm>> {
+    return this.messageForm.controls.secondaryMessages;
+  }
+
+  getPlaceholder(index: number) {
+    if (index in this.placeholder) {
+      return this.placeholder[index];
+    }
+    return '';
+  }
+
+  submitMessage() {
+    if (this.messageForm.invalid) {
+      this.messageForm.markAllAsTouched();
+      return;
+    }
+    const s = this.messageForm.getRawValue();
+    this.isSubmitting.set(true);
+    this.messageForm.disable();
+    this.handoverService
+      .apiV3HandoverNewHandoverMessagePost({
+        creator: s.creator,
+        datetime: new Date().toISOString(),
+        locations: s.locations,
+        secondary_data: s.secondaryMessages.map((val) => {
+          return { message_body: val.messageBody, message_type: val.messageType };
+        }),
+        shift: s.shift,
+      })
+      .subscribe({
+        next: (response) => {
+          console.log('Data received successfully');
+          this.dialogRef.close();
+        },
+        error: (error) => {
+          console.error('An error occurred:', error);
+          this.isSubmitting.set(false);
+        },
+      });
+  }
+}

@@ -23,7 +23,7 @@ interface UserState {
 export class AuthService {
   authAPi = inject(AuthSystemService);
   handoverApi = inject(HandoverSystemService);
-  translate = inject(TranslateService)
+  translate = inject(TranslateService);
 
   snackbar = inject(SnackbarService);
   router = inject(Router);
@@ -108,7 +108,7 @@ export class AuthService {
   }
 
   private resetUser() {
-    this.translate.use('zh')
+    this.translate.use('zh');
     this._userState.set({
       isAuthenticated: false,
       is2FaVerified: false,

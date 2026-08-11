@@ -1,111 +1,150 @@
 <!-- handover-dialog.component.html -->
 <div class="handover-dialog-container">
-  <!-- Dialog Header -->
-  <div class="dialog-header">
-    <div>
-      <h2 mat-dialog-title>Create Handover Message</h2>
-      <p class="dialog-subtitle">
-        Log shift details and categorize sub-messages for the incoming team.
-      </p>
+  <form [formGroup]="messageForm" (ngSubmit)="submitMessage()">
+    <!-- Dialog Header -->
+    <div class="dialog-header">
+      <div>
+        <h2 mat-dialog-title>新增交班紀錄</h2>
+      </div>
+      <button mat-icon-button mat-dialog-close class="btn-close">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
-    <button mat-icon-button mat-dialog-close class="btn-close">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
 
-  <mat-dialog-content class="dialog-body">
-    <!-- 1. TOP SECTION: Required Metadata Grid -->
-    <section class="metadata-section">
-      <div class="section-label">Shift Details</div>
-
-      <div class="form-grid">
-        <!-- Location -->
-        <mat-form-field appearance="outline">
-          <mat-label>Location / Area</mat-label>
-          <input matInput placeholder="e.g. Line A - Assembly" required />
-        </mat-form-field>
-
-        <!-- Author -->
-        <mat-form-field appearance="outline">
-          <mat-label>Author</mat-label>
-          <input matInput required />
-        </mat-form-field>
-
-        <!-- Shift -->
-        <mat-form-field appearance="outline">
-          <mat-label>Shift</mat-label>
-          <mat-select required>
-            <mat-option value="Morning">Morning Shift (07:00 - 15:30)</mat-option>
-            <mat-option value="Evening">Evening Shift (15:30 - 00:00)</mat-option>
-            <mat-option value="Night">Night Shift (00:00 - 07:00)</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </section>
-
-    <mat-divider></mat-divider>
-
-    <!-- 2. BOTTOM SECTION: Dynamic Sub-Messages -->
-    <section class="messages-section">
-      <div class="section-header-row">
-        <div>
-          <div class="section-label">Handover Sub-Messages</div>
-          <span class="sub-text">Add notes under specific categories.</span>
-        </div>
-
-        <!-- Add Message Trigger -->
-        <button mat-stroked-button color="primary" class="btn-add">
-          <mat-icon>add</mat-icon>
-          Add Sub-Message
-        </button>
-      </div>
-
-      <!-- Empty State -->
-      <div class="empty-state" *ngIf="handover.messages.length === 0">
-        <mat-icon>assignment_add</mat-icon>
-        <p>No sub-messages added yet. Click <strong>"Add Sub-Message"</strong> to begin.</p>
-      </div>
-
-      <!-- Card List for Sub-Messages -->
-      <div class="message-cards-list">
-        <div class="message-card" *ngFor="let msg of handover.messages; let i = index">
-          <!-- Category Selector (6 Types) -->
-          <mat-form-field appearance="outline" class="category-select">
-            <mat-label>Category</mat-label>
-            <mat-select [(ngModel)]="msg.type">
-              <mat-option value="Equipment">Equipment / Machinery</mat-option>
-              <mat-option value="Safety">Safety & Incidents</mat-option>
-              <mat-option value="Quality">Quality & Testing</mat-option>
-              <mat-option value="Ongoing Operations">Ongoing Operations</mat-option>
-              <mat-option value="Pending Tasks">Pending / Action Items</mat-option>
-              <mat-option value="Others">Others</mat-option>
+    <mat-dialog-content class="dialog-body">
+      <!-- 1. TOP SECTION: Required Metadata Grid -->
+      <section class="metadata-section">
+        <div class="section-label">交班紀錄資訊</div>
+        <div class="form-grid">
+          <!-- Author -->
+          <mat-form-field appearance="outline">
+            <mat-label>交班同工</mat-label>
+            <mat-select required formControlName="creator">
+              @for (empData of availableEmployees(); track $index) {
+                <mat-option [value]="empData">{{ empData.name }}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
 
-          <!-- Text Input -->
-          <mat-form-field appearance="outline" class="message-text">
-            <mat-label>Message Details</mat-label>
-
-            <textarea
-              matInput
-              [(ngModel)]="msg.content"
-              rows="2"
-              placeholder="Describe the status or action required..."
-            ></textarea>
+          <!-- Location -->
+          <mat-form-field appearance="outline">
+            <mat-label>樓層(可複選)</mat-label>
+            <mat-select required multiple formControlName="locations">
+              @for (locData of availableLocations(); track $index) {
+                <mat-option [value]="locData">{{
+                  ('HANDOVER_MESSAGE.FLOORS.' + locData.name | translate) !==
+                  'HANDOVER_MESSAGE.FLOORS.' + locData.name
+                    ? ('HANDOVER_MESSAGE.FLOORS.' + locData.name | translate)
+                    : locData.name
+                }}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
 
-          <!-- Delete Square FAB Button -->
-          <button mat-mini-fab class="sq-fab sq-fab-danger" tooltip="Remove">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <!-- Shift -->
+          <mat-form-field appearance="outline">
+            <mat-label>班別</mat-label>
+            <mat-select required formControlName="shift">
+              @for (shiftData of availableShifts(); track $index) {
+                <mat-option [value]="shiftData">{{
+                  ('HANDOVER_MESSAGE.SHIFTS.' + shiftData.name | translate) !==
+                  'HANDOVER_MESSAGE.SHIFTS.' + shiftData.name
+                    ? ('HANDOVER_MESSAGE.SHIFTS.' + shiftData.name | translate)
+                    : shiftData.name
+                }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
         </div>
-      </div>
-    </section>
-  </mat-dialog-content>
+      </section>
 
-  <!-- Dialog Footer Actions -->
-  <mat-dialog-actions class="dialog-footer align-end">
-    <button mat-stroked-button mat-dialog-close class="btn-cancel">Cancel</button>
-    <button mat-flat-button class="btn-primary">Submit Handover</button>
-  </mat-dialog-actions>
+      <mat-divider></mat-divider>
+
+      <!-- 2. BOTTOM SECTION: Dynamic Sub-Messages -->
+      <section class="messages-section">
+        <div class="section-header-row">
+          <div>
+            <div class="section-label">交班訊息</div>
+            <span class="sub-text">選擇類別後填寫訊息內容</span>
+          </div>
+
+          <!-- Add Message Trigger -->
+          <div>
+            <button
+              mat-stroked-button
+              color="primary"
+              class="btn-add"
+              (click)="addSecondary()"
+              [disabled]="isSubmitting()"
+            >
+              <mat-icon>add</mat-icon>
+              新增訊息
+            </button>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        @if (secondary.controls.length === 0) {
+          <div class="empty-state">
+            <mat-icon>assignment_add</mat-icon>
+            <p>尚未加入任何交班訊息。 按 <strong>"新增訊息"</strong> 以新增一筆訊息。</p>
+          </div>
+        }
+
+        <!-- Card List for Sub-Messages -->
+        <div class="message-cards-list">
+          @for (msg of secondary.controls; track $index) {
+            <form [formGroup]="msg" #formDirective="ngForm">
+              <div class="message-card">
+                <!-- Category Selector (6 Types) -->
+                <mat-form-field appearance="outline" class="category-select">
+                  <mat-label>訊息類別</mat-label>
+                  <mat-select formControlName="messageType">
+                    @for (messageType of availableMessageTypes(); track $index) {
+                      <mat-option [value]="messageType">{{
+                        ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate) !==
+                        'HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name
+                          ? ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate)
+                          : messageType.name
+                      }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Text Input -->
+                <mat-form-field appearance="outline" class="message-text">
+                  <mat-label>訊息內容</mat-label>
+                  <textarea
+                    matInput
+                    formControlName="messageBody"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="3"
+                    cdkAutosizeMaxRows="8"
+                    [placeholder]="getPlaceholder(msg.controls.messageType.value.ID)"
+                  ></textarea>
+                </mat-form-field>
+
+                <!-- Delete Square FAB Button -->
+                <button
+                  mat-mini-fab
+                  class="sq-fab sq-fab-danger"
+                  tooltip="Remove"
+                  (click)="removeSecondary($index)"
+                  [disabled]="isSubmitting()"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      </section>
+    </mat-dialog-content>
+
+    <!-- Dialog Footer Actions -->
+    <mat-dialog-actions class="dialog-footer align-end">
+      <button mat-stroked-button mat-dialog-close class="btn-cancel" [disabled]="isSubmitting()">取消</button>
+      <button mat-flat-button class="btn-primary" [disabled]="isSubmitting()">送出交班紀錄</button>
+    </mat-dialog-actions>
+  </form>
 </div>
