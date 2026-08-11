@@ -10,6 +10,9 @@
         <!-- <span class="app-bar-subtitle">Shift Log & Notes</span> -->
       </div>
     </header>
+    @if (isSubmitting()) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
 
     <!-- Scrollable Main Content -->
     <main class="mobile-content-body">
@@ -132,13 +135,13 @@
     <!-- Sticky Bottom Action Footer -->
     <footer class="mobile-sticky-footer">
       <!-- Action 1: Add Card -->
-      <button mat-stroked-button color="primary" class="btn-add-mobile" (click)="addSecondary()">
+      <button mat-stroked-button color="primary" class="btn-add-mobile" (click)="addSecondary()" [disabled]="isSubmitting()">
         <mat-icon>add</mat-icon>
         新增訊息
       </button>
 
       <!-- Action 2: Primary Submit -->
-      <button mat-flat-button class="btn-primary btn-submit-mobile">送出交班紀錄</button>
+      <button mat-flat-button class="btn-primary btn-submit-mobile" [disabled]="isSubmitting()">送出交班紀錄</button>
     </footer>
   </form>
 </div>
