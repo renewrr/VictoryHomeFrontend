@@ -12,6 +12,7 @@ import { SecondaryMessageTableService } from '../../services/secondary-message-t
 import { AuthService } from '../../services/auth-service';
 import { LayoutService } from '../../services/layout-service';
 import { HandoverInputDialogV2 } from '../../containers/dialogs/handover-input-dialog-v2/handover-input-dialog-v2';
+import { MobileHandoverInputDialog } from '../../containers/dialogs/mobile-handover-input-dialog/mobile-handover-input-dialog';
 
 export interface NavItem {
   label: string;
@@ -39,7 +40,7 @@ export class Sidenav {
   readonly toggleCollapse = output<void>();
   protected dialogService = inject(MatDialog);
   protected messageService = inject(SecondaryMessageTableService);
-  protected layout = inject(LayoutService)
+  protected layout = inject(LayoutService);
   protected auth = inject(AuthService);
 
   readonly navItems = computed<NavItem[]>(() => {
@@ -81,21 +82,33 @@ export class Sidenav {
   });
 
   summonNewMessageDialog() {
-    this.dialogService
-      .open(HandoverInputDialogV2, {
-        // Highly responsive config for a dense data-entry form
-        width: '750px',
-        maxWidth: '90vw',
-        height: 'auto',
-        maxHeight: '85vh',
-      })
-      .afterClosed()
-      .subscribe(() => {});
+    if (this.layout.isMobile()) {
+      this.dialogService
+        .open(MobileHandoverInputDialog, {
+          width: '100vw',
+          maxWidth: '100vw',
+          height: '100vh',
+          maxHeight: '100vhvh',
+        })
+        .afterClosed()
+        .subscribe(() => {});
+    } else {
+      this.dialogService
+        .open(HandoverInputDialogV2, {
+          // Highly responsive config for a dense data-entry form
+          width: '750px',
+          maxWidth: '90vw',
+          height: 'auto',
+          maxHeight: '85vh',
+        })
+        .afterClosed()
+        .subscribe(() => {});
+    }
   }
 
-  navExtraHandle(){
-    if(this.layout.isMobile()){
-      this.toggleCollapse.emit()
+  navExtraHandle() {
+    if (this.layout.isMobile()) {
+      this.toggleCollapse.emit();
     }
   }
 }

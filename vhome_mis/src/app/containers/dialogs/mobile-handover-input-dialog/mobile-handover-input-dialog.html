@@ -1,24 +1,23 @@
-<!-- handover-dialog.component.html -->
-<div class="handover-dialog-container">
+<div class="handover-mobile-wrapper">
   <form [formGroup]="messageForm" (ngSubmit)="submitMessage()">
-    <!-- Dialog Header -->
-    <div class="dialog-header">
-      <div>
-        <h2 mat-dialog-title>新增交班紀錄</h2>
-      </div>
-      <button mat-icon-button mat-dialog-close class="btn-close">
-        <mat-icon>close</mat-icon>
+    <!-- Sticky Mobile App-Bar Header -->
+    <header class="mobile-app-bar">
+      <button mat-icon-button mat-dialog-close class="btn-back" aria-label="Close dialog">
+        <mat-icon>arrow_back</mat-icon>
       </button>
-    </div>
-    @if (isSubmitting()) {
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    }
-    <mat-dialog-content class="dialog-body">
-      <!-- 1. TOP SECTION: Required Metadata Grid -->
-      <section class="metadata-section">
-        <div class="section-label">交班紀錄資訊</div>
-        <div class="form-grid">
-          <!-- Author -->
+      <div class="app-bar-title">
+        <h2>新增交班紀錄</h2>
+        <!-- <span class="app-bar-subtitle">Shift Log & Notes</span> -->
+      </div>
+    </header>
+
+    <!-- Scrollable Main Content -->
+    <main class="mobile-content-body">
+      <!-- 1. Metadata Section (Stacked Inputs) -->
+      <section class="section-block">
+        <div class="section-title">交班紀錄資訊</div>
+
+        <div class="metadata-stack">
           <mat-form-field appearance="outline">
             <mat-label>交班同工</mat-label>
             <mat-select required formControlName="creator">
@@ -62,44 +61,41 @@
 
       <mat-divider></mat-divider>
 
-      <!-- 2. BOTTOM SECTION: Dynamic Sub-Messages -->
-      <section class="messages-section">
+      <!-- 2. Sub-Messages Cards Section -->
+      <section class="section-block">
         <div class="section-header-row">
-          <div>
-            <div class="section-label">交班訊息</div>
-            <span class="sub-text">選擇類別後填寫訊息內容</span>
-          </div>
-
-          <!-- Add Message Trigger -->
-          <div>
-            <button
-              mat-stroked-button
-              color="primary"
-              class="btn-add"
-              (click)="addSecondary()"
-              [disabled]="isSubmitting()"
-            >
-              <mat-icon>add</mat-icon>
-              新增訊息
-            </button>
-          </div>
+          <div class="section-title">交班訊息 ({{ secondary.controls.length }})</div>
         </div>
 
         <!-- Empty State -->
         @if (secondary.controls.length === 0) {
-          <div class="empty-state">
-            <mat-icon>assignment_add</mat-icon>
-            <p>尚未加入任何交班訊息。 按 <strong>"新增訊息"</strong> 以新增一筆訊息。</p>
+          <div class="mobile-empty-state">
+            <mat-icon>post_add</mat-icon>
+            <p>No messages added yet.</p>
+            <span>Tap <strong>"+ Add Sub-Message"</strong> below to create notes.</span>
           </div>
         }
 
-        <!-- Card List for Sub-Messages -->
-        <div class="message-cards-list">
+        <!-- Touch-Optimized Cards -->
+        <div class="mobile-cards-list">
           @for (msg of secondary.controls; track $index) {
             <form [formGroup]="msg" #formDirective="ngForm">
-              <div class="message-card">
-                <!-- Category Selector (6 Types) -->
-                <mat-form-field appearance="outline" class="category-select">
+              <div class="submessage-card">
+                <!-- Card Header: Number + Delete Button -->
+                <div class="card-top-bar">
+                  <span class="card-badge">#{{ $index + 1 }}</span>
+                  <button
+                    mat-icon-button
+                    class="btn-card-delete"
+                    (click)="removeSecondary($index)"
+                    aria-label="Delete message"
+                  >
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </div>
+
+                <!-- Category Selection -->
+                <mat-form-field appearance="outline" class="w-full">
                   <mat-label>訊息類別</mat-label>
                   <mat-select formControlName="messageType">
                     @for (messageType of availableMessageTypes(); track $index) {
@@ -113,8 +109,8 @@
                   </mat-select>
                 </mat-form-field>
 
-                <!-- Text Input -->
-                <mat-form-field appearance="outline" class="message-text">
+                <!-- Dynamic Reactive Placeholder Textarea -->
+                <mat-form-field appearance="outline" class="w-full">
                   <mat-label>訊息內容</mat-label>
                   <textarea
                     matInput
@@ -125,30 +121,23 @@
                     [placeholder]="getPlaceholder(msg.controls.messageType.value.ID)"
                   ></textarea>
                 </mat-form-field>
-
-                <!-- Delete Square FAB Button -->
-                <button
-                  mat-mini-fab
-                  class="sq-fab sq-fab-danger"
-                  tooltip="Remove"
-                  (click)="removeSecondary($index)"
-                  [disabled]="isSubmitting()"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
               </div>
             </form>
           }
         </div>
       </section>
-    </mat-dialog-content>
+    </main>
 
-    <!-- Dialog Footer Actions -->
-    <mat-dialog-actions class="dialog-footer align-end">
-      <button mat-stroked-button mat-dialog-close class="btn-cancel" [disabled]="isSubmitting()">
-        取消
+    <!-- Sticky Bottom Action Footer -->
+    <footer class="mobile-sticky-footer">
+      <!-- Action 1: Add Card -->
+      <button mat-stroked-button color="primary" class="btn-add-mobile" (click)="addSecondary()">
+        <mat-icon>add</mat-icon>
+        新增訊息
       </button>
-      <button mat-flat-button class="btn-primary" [disabled]="isSubmitting()">送出交班紀錄</button>
-    </mat-dialog-actions>
+
+      <!-- Action 2: Primary Submit -->
+      <button mat-flat-button class="btn-primary btn-submit-mobile">送出交班紀錄</button>
+    </footer>
   </form>
 </div>
