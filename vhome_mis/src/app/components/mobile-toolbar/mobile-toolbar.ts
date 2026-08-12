@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { PageContextService } from '../../services/page-context-service';
 import { CurrentUserLookupService } from '../../services/current-user-lookup-service';
 import { UserProfileBottomSheet } from '../user-profile-bottom-sheet/user-profile-bottom-sheet';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-mobile-toolbar',
@@ -18,6 +19,7 @@ export class MobileToolbar {
   private readonly bottomSheet = inject(MatBottomSheet);
   protected pageContext = inject(PageContextService);
   protected userService = inject(CurrentUserLookupService);
+  protected authService = inject(AuthService);
 
   readonly toggleSidenav = output<void>();
   readonly refreshFeed = output<void>();

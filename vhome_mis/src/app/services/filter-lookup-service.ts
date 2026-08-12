@@ -1,9 +1,18 @@
-import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import {
+  computed,
+  effect,
+  inject,
+  Injectable,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   FilterMultiSelectLookupProvider,
   FilterOption,
 } from '../core/contracts/filter-infra/filter-service.provider';
 import { HandoverSystemService } from '../core/api-client-v2';
+import { AuthService } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +21,14 @@ export class FilterLookupService implements FilterMultiSelectLookupProvider {
   // public option_maps = signal<Record<string, FilterOption[]>>({});
   public optionMaps: Record<string, WritableSignal<FilterOption[]>> = {};
   private handoverService = inject(HandoverSystemService);
+  private authService = inject(AuthService);
 
   constructor() {
-    this.refreshFilterOptions();
+    effect(() => {
+      if (this.authService.isAuthenticated()) {
+        this.refreshFilterOptions();
+      }
+    });
   }
 
   /**

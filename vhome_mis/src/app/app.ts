@@ -19,7 +19,7 @@ export class App {
   protected layout = inject(LayoutService);
   private translate = inject(TranslateService);
   protected pageContext = inject(PageContextService);
-  readonly isSidenavOpen = signal(!this.layout.isMobile());
+  readonly isSidenavOpen = signal(false);
   readonly isAnimating = signal(false);
 
   ngOnInit() {

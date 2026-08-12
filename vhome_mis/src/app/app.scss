@@ -28,3 +28,16 @@ app-top-toolbar {
     padding: 16px;
   }
 }
+
+/* Target the Angular Material Sidenav Wrapper */
+mat-sidenav.app-sidenav {
+  width: 250px !important;
+  min-width: 250px !important;
+  max-width: 250px !important;
+
+  /* Force the inner Material container to match */
+  .mat-drawer-inner-container {
+    width: 250px !important;
+    overflow-x: hidden;
+  }
+}

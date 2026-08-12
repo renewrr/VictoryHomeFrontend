@@ -1,0 +1,89 @@
+<div class="home-container">
+  <!-- 1. Hero Header & Employee Pill -->
+  <header class="welcome-card">
+    <div class="user-meta">
+      <div class="avatar-circle">
+        {{ user().name | slice: -2 }}
+      </div>
+      <div class="user-details">
+        <span class="greeting">歡迎回來,</span>
+        <h2 class="user-name">{{ user().name }}</h2>
+        <div class="badges-row">
+          <span class="role-badge">{{ user().role }}</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Expandable Feature Navigation Grid -->
+  <section class="section-group">
+    <div class="section-header">
+      <h3>快速啟動</h3>
+      <span class="section-hint">主要工作內容</span>
+    </div>
+
+    <div class="actions-grid">
+      @for (action of quickActions(); track $index) {
+        <div class="action-tile" matRipple (click)="onActionClick(action)">
+          <div class="tile-top">
+            <div class="icon-wrapper" [style.backgroundColor]="action.color">
+              <mat-icon>{{ action.icon }}</mat-icon>
+            </div>
+            @if (action.badge) {
+              @if (action.badgeColor) {
+                <span class="tile-badge" [style.color]="action.badgeColor">{{ action.badge }}</span>
+              } @else {
+                <span class="tile-badge">{{ action.badge }}</span>
+              }
+            }
+          </div>
+
+          <div class="tile-bottom">
+            <span class="tile-title">{{ action.title }}</span>
+            <span class="tile-subtitle">{{ action.subtitle }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 3. Account & Security Card -->
+  <section class="section-group">
+    <div class="section-header">
+      <h3>個人資訊與帳號安全</h3>
+    </div>
+
+    <div class="account-card">
+      <div class="info-row">
+        <div class="info-item">
+          <span class="label">電子郵件</span>
+          <span class="value">{{ user().email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">組別</span>
+          <span class="value">{{ user().department }}</span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="account-actions">
+        <button mat-button class="action-btn" (click)="onChangePassword()">
+          <mat-icon>lock_reset</mat-icon>
+          <span>更改密碼</span>
+          <mat-icon class="arrow-icon">chevron_right</mat-icon>
+        </button>
+
+        <button mat-button class="action-btn logout-btn" (click)="onLogout()">
+          <mat-icon>logout</mat-icon>
+          <span>登出</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Version Footer -->
+  <footer class="app-footer">
+    <span>勝利之家事務系統 • {{ verStr() }} v0.0</span>
+  </footer>
+</div>

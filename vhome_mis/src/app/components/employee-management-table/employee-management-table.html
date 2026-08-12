@@ -112,7 +112,11 @@
               <div class="qrcode-container">
                 <div [class.qrcode-border]="employeeService.getBuffer(row).deleted">
                   <div [class.qrcode-icon]="employeeService.getBuffer(row).deleted">
-                    <qrcode [qrdata]="toURI(asEmployee(row))" [errorCorrectionLevel]="'H'"></qrcode>
+                    <qrcode
+                      [qrdata]="toURI(asEmployee(row))"
+                      [errorCorrectionLevel]="'M'"
+                      [width]="150"
+                    ></qrcode>
                   </div>
                 </div>
                 <button matMiniFab class="sq-fab-danger" (click)="employeeService.removeTotp(row)">
@@ -124,7 +128,11 @@
               <div class="qrcode-container">
                 <div class="qrcode-border">
                   <div class="qrcode-icon">
-                    <qrcode [qrdata]="toURI(asEmployee(row))" [errorCorrectionLevel]="'H'"></qrcode>
+                    <qrcode
+                      [qrdata]="toURI(asEmployee(row))"
+                      [errorCorrectionLevel]="'M'"
+                      [width]="150"
+                    ></qrcode>
                   </div>
                 </div>
                 <button matMiniFab class="sq-fab-cancel" (click)="employeeService.restoreTotp(row)">

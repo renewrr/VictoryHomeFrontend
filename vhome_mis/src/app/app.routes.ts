@@ -48,7 +48,7 @@ export const routes: Routes = [
     path: 'home',
     pathMatch: 'full',
     loadComponent() {
-      return import('./containers/main-page/main-page').then((m) => m.MainPage);
+      return import('./containers/home/home').then((m) => m.Home);
     },
     canActivate: [authGuard],
     data: { reuse: true, pageTitle: '主頁面' },

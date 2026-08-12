@@ -1,7 +1,7 @@
 <!-- mobile-toolbar/mobile-toolbar.component.html -->
 <div class="mobile-toolbar-wrapper">
   <mat-toolbar color="primary" class="mobile-header">
-    <button mat-icon-button (click)="toggleSidenav.emit()" aria-label="Toggle navigation">
+    <button mat-icon-button (click)="toggleSidenav.emit()" aria-label="Toggle navigation" [disabled]="!authService.isAuthenticated()">
       <mat-icon>menu</mat-icon>
     </button>
 
