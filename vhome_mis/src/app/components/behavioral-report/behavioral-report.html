@@ -1,0 +1,154 @@
+<div class="behavior-case-page">
+  <!-- Top Banner: Resident & Status Header -->
+  <header class="case-header">
+    <div class="header-left">
+      <span class="case-id">{{ caseData.id }}</span>
+      <h2>{{ caseData.residentName }} — Behavioral Record</h2>
+      <div class="meta-row">
+        <span><mat-icon>place</mat-icon> {{ caseData.location }}</span>
+        <span><mat-icon>schedule</mat-icon> {{ caseData.occurredAt | date: 'medium' }}</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="severity-pill" [attr.data-severity]="caseData.severity">
+        {{ caseData.severity }} Severity
+      </span>
+      <span class="status-pill">{{ caseData.status }}</span>
+    </div>
+  </header>
+
+  <div class="case-grid">
+    <!-- MAIN COLUMN: ABC Model + Narrative + Shift Observations -->
+    <main class="main-column">
+      <!-- ABC Model Block -->
+      <section class="card abc-section">
+        <h3>ABC Analysis Breakdown</h3>
+        <div class="abc-grid">
+          <!-- Antecedent -->
+          <div class="abc-card antecedent">
+            <div class="abc-title">A • Antecedent</div>
+            @for (tag of caseData.abc.antecedents; track $index) {
+              <div class="tag-list">
+                <span class="abc-tag">{{ tag }}</span>
+              </div>
+            }
+            <p class="abc-notes">
+              {{ caseData.abc.antecedentNotes || 'No specific antecedent noted.' }}
+            </p>
+          </div>
+
+          <!-- Behavior -->
+          <div class="abc-card behavior">
+            <div class="abc-title">B • Behavior</div>
+            @for (tag of caseData.abc.behaviorTypes; track $index) {
+              <div class="tag-list">
+                <span class="abc-tag">{{ tag }}</span>
+              </div>
+            }
+            <p class="abc-notes">{{ caseData.abc.behaviorNotes }}</p>
+          </div>
+
+          <!-- Consequence -->
+          <div class="abc-card consequence">
+            <div class="abc-title">C • Consequence</div>
+            @for (tag of caseData.abc.consequences; track $index) {
+              <div class="tag-list">
+                <span class="abc-tag">{{ tag }}</span>
+              </div>
+            }
+            <p class="abc-notes">
+              {{ caseData.abc.consequenceNotes || 'Standard de-escalation applied.' }}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shift Observations & De-escalation Feed -->
+      <section class="card observation-section">
+        <div class="section-header">
+          <div>
+            <h3>Post-Incident Recovery Feed</h3>
+            <p class="subtext">Log ongoing mood and behavioral monitoring per shift</p>
+          </div>
+          <button mat-flat-button class="add-obs-btn" (click)="openAddNoteModal()">
+            <mat-icon>add_comment</mat-icon>
+            Add Observation Entry
+          </button>
+        </div>
+
+        <div class="observation-timeline">
+          @for (obs of caseData.observations; track $index) {
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <span class="staff">{{ obs.staffName }} ({{ obs.shiftName }})</span>
+                <span class="state-badge" [attr.data-state]="obs.residentState">{{
+                  obs.residentState
+                }}</span>
+                <span class="time">{{ obs.timestamp | date: 'shortTime' }}</span>
+              </div>
+              <p class="timeline-body">{{ obs.note }}</p>
+            </div>
+          }
+        </div>
+      </section>
+    </main>
+
+    <!-- SIDEBAR: Involved People, Safety Checks & Links -->
+    <aside class="sidebar-column">
+      <!-- Involved Parties -->
+      <div class="card sidebar-card">
+        <h4>Involved Parties</h4>
+        <div class="detail-item">
+          <label>Targeted Person</label>
+          <span class="value">{{ caseData.targetedPerson || 'None / Environment' }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Reporting Staff</label>
+          <span class="value">{{ caseData.reportingStaff }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Involved / Present Staff</label>
+          <span class="value">{{ caseData.involvedStaff.join(', ') }}</span>
+        </div>
+      </div>
+
+      <!-- Post-Incident Safety Checks -->
+      <div class="card sidebar-card">
+        <h4>Compliance & Safety Checks</h4>
+        <ul class="checklist">
+          <li>
+            <mat-icon [class.check-done]="caseData.injuryOccurred">
+              {{ caseData.injuryOccurred ? 'warning' : 'check_circle' }}
+            </mat-icon>
+            <span
+              >Injury Sustained: <strong>{{ caseData.injuryOccurred ? 'Yes' : 'No' }}</strong></span
+            >
+          </li>
+          <li>
+            <mat-icon [class.check-done]="caseData.staffDebriefCompleted">
+              {{ caseData.staffDebriefCompleted ? 'check_circle' : 'radio_button_unchecked' }}
+            </mat-icon>
+            <span>Staff Debrief Conducted</span>
+          </li>
+          <li>
+            <mat-icon [class.check-done]="caseData.bspReviewRequired">
+              {{ caseData.bspReviewRequired ? 'error_outline' : 'check_circle' }}
+            </mat-icon>
+            <span>Triggers Behavior Plan Review</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Minimal Cross-Link to Handover -->
+      @if (caseData.linkedHandoverId) {
+        <div class="card sidebar-card">
+          <h4>Reference</h4>
+          <a [routerLink]="['/handover', caseData.linkedHandoverId]" class="handover-link-chip">
+            <mat-icon>link</mat-icon> Handover Shift Log #{{ caseData.linkedHandoverId }}
+          </a>
+        </div>
+      }
+    </aside>
+  </div>
+</div>

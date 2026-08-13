@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth-service';
 import { LayoutService } from '../../services/layout-service';
 import { HandoverInputDialogV2 } from '../../containers/dialogs/handover-input-dialog-v2/handover-input-dialog-v2';
 import { MobileHandoverInputDialog } from '../../containers/dialogs/mobile-handover-input-dialog/mobile-handover-input-dialog';
+import { submit } from '@angular/forms/signals';
 
 export interface NavItem {
   label: string;
@@ -61,6 +62,12 @@ export class Sidenav {
             ? this.messageService.dailyMessageLength()
             : undefined,
       },
+      {
+        label: '行為觀察紀錄表',
+        subtitle: '服務對象行為紀錄追蹤',
+        icon: 'edit_note',
+        route: '/behavioral',
+      },
     ];
     if (this.auth.isManagementPrivilege()) {
       routes = routes.concat([
@@ -89,7 +96,7 @@ export class Sidenav {
           maxWidth: '100vw',
           height: '100dvh',
           autoFocus: false,
-          panelClass: 'mobile-handover-input-dialog'
+          panelClass: 'mobile-handover-input-dialog',
         })
         .afterClosed()
         .subscribe(() => {});
