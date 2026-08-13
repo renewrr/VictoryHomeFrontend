@@ -1,7 +1,7 @@
 :host {
   display: block;
   /* MUST equal the ITEM_SIZE_PX (120px) configured on cdk-virtual-scroll-viewport */
-  height: 150px;
+  height: 155px;
   box-sizing: border-box;
   padding: 4px 8px;
 }
@@ -105,6 +105,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 5.4em;
   max-height: 5.4em; // Prevents layout shifts during WebKit rendering
 }
 
