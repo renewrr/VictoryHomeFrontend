@@ -62,12 +62,12 @@ export class Sidenav {
             ? this.messageService.dailyMessageLength()
             : undefined,
       },
-      {
-        label: '行為觀察紀錄表',
-        subtitle: '服務對象行為紀錄追蹤',
-        icon: 'edit_note',
-        route: '/behavioral',
-      },
+      // {
+      //   label: '行為觀察紀錄表',
+      //   subtitle: '服務對象行為紀錄追蹤',
+      //   icon: 'edit_note',
+      //   route: '/behavioral',
+      // },
     ];
     if (this.auth.isManagementPrivilege()) {
       routes = routes.concat([
