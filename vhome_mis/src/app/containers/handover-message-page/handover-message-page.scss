@@ -31,6 +31,17 @@ mat-expansion-panel {
   flex-basis: auto !important;
 }
 
+mat-tab-group {
+  border-radius: 12px;
+  overflow: hidden;
+
+  .mat-mdc-tab-header {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+  }
+}
+
 .message-page {
   height: 90vh;
   margin: 16px;
