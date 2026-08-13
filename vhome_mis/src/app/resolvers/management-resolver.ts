@@ -13,6 +13,7 @@ export const managementResolver: ResolveFn<boolean> = (route, state) => {
       catchError(() => of(false)),
     )
     .subscribe();
+
   const serviceUserState = inject(ServiceUserTableService);
   serviceUserState
     .fetchData()

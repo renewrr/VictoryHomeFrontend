@@ -177,34 +177,13 @@ body {
   }
 }
 
-.mat-mdc-tab-header {
-  // background-color: #ffffff; /* Your custom color */
-  text-shadow:
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff;
-}
-
 .mdc-tab--active {
-  background-color: lightblue !important;
+  background-color: #0f172a !important;
 }
 
 // .mat-mdc-tab .mdc-tab-indicator__content--underline {
 //   border-color: red !important;
 // }
-
-/* Target all mat-tabs globally or within a specific container class */
-.mat-mdc-tab-group {
-  .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-    color: #38bdf8 !important;
-    font-weight: 600;
-  }
-
-  .mdc-tab-indicator__content--underline {
-    border-color: #38bdf8 !important;
-  }
-}
 
 /* styles.scss */
 .main-content.is-animating {
@@ -225,7 +204,7 @@ body {
   /* Cards & Container Surfaces */
   .mat-mdc-card,
   .mat-mdc-table {
-    background-color: #ffffff;
+    background-color: #f8fafc;
     border: 1px solid #e2e8f0;
   }
 
@@ -233,13 +212,14 @@ body {
   .mat-mdc-tab-group {
     /* Deeper blue for active tab text & underline on light background */
     .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-      color: #0284c7 !important;
+      color: #f8fafc;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       font-weight: 600;
     }
 
-    .mdc-tab-indicator__content--underline {
-      border-color: #0284c7 !important;
-    }
+    // .mdc-tab-indicator__content--underline {
+    //   border-color: #f8fafc !important;
+    // }
 
     .mat-mdc-tab:not(.mdc-tab--active) .mdc-tab__text-label {
       color: #64748b; /* Muted dark slate */

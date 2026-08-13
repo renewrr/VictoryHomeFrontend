@@ -9,15 +9,14 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: lightblue;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 16px;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
     .title {
-      color: #38bdf8 !important;
-      font-weight: 600;
-      text-shadow:
-        -1px -1px 0 #ffffff,
-        1px -1px 0 #ffffff,
-        -1px 1px 0 #ffffff,
-        1px 1px 0 #ffffff;
+      color: #f8fafc;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     }
 
     .spacer {
