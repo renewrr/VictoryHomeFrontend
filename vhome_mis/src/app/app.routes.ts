@@ -78,18 +78,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'behavioral',
-    pathMatch: 'full',
-    loadComponent() {
-      return import('./components/behavioral-report/behavioral-report').then(
-        (m) => m.BehavioralReport,
-      );
-    },
-    canActivate: [authGuard],
-    data: { reuse: true, pageTitle: '行為觀察記錄表' },
-  },
-
-  {
     path: 'management',
     pathMatch: 'full',
     loadComponent() {
@@ -98,6 +86,7 @@ export const routes: Routes = [
     canActivate: [authGuard, managementGuard],
     data: { reuse: true, pageTitle: '人員管理系統' },
     resolve: {
+      managementResolver,
     },
   },
 

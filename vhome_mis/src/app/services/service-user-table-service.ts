@@ -36,7 +36,6 @@ export class ServiceUserTableService {
   });
 
   constructor() {
-    this.fetchData().subscribe()
     this.eventBus.on(AssetEvent.BuildingModified).subscribe(() => {
       this.fetchData().subscribe();
     });
