@@ -1,0 +1,148 @@
+.bottom-sheet-container {
+  padding: 16px 20px 24px;
+  background: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  max-height: 85vh;
+  overflow-y: auto;
+
+  .drag-handle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+
+    .drag-handle {
+      width: 36px;
+      height: 4px;
+      border-radius: 2px;
+      background-color: #cbd5e1;
+    }
+  }
+
+  .sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+
+    .resident-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .sub-meta {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+
+      &.category-behavioral { background: #fef2f2; color: #b91c1c; }
+      &.category-care { background: #f0f9ff; color: #0369a1; }
+    }
+  }
+
+  .sheet-body {
+    padding: 16px 0;
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin: 16px 0 6px;
+    }
+
+    .full-message {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #1e293b;
+      margin: 0;
+      white-space: pre-wrap; // Preserves shift paragraph breaks
+    }
+
+    /* Linked Incident Box */
+    .incident-link-box {
+      margin-top: 16px;
+      padding: 12px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+
+      .link-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-bottom: 6px;
+      }
+
+      .incident-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #0284c7;
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-decoration: none;
+
+        .arrow { font-size: 1rem; width: 1rem; height: 1rem; }
+      }
+    }
+
+    /* Read Receipts */
+    .receipt-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        padding: 6px 0;
+        color: #334155;
+
+        .check-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+          color: #22c55e;
+        }
+
+        .staff-name { font-weight: 600; }
+        .time { margin-left: auto; color: #94a3b8; font-size: 0.75rem; }
+      }
+    }
+  }
+
+  /* Sticky Footer Actions */
+  .sheet-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+
+    .close-btn {
+      flex: 1;
+    }
+
+    .ack-btn {
+      flex: 2;
+      background-color: #0284c7;
+      color: #ffffff;
+
+      &.is-done {
+        background-color: #dcfce7;
+        color: #15803d;
+      }
+    }
+  }
+}

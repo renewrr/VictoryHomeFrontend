@@ -1,0 +1,40 @@
+<div class="bottom-sheet-container">
+  <!-- Mobile Drag Handle Bar -->
+  <div class="drag-handle-container">
+    <div class="drag-handle"></div>
+  </div>
+
+  <!-- Header -->
+  <div class="sheet-header">
+    <div>
+      <!-- <span class="resident-title">{{ data.residentName }} — Room {{ data.roomNumber }}</span> -->
+      <div class="sub-meta">
+        <span
+          >{{ card.creator_name }} ({{
+            'HANDOVER_MESSAGE.SHIFTS.' + card.shift_name | translate: { default: card.shift_name }
+          }})</span
+        >
+        •
+        <span>{{
+          toDatetime(card.timestamp).toLocaleString(localization.dateLocalization()) +
+            ' ' +
+            toDatetime(card.timestamp).toLocaleDateString(localization.dateLocalization(), {
+              weekday: 'long',
+            })
+        }}</span>
+      </div>
+    </div>
+    <span class="badge" class="category-care">
+      {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + card.message_type_name | translate }}
+    </span>
+  </div>
+
+  <!-- Full Uncut Narrative (No Line Clamping) -->
+  <div class="sheet-body">
+    <p class="full-messagey" [innerHTML]="card.message_body | highlight: highlightText"></p>
+    <!-- Bottom Actions Row -->
+    <div class="sheet-actions">
+      <button mat-stroked-button class="close-btn" (click)="close()">關閉</button>
+    </div>
+  </div>
+</div>
