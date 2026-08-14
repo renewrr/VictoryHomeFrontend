@@ -15,6 +15,7 @@ import { MobileEditSheet } from '../mobile-edit-sheet/mobile-edit-sheet';
 import { SecondaryStore } from '../../datasources/secondary-store';
 import { CurrentUserLookupService } from '../../services/current-user-lookup-service';
 import { AuthService } from '../../services/auth-service';
+import { HandoverDetailBottomSheet } from '../handover-detail-bottom-sheet/handover-detail-bottom-sheet';
 
 @Component({
   selector: 'app-handover-card',
@@ -30,8 +31,8 @@ export class HandoverCard {
   @Input() highlightText: Signal<string[]> = signal([]);
   private bottomSheet = inject(MatBottomSheet);
   protected store = inject(SecondaryStore);
-  currentUserId = inject(CurrentUserLookupService).currentUser().ID
-  managementPrivilege = inject(AuthService).isManagementPrivilege()
+  currentUserId = inject(CurrentUserLookupService).currentUser().ID;
+  managementPrivilege = inject(AuthService).isManagementPrivilege();
 
   openEditSheet() {
     const data = this.card();
@@ -61,6 +62,15 @@ export class HandoverCard {
             });
         }
       });
+  }
+
+  openDetails(): void {
+    const bottomSheetRef = this.bottomSheet.open(HandoverDetailBottomSheet, {
+      data: [this.card(), this.highlightText()],
+      panelClass: 'handover-bottom-sheet-panel',
+    });
+
+    bottomSheetRef.afterDismissed().subscribe();
   }
 
   toDatetime(timestamp: string) {
