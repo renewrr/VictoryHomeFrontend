@@ -11,7 +11,7 @@ import { LocalizationService } from '../../services/localization-service';
 
 @Component({
   selector: 'app-handover-detail-bottom-sheet',
-  imports: [RouterModule, MatIconModule, MatButtonModule, DatePipe, TranslatePipe, HighlightPipe],
+  imports: [RouterModule, MatIconModule, MatButtonModule, TranslatePipe, HighlightPipe],
   templateUrl: './handover-detail-bottom-sheet.html',
   styleUrl: './handover-detail-bottom-sheet.scss',
 })

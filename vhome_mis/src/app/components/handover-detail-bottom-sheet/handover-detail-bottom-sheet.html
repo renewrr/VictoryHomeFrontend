@@ -22,11 +22,12 @@
               weekday: 'long',
             })
         }}</span>
+        •
+        <span>
+          {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + card.message_type_name | translate }}
+        </span>
       </div>
     </div>
-    <span class="badge" class="category-care">
-      {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + card.message_type_name | translate }}
-    </span>
   </div>
 
   <!-- Full Uncut Narrative (No Line Clamping) -->
