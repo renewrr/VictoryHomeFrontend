@@ -13,6 +13,10 @@
     align-items: center;
     gap: 12px;
 
+    .header-button {
+      color: #f8fafc;
+    }
+
     &.center {
       justify-content: center;
       flex: 1;

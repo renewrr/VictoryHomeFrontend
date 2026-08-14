@@ -1,7 +1,13 @@
 <!-- mobile-toolbar/mobile-toolbar.component.html -->
 <div class="mobile-toolbar-wrapper">
   <mat-toolbar color="primary" class="mobile-header">
-    <button mat-icon-button (click)="toggleSidenav.emit()" aria-label="Toggle navigation" [disabled]="!authService.isAuthenticated()">
+    <button
+      mat-icon-button
+      class="header-button"
+      (click)="toggleSidenav.emit()"
+      aria-label="Toggle navigation"
+      [disabled]="!authService.isAuthenticated()"
+    >
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -11,9 +17,9 @@
     </a>
 
     <div class="right-actions">
-      <button mat-icon-button (click)="refreshFeed.emit()" aria-label="Refresh feed">
+      <!-- <button mat-icon-button (click)="refreshFeed.emit()" aria-label="Refresh feed">
         <mat-icon>refresh</mat-icon>
-      </button>
+      </button> -->
 
       <button mat-button class="profile-btn" (click)="openProfileSheet()">
         <div class="avatar-circle">{{ userNickname() }}</div>

@@ -33,14 +33,7 @@ export interface UserProfile {
 
 @Component({
   selector: 'app-home',
-  imports: [
-    CommonModule,
-    RouterLink,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatRippleModule,
-  ],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatRippleModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
