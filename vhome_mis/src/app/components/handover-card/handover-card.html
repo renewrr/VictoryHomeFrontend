@@ -8,16 +8,18 @@
       <h3 class="card-title">
         {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + card().message_type_name | translate }}
       </h3>
-      @if (card().creator_id == currentUserId || managementPrivilege) {
-        <button
-          mat-icon-button
-          class="btn-more"
-          aria-label="Message options"
-          (click)="openEditSheet()"
-        >
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      }
+      <div>
+        @if (card().creator_id == currentUserId || managementPrivilege) {
+          <button
+            mat-icon-button
+            class="btn-more"
+            aria-label="Message options"
+            (click)="openEditSheet($event)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        }
+      </div>
     </header>
 
     <!-- Card Body: Clamped to 2 lines -->

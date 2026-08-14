@@ -34,7 +34,8 @@ export class HandoverCard {
   currentUserId = inject(CurrentUserLookupService).currentUser().ID;
   managementPrivilege = inject(AuthService).isManagementPrivilege();
 
-  openEditSheet() {
+  openEditSheet(event: Event) {
+    event.stopPropagation()
     const data = this.card();
     const ref = this.bottomSheet.open(MobileEditSheet, {
       data: { message: data },

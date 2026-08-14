@@ -1,8 +1,6 @@
 .bottom-sheet-container {
   padding: 16px 20px 24px;
   background: #ffffff;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
   max-height: 85vh;
   overflow-y: auto;
 
@@ -45,8 +43,14 @@
       border-radius: 4px;
       text-transform: uppercase;
 
-      &.category-behavioral { background: #fef2f2; color: #b91c1c; }
-      &.category-care { background: #f0f9ff; color: #0369a1; }
+      &.category-behavioral {
+        background: #fef2f2;
+        color: #b91c1c;
+      }
+      &.category-care {
+        background: #f0f9ff;
+        color: #0369a1;
+      }
     }
   }
 
@@ -92,7 +96,11 @@
         font-size: 0.875rem;
         text-decoration: none;
 
-        .arrow { font-size: 1rem; width: 1rem; height: 1rem; }
+        .arrow {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+        }
       }
     }
 
@@ -117,8 +125,14 @@
           color: #22c55e;
         }
 
-        .staff-name { font-weight: 600; }
-        .time { margin-left: auto; color: #94a3b8; font-size: 0.75rem; }
+        .staff-name {
+          font-weight: 600;
+        }
+        .time {
+          margin-left: auto;
+          color: #94a3b8;
+          font-size: 0.75rem;
+        }
       }
     }
   }
@@ -132,6 +146,9 @@
 
     .close-btn {
       flex: 1;
+      border-radius: 8px;
+      border-color: #cbd5e1;
+      color: #475569;
     }
 
     .ack-btn {
