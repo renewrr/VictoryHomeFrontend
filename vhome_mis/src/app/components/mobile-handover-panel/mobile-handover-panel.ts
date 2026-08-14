@@ -87,4 +87,8 @@ export class MobileHandoverPanel {
       .afterClosed()
       .subscribe(() => {});
   }
+  refresh() {
+    this.store.refresh();
+    this.viewport?.scrollToIndex(0, 'auto');
+  }
 }

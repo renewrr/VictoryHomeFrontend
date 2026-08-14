@@ -4,7 +4,6 @@ import { SecondaryHandoverMessageResponseSecondaryHandoverMessageRow } from '../
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { DatePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HighlightPipe } from '../../pipes/highlight/highlight-pipe';
 import { LocalizationService } from '../../services/localization-service';
