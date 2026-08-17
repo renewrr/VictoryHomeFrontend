@@ -22,6 +22,7 @@ import { MobileHandoverPanel } from '../../components/mobile-handover-panel/mobi
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FilterLookupService } from '../../services/filter-lookup-service';
 import { HandoverInputDialogV2 } from '../dialogs/handover-input-dialog-v2/handover-input-dialog-v2';
+import { MultiSelectFilterV2 } from "../../components/handover-message-filter/multi-select-filter-v2/multi-select-filter-v2";
 
 @Component({
   selector: 'app-handover-message-page',
@@ -37,7 +38,8 @@ import { HandoverInputDialogV2 } from '../dialogs/handover-input-dialog-v2/hando
     SearchBarFilter,
     MobileHandoverPanel,
     MatExpansionModule,
-  ],
+    MultiSelectFilterV2
+],
   templateUrl: './handover-message-page.html',
   styleUrl: './handover-message-page.scss',
 })

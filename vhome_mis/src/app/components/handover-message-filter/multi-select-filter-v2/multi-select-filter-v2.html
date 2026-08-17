@@ -1,0 +1,36 @@
+<mat-form-field class="full-width">
+  <mat-label>{{ label }}</mat-label>
+
+  <mat-chip-grid #chipGrid>
+    @for (option of selectedOptions(); track option.ID) {
+      <mat-chip-row (removed)="remove(option)">
+        {{
+          (translationPrefix() ? translationPrefix() + '.' + option.name : option.name) | translate
+        }}
+        <button matChipRemove [attr.aria-label]="'Remove ' + option.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    }
+
+    <input
+      #optionInput
+      #autoTrigger="matAutocompleteTrigger"
+      [formControl]="searchCtrl"
+      [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto"
+      (focus)="onFocus()"
+      (click)="onFocus()"
+    />
+  </mat-chip-grid>
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    @for (option of filteredOptions(); track option.ID) {
+      <mat-option [value]="option">
+        {{
+          (translationPrefix() ? translationPrefix() + '.' + option.name : option.name) | translate
+        }}
+      </mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

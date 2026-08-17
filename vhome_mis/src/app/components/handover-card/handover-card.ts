@@ -24,7 +24,6 @@ import { HandoverDetailBottomSheet } from '../handover-detail-bottom-sheet/hando
   styleUrl: './handover-card.scss',
 })
 export class HandoverCard {
-  // Modern Signal Input (Angular 17.1+)
   readonly card = input.required<SecondaryHandoverMessageResponseSecondaryHandoverMessageRow>();
   protected localization = inject(LocalizationService);
   protected handoverApi = inject(HandoverSystemService);
@@ -35,7 +34,7 @@ export class HandoverCard {
   managementPrivilege = inject(AuthService).isManagementPrivilege();
 
   openEditSheet(event: Event) {
-    event.stopPropagation()
+    event.stopPropagation();
     const data = this.card();
     const ref = this.bottomSheet.open(MobileEditSheet, {
       data: { message: data },
