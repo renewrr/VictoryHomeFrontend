@@ -31,7 +31,6 @@ import { MultiSelectFilterV2 } from "../../components/handover-message-filter/mu
     MatButtonModule,
     MatTabsModule,
     HandoverMessageFilter,
-    MultiSelectFilter,
     DateFilter,
     SecondaryMessageTableV2,
     HandoverMessageTableV2,

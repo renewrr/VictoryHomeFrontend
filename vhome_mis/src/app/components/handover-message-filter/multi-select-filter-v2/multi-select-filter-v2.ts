@@ -35,7 +35,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatChipsModule,
     MatAutocompleteModule,
     MatIconModule,
-    AsyncPipe,
     TranslatePipe,
   ],
   templateUrl: './multi-select-filter-v2.html',
