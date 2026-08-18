@@ -9,21 +9,40 @@
           @for (filter of filter_config(); track $index) {
             @if (filter.display) {
               @if (filter.type_config != undefined && filter.type_config.type == 'multi') {
-                @if (filter.translate_config != undefined) {
-                  <app-multi-select-filter-v2
-                    [id_tag]="filter.id_tag"
-                    [label]="filter.label"
-                    [translate_config]="filter.translate_config"
-                    [availableOptions]="filterLookupService.getDropdownOptions(filter.id_tag)"
-                    (selection_changed)="on_selection_change($event)"
-                  ></app-multi-select-filter-v2>
+                @if (layoutService.isMobile()) {
+                  @if (filter.translate_config != undefined) {
+                    <app-multi-select-filter
+                      [id_tag]="filter.id_tag"
+                      [label]="filter.label"
+                      [translate_config]="filter.translate_config"
+                      [available_options]="filterLookupService.getDropdownOptions(filter.id_tag)"
+                      (selection_changed)="on_selection_change($event)"
+                    ></app-multi-select-filter>
+                  } @else {
+                    <app-multi-select-filter
+                      [id_tag]="filter.id_tag"
+                      [label]="filter.label"
+                      [available_options]="filterLookupService.getDropdownOptions(filter.id_tag)"
+                      (selection_changed)="on_selection_change($event)"
+                    ></app-multi-select-filter>
+                  }
                 } @else {
-                  <app-multi-select-filter-v2
-                    [id_tag]="filter.id_tag"
-                    [label]="filter.label"
-                    [availableOptions]="filterLookupService.getDropdownOptions(filter.id_tag)"
-                    (selection_changed)="on_selection_change($event)"
-                  ></app-multi-select-filter-v2>
+                  @if (filter.translate_config != undefined) {
+                    <app-multi-select-filter-v2
+                      [id_tag]="filter.id_tag"
+                      [label]="filter.label"
+                      [translate_config]="filter.translate_config"
+                      [availableOptions]="filterLookupService.getDropdownOptions(filter.id_tag)"
+                      (selection_changed)="on_selection_change($event)"
+                    ></app-multi-select-filter-v2>
+                  } @else {
+                    <app-multi-select-filter-v2
+                      [id_tag]="filter.id_tag"
+                      [label]="filter.label"
+                      [availableOptions]="filterLookupService.getDropdownOptions(filter.id_tag)"
+                      (selection_changed)="on_selection_change($event)"
+                    ></app-multi-select-filter-v2>
+                  }
                 }
               } @else if (filter.type_config != undefined && filter.type_config.type == 'date') {
                 <app-date-filter

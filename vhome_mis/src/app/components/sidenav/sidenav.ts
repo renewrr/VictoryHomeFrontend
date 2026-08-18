@@ -15,13 +15,23 @@ import { HandoverInputDialogV2 } from '../../containers/dialogs/handover-input-d
 import { MobileHandoverInputDialog } from '../../containers/dialogs/mobile-handover-input-dialog/mobile-handover-input-dialog';
 import { submit } from '@angular/forms/signals';
 
-export interface NavItem {
+interface InternalNav {
   label: string;
   subtitle: string;
   icon: string;
   route: string;
   badge?: number;
 }
+
+interface ExternalNav {
+  label: string;
+  subtitle: string;
+  icon: string;
+  externalLink: string;
+  badge?: number;
+}
+
+export type NavItem = InternalNav | ExternalNav;
 
 @Component({
   selector: 'app-sidenav',
@@ -62,12 +72,13 @@ export class Sidenav {
             ? this.messageService.dailyMessageLength()
             : undefined,
       },
-      // {
-      //   label: '行為觀察紀錄表',
-      //   subtitle: '服務對象行為紀錄追蹤',
-      //   icon: 'edit_note',
-      //   route: '/behavioral',
-      // },
+      {
+        label: '行為觀察紀錄表',
+        subtitle: '服務對象行為紀錄追蹤',
+        icon: 'edit_note',
+        externalLink:
+          'https://docs.google.com/forms/d/1_DhEkZMrDHkuso9-FJfrjNYlYa0aqpORQlcWnWMQBVM/edit',
+      },
     ];
     if (this.auth.isManagementPrivilege()) {
       routes = routes.concat([
@@ -118,5 +129,9 @@ export class Sidenav {
     if (this.layout.isMobile()) {
       this.toggleCollapse.emit();
     }
+  }
+
+  isInternalLink(value: NavItem): value is InternalNav {
+    return value && 'route' in value;
   }
 }

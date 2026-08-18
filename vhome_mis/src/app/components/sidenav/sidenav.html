@@ -12,26 +12,49 @@
     <span class="section-label">主選單</span>
 
     <mat-nav-list class="nav-list">
-      @for (item of navItems(); track item.route) {
-        <a
-          mat-list-item
-          [routerLink]="item.route"
-          routerLinkActive="active"
-          class="nav-item"
-          (click)="navExtraHandle()"
-        >
-          <mat-icon
-            matListItemIcon
-            [matBadge]="item.badge"
-            [matBadgeHidden]="!item.badge"
-            matBadgeColor="warn"
-            aria-hidden="false"
+      @for (item of navItems(); track $index) {
+        @if (isInternalLink(item)) {
+          <a
+            mat-list-item
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            class="nav-item"
+            (click)="navExtraHandle()"
           >
-            {{ item.icon }}
-          </mat-icon>
-          <span matListItemTitle class="nav-title">{{ item.label }}</span>
-          <span matListItemLine class="nav-subtitle">{{ item.subtitle }}</span>
-        </a>
+            <mat-icon
+              matListItemIcon
+              [matBadge]="item.badge"
+              [matBadgeHidden]="!item.badge"
+              matBadgeColor="warn"
+              aria-hidden="false"
+            >
+              {{ item.icon }}
+            </mat-icon>
+            <span matListItemTitle class="nav-title">{{ item.label }}</span>
+            <span matListItemLine class="nav-subtitle">{{ item.subtitle }}</span>
+          </a>
+        } @else {
+          <a
+            mat-list-item
+            [href]="item.externalLink"
+            class="nav-item"
+            (click)="navExtraHandle()"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <mat-icon
+              matListItemIcon
+              [matBadge]="item.badge"
+              [matBadgeHidden]="!item.badge"
+              matBadgeColor="warn"
+              aria-hidden="false"
+            >
+              {{ item.icon }}
+            </mat-icon>
+            <span matListItemTitle class="nav-title">{{ item.label }}</span>
+            <span matListItemLine class="nav-subtitle">{{ item.subtitle }}</span>
+          </a>
+        }
       }
     </mat-nav-list>
   </div>

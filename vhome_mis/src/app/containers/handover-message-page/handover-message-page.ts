@@ -37,7 +37,8 @@ import { MultiSelectFilterV2 } from "../../components/handover-message-filter/mu
     SearchBarFilter,
     MobileHandoverPanel,
     MatExpansionModule,
-    MultiSelectFilterV2
+    MultiSelectFilterV2,
+    MultiSelectFilter
 ],
   templateUrl: './handover-message-page.html',
   styleUrl: './handover-message-page.scss',

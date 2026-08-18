@@ -18,6 +18,7 @@ export interface QuickAction {
   subtitle: string;
   icon: string;
   route?: string;
+  externalLink?: string;
   badge?: string;
   color: string; // Background color tint for icon box
   badgeColor?: string;
@@ -79,9 +80,10 @@ export class Home {
         title: '行為觀察記錄表',
         subtitle: '服務對象行為紀錄追蹤',
         icon: 'edit_note',
-        badge: '開發中',
+        externalLink:
+          'https://docs.google.com/forms/d/1_DhEkZMrDHkuso9-FJfrjNYlYa0aqpORQlcWnWMQBVM/edit',
+        badge: '外部連結',
         color: '#e0f2fe', // Soft blue
-        badgeColor: '#e55454',
       },
     ];
     if (this.authService.isManagementPrivilege()) {
@@ -114,6 +116,8 @@ export class Home {
   onActionClick(action: QuickAction) {
     if (action.route) {
       this.router.navigate([action.route]);
+    } else if (action.externalLink) {
+      window.open(action.externalLink, '_blank', 'noopener,noreferrer');
     } else {
       this.snackBar.open(`${action.title} 尚在開發中！`, '關閉  ', { duration: 2500 });
     }
