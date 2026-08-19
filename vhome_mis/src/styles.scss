@@ -315,3 +315,11 @@ body {
     box-shadow: none !important;
   }
 }
+
+:root {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: #ffffff,
+    )
+  );
+}
