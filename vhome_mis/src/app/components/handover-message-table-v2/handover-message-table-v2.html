@@ -4,6 +4,7 @@
     class="full-width-table"
     aria-label="Elements"
     [dataSource]="dataService.messages()"
+    [class.table-stale]="dataService.isLoading()"
   >
     <!-- Id Column -->
     <ng-container matColumnDef="timestamp">
@@ -53,7 +54,21 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="loadingProgress">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        [attr.colspan]="displayedColumns.length"
+        class="progress-cell"
+      >
+        @if (dataService.isLoading()) {
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        }
+      </th>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="['loadingProgress']" class="progress-row"></tr>
     <tr
       mat-row
       class="mat-row"

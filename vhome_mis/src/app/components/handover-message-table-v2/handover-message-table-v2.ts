@@ -17,10 +17,17 @@ import { MatSortModule } from '@angular/material/sort';
 import { TranslateModule } from '@ngx-translate/core';
 import { MainPagedHandoverMessageResponseMainHandoverMessageRow } from '../../core/api-client-v2';
 import { LocalizationService } from '../../services/localization-service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-handover-message-table-v2',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, TranslateModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    TranslateModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './handover-message-table-v2.html',
   styleUrl: './handover-message-table-v2.scss',
 })
