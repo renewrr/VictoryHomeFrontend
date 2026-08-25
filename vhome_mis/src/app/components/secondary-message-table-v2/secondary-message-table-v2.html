@@ -51,25 +51,13 @@
             authService.isManagementPrivilege()
           ) {
             @if (dataService.isEditing(asDataRow(row))) {
-              <button
-                matMiniFab
-                class="sq-fab-success"
-                (click)="dataService.commitEdit(row)"
-              >
+              <button matMiniFab class="sq-fab-success" (click)="dataService.commitEdit(row)">
                 <mat-icon>done_outline</mat-icon>
               </button>
-              <button
-                matMiniFab
-                class="sq-fab-warning"
-                (click)="dataService.undoEdit(row)"
-              >
+              <button matMiniFab class="sq-fab-warning" (click)="dataService.undoEdit(row)">
                 <mat-icon>undo</mat-icon>
               </button>
-              <button
-                matMiniFab
-                class="sq-fab-cancel"
-                (click)="dataService.revertEdit(row)"
-              >
+              <button matMiniFab class="sq-fab-cancel" (click)="dataService.revertEdit(row)">
                 <mat-icon>cancel</mat-icon>
               </button>
               <mat-form-field class="input-field">
@@ -86,7 +74,7 @@
               <button
                 matMiniFab
                 class="sq-fab-danger"
-                (click)="dataService.updateRow(row.ID, 'deleted', true)"
+                (click)="dataService.updateRow(row.ID, 'deleted', true); confirmDelete(row)"
               >
                 <mat-icon>delete</mat-icon>
               </button>

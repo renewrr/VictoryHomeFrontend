@@ -23,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth-service';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericConfirmationDialog } from '../../containers/dialogs/generic-confirmation-dialog/generic-confirmation-dialog';
 
 @Component({
   selector: 'app-secondary-message-table-v2',
@@ -46,6 +48,7 @@ export class SecondaryMessageTableV2 {
   protected localization = inject(LocalizationService);
   protected currentUserService = inject(CurrentUserLookupService);
   protected authService = inject(AuthService);
+  protected dialogService = inject(MatDialog);
   @Input() highlightText: Signal<string[]> = signal([]);
 
   displayedColumns = ['timestamp', 'creator', 'messageType', 'messageBody'];
@@ -71,5 +74,26 @@ export class SecondaryMessageTableV2 {
 
   startEdit(row: SecondaryHandoverMessageResponseSecondaryHandoverMessageRow) {
     this.dataService.startEdit(row);
+  }
+
+  confirmDelete(row: SecondaryHandoverMessageResponseSecondaryHandoverMessageRow) {
+    this.dialogService
+      .open(GenericConfirmationDialog, {
+        width: '440px',
+        disableClose: true, // Prevents closing by accidentally clicking outside the modal
+        data: {
+          title: '刪除訊息?',
+          message: `確認刪除訊息 "${row.message_body}"？`,
+          confirmText: '刪除訊息',
+          cancelText: '保留訊息',
+          color: 'warn', // Makes the confirmation button red!
+        },
+      })
+      .afterClosed()
+      .subscribe((status) => {
+        if (status) {
+          this.dataService.commitEdit(row);
+        }
+      });
   }
 }
