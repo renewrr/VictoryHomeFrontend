@@ -22,6 +22,7 @@
     <!-- Body -->
     <div class="sheet-body">
       <mat-form-field appearance="outline" class="w-full">
+        <mat-label>訊息類別</mat-label>
         <mat-select [(value)]="editableMessage.message_type_id">
           @for (messageType of availableMessageTypes(); track $index) {
             <mat-option [value]="messageType.ID">{{
