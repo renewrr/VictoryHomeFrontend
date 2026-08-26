@@ -30,7 +30,7 @@ export class SecondaryMessageTableService {
   handoverApi = inject(HandoverSystemService);
   filterStateService = inject(FilterStateService);
   authService = inject(AuthService);
-  dailyLength = -1
+  dailyLength = -1;
 
   private pagingState = linkedSignal<HandoverFilterState, SecondaryMessageState>({
     source: () => this.filterStateService.state(),
@@ -102,11 +102,11 @@ export class SecondaryMessageTableService {
   public currentPageSize = computed(() => this.pagingState().pageSize);
   public editingRows = signal<Record<number, EditableSecondaryRow>>({});
   public dailyMessageLength = computed(() => {
-    if (this.dailyLength === -1 && this.stableResponse()?.data_count != undefined){
-      this.dailyLength = this.stableResponse()?.data_count ?? 0
+    if (this.dailyLength === -1 && this.stableResponse()?.data_count != undefined) {
+      this.dailyLength = this.stableResponse()?.data_count ?? 0;
     }
-    return this.dailyLength
-  })
+    return this.dailyLength;
+  });
 
   public updatePage(pageIndex: number, pageSize: number) {
     this.pagingState.update((s) => ({ ...s, pageIndex: pageIndex, pageSize: pageSize }));
@@ -171,8 +171,18 @@ export class SecondaryMessageTableService {
     const buffer = this.getBuffer(msg);
     this.handoverApi
       .apiV3HandoverSecondaryMessagePatch({
-        before: { ID: msg.ID, is_deleted: false, message_body: msg.message_body },
-        after: { ID: buffer.ID, is_deleted: buffer.deleted, message_body: buffer.message_body },
+        before: {
+          ID: msg.ID,
+          is_deleted: false,
+          message_body: msg.message_body,
+          message_type_id: msg.message_type_id,
+        },
+        after: {
+          ID: buffer.ID,
+          is_deleted: buffer.deleted,
+          message_body: buffer.message_body,
+          message_type_id: buffer.message_type_id,
+        },
       })
       .subscribe((response) => {
         this.dropBuffer(msg);

@@ -13,5 +13,6 @@ export interface SecondaryEditResponseSecondaryMessageDetail {
     ID: number;
     is_deleted: boolean;
     message_body: string;
+    message_type_id: number;
 }
 

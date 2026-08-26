@@ -49,11 +49,13 @@ export class HandoverCard {
                 ID: this.card().ID,
                 is_deleted: false,
                 message_body: this.card().message_body,
+                message_type_id: this.card().message_type_id,
               },
               after: {
                 ID: updatedMessage.ID,
                 is_deleted: updatedMessage.is_deleted,
                 message_body: updatedMessage.message_body,
+                message_type_id: updatedMessage.message_type_id,
               },
             })
             .subscribe((response) => {

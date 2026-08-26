@@ -25,6 +25,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericConfirmationDialog } from '../../containers/dialogs/generic-confirmation-dialog/generic-confirmation-dialog';
+import { FilterLookupService } from '../../services/filter-lookup-service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-secondary-message-table-v2',
@@ -39,16 +41,19 @@ import { GenericConfirmationDialog } from '../../containers/dialogs/generic-conf
     MatButtonModule,
     MatInputModule,
     FormsModule,
+    MatSelectModule,
   ],
   templateUrl: './secondary-message-table-v2.html',
   styleUrl: './secondary-message-table-v2.scss',
 })
 export class SecondaryMessageTableV2 {
   protected dataService = inject(SecondaryMessageTableService);
+  protected filterService = inject(FilterLookupService);
   protected localization = inject(LocalizationService);
   protected currentUserService = inject(CurrentUserLookupService);
   protected authService = inject(AuthService);
   protected dialogService = inject(MatDialog);
+  protected availableMessageTypes = this.filterService.getDropdownOptions('MESSAGETYPE');
   @Input() highlightText: Signal<string[]> = signal([]);
 
   displayedColumns = ['timestamp', 'creator', 'messageType', 'messageBody'];

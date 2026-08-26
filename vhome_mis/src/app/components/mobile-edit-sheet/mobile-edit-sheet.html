@@ -22,6 +22,18 @@
     <!-- Body -->
     <div class="sheet-body">
       <mat-form-field appearance="outline" class="w-full">
+        <mat-select [(value)]="editableMessage.message_type_id">
+          @for (messageType of availableMessageTypes(); track $index) {
+            <mat-option [value]="messageType.ID">{{
+              ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate) !==
+              'HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name
+                ? ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate)
+                : messageType.name
+            }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
         <mat-label>訊息內容</mat-label>
         <textarea
           matInput

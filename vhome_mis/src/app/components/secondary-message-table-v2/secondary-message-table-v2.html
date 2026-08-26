@@ -36,7 +36,23 @@
         {{ 'UI.HANDOVER.HEADERS.message_type' | translate: { default: '訊息類別' } }}
       </th>
       <td mat-cell *matCellDef="let row">
-        {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + asDataRow(row).message_type_name | translate }}
+        @if (dataService.isEditing(asDataRow(row))) {
+          <mat-select
+            [ngModel]="dataService.getBuffer(row).message_type_id"
+            (ngModelChange)="dataService.updateRow(row.ID, 'message_type_id', $event)"
+          >
+            @for (messageType of availableMessageTypes(); track $index) {
+              <mat-option [value]="messageType.ID">{{
+                ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate) !==
+                'HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name
+                  ? ('HANDOVER_MESSAGE.MESSAGETYPE.' + messageType.name | translate)
+                  : messageType.name
+              }}</mat-option>
+            }
+          </mat-select>
+        } @else {
+          {{ 'HANDOVER_MESSAGE.MESSAGETYPE.' + asDataRow(row).message_type_name | translate }}
+        }
       </td>
     </ng-container>
 

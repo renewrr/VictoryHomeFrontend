@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FilterLookupService } from '../../services/filter-lookup-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-mobile-edit-sheet',
@@ -21,6 +22,7 @@ import { FilterLookupService } from '../../services/filter-lookup-service';
     MatInputModule,
     MatButtonModule,
     FormsModule,
+    TranslatePipe,
   ],
   templateUrl: './mobile-edit-sheet.html',
   styleUrl: './mobile-edit-sheet.scss',
@@ -51,6 +53,7 @@ export class MobileEditSheet {
       ID: this.editableMessage.ID,
       is_deleted: false,
       message_body: this.editableMessage.message_body,
+      message_type_id: this.editableMessage.message_type_id,
     });
   }
 
@@ -59,6 +62,7 @@ export class MobileEditSheet {
       ID: this.editableMessage.ID,
       is_deleted: true,
       message_body: this.editableMessage.message_body,
+      message_type_id: this.editableMessage.message_type_id,
     });
   }
 
