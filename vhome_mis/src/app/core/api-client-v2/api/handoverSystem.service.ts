@@ -621,4 +621,149 @@ export class HandoverSystemService extends BaseService {
         );
     }
 
+    /**
+     * Export filtered dataset to Excel
+     * @endpoint get /api/v3/handover/all_filtered_secondary_message
+     * @param startDate 
+     * @param endDate 
+     * @param messageTypeIds 
+     * @param shiftIds 
+     * @param creatorIds 
+     * @param locationIds 
+     * @param serviceUserIds 
+     * @param keywords 
+     * @param pageIndex 
+     * @param pageSize 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     * @param options additional options
+     */
+    public exportExcel(startDate?: string, endDate?: string, messageTypeIds?: Array<number>, shiftIds?: Array<number>, creatorIds?: Array<number>, locationIds?: Array<number>, serviceUserIds?: Array<number>, keywords?: Array<string>, pageIndex?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' | 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Blob>;
+    public exportExcel(startDate?: string, endDate?: string, messageTypeIds?: Array<number>, shiftIds?: Array<number>, creatorIds?: Array<number>, locationIds?: Array<number>, serviceUserIds?: Array<number>, keywords?: Array<string>, pageIndex?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' | 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Blob>>;
+    public exportExcel(startDate?: string, endDate?: string, messageTypeIds?: Array<number>, shiftIds?: Array<number>, creatorIds?: Array<number>, locationIds?: Array<number>, serviceUserIds?: Array<number>, keywords?: Array<string>, pageIndex?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' | 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Blob>>;
+    public exportExcel(startDate?: string, endDate?: string, messageTypeIds?: Array<number>, shiftIds?: Array<number>, creatorIds?: Array<number>, locationIds?: Array<number>, serviceUserIds?: Array<number>, keywords?: Array<string>, pageIndex?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' | 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+
+        let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'start_date',
+            <any>startDate,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'end_date',
+            <any>endDate,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'message_type_ids',
+            <any>messageTypeIds,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'shift_ids',
+            <any>shiftIds,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'creator_ids',
+            <any>creatorIds,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'location_ids',
+            <any>locationIds,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'service_user_ids',
+            <any>serviceUserIds,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'keywords',
+            <any>keywords,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'page_index',
+            <any>pageIndex,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'page_size',
+            <any>pageSize,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        let localVarHeaders = this.defaultHeaders;
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        let localVarPath = `/api/v3/handover/all_filtered_secondary_message`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request('get', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters.toHttpParams(),
+                responseType: "blob",
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                ...(localVarTransferCache !== undefined ? { transferCache: localVarTransferCache } : {}),
+                reportProgress: reportProgress
+            }
+        );
+    }
+
 }

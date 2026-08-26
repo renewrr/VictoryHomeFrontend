@@ -1,11 +1,10 @@
-import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { HandoverMessageFilter } from '../../components/handover-message-filter/handover-message-filter';
 import { MultiSelectFilter } from '../../components/handover-message-filter/multi-select-filter/multi-select-filter';
 import { DateFilter } from '../../components/handover-message-filter/date-filter/date-filter';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { HandoverInputDialog } from '../dialogs/handover-input-dialog/handover-input-dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrentUserLookupService } from '../../services/current-user-lookup-service';
 import { SecondaryMessageTableService } from '../../services/secondary-message-table-service';
@@ -23,6 +22,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FilterLookupService } from '../../services/filter-lookup-service';
 import { HandoverInputDialogV2 } from '../dialogs/handover-input-dialog-v2/handover-input-dialog-v2';
 import { MultiSelectFilterV2 } from '../../components/handover-message-filter/multi-select-filter-v2/multi-select-filter-v2';
+import { toLocalStartOfDayISO } from '../../shared/utils/date.utils';
 
 @Component({
   selector: 'app-handover-message-page',
@@ -193,6 +193,37 @@ export class HandoverMessagePage {
       .afterClosed()
       .subscribe(() => {
         this.handoverDataService.deselectIndex();
+      });
+  }
+  export() {
+    const currentFilters = this.filterStateService.state();
+    this.handoverService
+      .exportExcel(
+        toLocalStartOfDayISO(currentFilters.startTime),
+        toLocalStartOfDayISO(currentFilters.endTime),
+        currentFilters.messageTypeIds,
+        currentFilters.shiftIds,
+        currentFilters.creatorIds,
+        currentFilters.locationIds,
+        currentFilters.serviceUserIds,
+        currentFilters.keywords,
+      )
+      .subscribe({
+        next: (blob) => {
+          // Trigger file download in browser
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `Export_${new Date().toISOString().slice(0, 10)}.xlsx`;
+          link.click();
+
+          // Cleanup object URL from memory
+          window.URL.revokeObjectURL(url);
+          link.remove();
+        },
+        error: (err) => {
+          console.log(err);
+        },
       });
   }
 }
